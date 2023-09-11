@@ -2,7 +2,7 @@
 .Rhistory
 .Rapp.history
 .DS_Store
-
+*.docx
 ~*.xlsx
 
 # Session Data files
