@@ -1,0 +1,26 @@
+---
+title: "Empowering use of preprints in ecology and evolution: an exploration of the first 1000 preprints of EcoEvoRxiv"
+bibliography: ../bib/refs.bib
+csl: ../bib/nature.csl
+format:
+  docx:
+    reference-doc: ../bib/template.docx
+editor_options: 
+  chunk_output_type: console
+execute:
+  freeze: auto  # re-render only when source changes
+  cache: false
+  echo: false
+  warning: false
+  error: false
+  include: true
+crossref:
+  fig-title: 'Figure'
+  fig-labels: arabic
+  title-delim: "-"
+  fig-prefix: "Figure"
+  tbl-prefix: "Table"
+---
+
+Authors: Daniel W.A. Noble, Malgorzata Lagisz, Hackathon Parts, Shinichi Nakagawa
+

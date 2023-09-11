@@ -1,0 +1,112 @@
+---
+title: "Empowering use of preprints in ecology and evolution: an exploration of the first 1000 preprints of EcoEvoRxiv"
+bibliography: ../bib/refs.bib
+csl: ../bib/nature.csl
+format:
+  docx:
+    reference-doc: ../bib/template.docx
+editor_options: 
+  chunk_output_type: console
+execute:
+  freeze: auto  # re-render only when source changes
+  cache: false
+  echo: false
+  warning: false
+  error: false
+  include: true
+crossref:
+  fig-title: 'Figure'
+  fig-labels: arabic
+  title-delim: "-"
+  fig-prefix: "Figure"
+  tbl-prefix: "Table"
+---
+
+# Introduction
+
+This will give you a brief overview of how to write quarto docs. For more information, see the [quarto documentation](https://quarto.org/docs/).
+
+# Code chunks
+
+Code chunks are wrapped in ``` ``` and can be given a name and options. For example, the following code chunk is named `setup` and has the options `echo: false` and `include: false`. This means that the code will not be shown in the output and will not be included in the output. This is useful for loading packages and other things that you don't want to show up in the output.
+
+```{r, setup}
+#| label: setup
+#| echo: false
+#| include: false
+
+# Put your R code here like you would normally. These are the packages I normally load by default. You can add more here
+	#install.packages("pacman")
+	pacman::p_load(tidyverse, flextable, here, brms, MCMCglmm, metafor, lme4)
+```
+
+# Figures
+
+I recommend that each figure you want gets wrapped inside it's own code chunk with a clear label. All figs need to start with the prefix `fig-` and then the name of the figure. For example, `fig-fig1`. This is important because it will be used to reference the figure later. You can also add a figure caption using `fig-cap:`. This will be used to add a caption to the figure. You can also add a title to the figure using `fig-title:`. This will be used to add a title to the figure.
+
+Now that we created the figure below we can make reference to it quite easily. If we look at @fig-fig1, we see the linear relationship.
+
+```{r, fig-fig1}
+#| label: fig-fig1
+#| fig-cap: Here you can add text, references or even equations $y = m_{x} + b$ to your figure caption
+
+# create some fake data and write this data. Use the here package to make sure that the data is written to the correct folder
+	set.seed(2)
+	    x = rnorm(100, 20, 3)
+	data <- data.frame(x = x, 
+					   y = rnorm(100, 0.2 + (1.2 * x), 2))
+
+	write.csv(data, here("data", "fake_data.csv"))
+
+# plot the data
+	p1 <- ggplot(data = data, aes(x = x, y = y)) +
+		geom_point() +
+		geom_smooth(method = "lm", se = TRUE) +
+		theme_classic()
+	p1
+
+# I always also save files directly because when you need these for the jorunal, you will need them in the correct format
+	ggsave(plot = p1, filename = here("output/figs", "fig1.png"), width = 5, height = 5, units = "in", dpi = 300)
+
+```
+
+# Tables
+
+Tables, in my opnion are the most challenging. But, `flextable` is an outsatnding package, but there are others that work well too. The problem with tables at the moment is that, for word docs, they can be 'buggy'. When we have the table, we also reference just as nrormal. For example, @tbl-tab1.
+
+```{r, tbl-tab1}
+#| label: tbl-tab1
+#| tbl-cap: Labelling is roughly the same but does require some prefix changes to `tbl`
+
+# Getting tables sorted, in my mind is easy as they are just dataframes. So, you can use the same dataframes that you use for your analysis. I like to use the `flextable` package because it is easy to use and has a lot of functionality. Lets just create a summary table and plot it
+
+	tb <- data %>%
+		summarise(mean = mean(x),
+				  sd = sd(x),
+				  n = n())
+
+# Now we use flextable. We can modify the headers if we wnat too 
+		flextable(tb)  %>% 
+		compose(part = "header", value = as_paragraph(as_b(c("Mean", "Stdev", "Sample Size"))))  %>%  
+		align(align = "center", part = "all") %>% 
+		autofit()
+
+```
+
+# Equations
+
+Ok, the last two bits that can be important. Sometimes we need equations (often for me). You can write in LateX and we can reference equations in the same way. For example, lets write a fancy equation:
+
+$$
+y = \left(\frac{m_{x}}{y} \right) + b \tilde{a}
+$${#eq-eq1}
+
+Then, we can refer to @eq-eq1. If you don't like the prefixes you can change them in the yaml header at the top of the document. 
+
+# References
+
+Refs are easy, we simply refer to citekeys within the `.bib` file. For example, @Bulgarella2015-yl stated the equation above was correct. However, it is clear that this is not the case [@Burkner2018-ur; @Crow1958-fv].
+
+Then, all refs will be formatted and put at the end of the document according to the style you have chosen. You can change the style in the yaml header at the top of the document.
+
+# Bibliography
