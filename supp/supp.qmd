@@ -1,5 +1,5 @@
 ---
-title: "Empowering use of preprints in ecology and evolution: an exploration of the first 1000 preprints of EcoEvoRxiv"
+title: "Empowering the use of preprints in ecology and evolution: an exploration of the first 1000 *EcoEvoRxiv* preprints"
 bibliography: ../bib/refs.bib
 csl: ../bib/nature.csl
 format:

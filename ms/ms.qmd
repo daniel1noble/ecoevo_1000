@@ -1,5 +1,5 @@
 ---
-title: "Empowering use of preprints in ecology and evolution: an exploration of the first 1000 preprints of EcoEvoRxiv"
+title: "Empowering the use of preprints in ecology and evolution: an exploration of the first 1000 *EcoEvoRxiv* preprints"
 bibliography: ../bib/refs.bib
 csl: ../bib/nature.csl
 format:
@@ -24,3 +24,6 @@ crossref:
 
 Authors: Daniel W.A. Noble, Malgorzata Lagisz, Hackathon Parts, Shinichi Nakagawa
 
+# Introduction
+
+Publishing preprints –- papers communicating non-peer-reviewed research findings –- are now an entrenched practice across a multitude of scientific disciplines in many countries. In ecology and evolution, new discpline specific preprint servers, such as *EcoEvoRxiv*, provide a means by which ecologists and evolutionary biologists can disemminate research findings, promoting open science practices (e.g., ensuring papers are open access) and facilitating the rapid sharing of new discoveries that can have significant impacts on fundamental and applied (e.g., conservation outcomes) knowledge globally. Improtantly, *EcoEvoRxiv* is a community driven preprint server that has paved the way for new inititives that attempt to break down barriers to scientific dissemination, including accepting multilanguage preprints (i.e., Spanish and Portuguese), recognising and accepting registered reports and promoting the use of peer review and community discuission to improve the quality of preprints (e.g., Peer Community In -- PCI).
