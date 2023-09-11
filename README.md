@@ -58,6 +58,24 @@ This data contains version history information for each preprint on EcoEvoRxiv. 
 - Postprint / preprint needs to be established - binary (1 = preprint/0)
 
 ### How to collect data from preprints?	
+
 We will use a google form to collect releavnt data about each preprint. The form will be filled out by a each Hackathon participant for a subset of preprints. Training session. We will do a subset of preprints together to make sure we are all on the same page.
 
 Anyone who can't come should check existing data.
+
+### Intended journal
+**Nature Ecology and Evoliution**
+Brief Communication
+	- A Brief Communication reports a concise study of high quality and broad interest. 
+
+Format
+	- Brief unreferenced abstract – 3 sentences, up to 100 words.
+	- Title – up to 10 words (or 90 characters). 
+	- Main text – 1,000-1,500 words, including abstract, references and figure legends, and contains no headings. 
+	- Display items – up to 2 items, although this may be flexible at the discretion of the editor, provided the page limit is observed. 
+	- Extended Data – up to 10 items (figures and/or tables, linked from the main text in the html version of the paper).
+	- Online Methods section should be included.
+	- References – as a guideline, we typically recommend up to 20. Article titles are omitted from the reference list.
+	- Brief Communications should include received/accepted dates. 
+	- Brief Communications may be accompanied by supplementary information. 
+	- Brief Communications are peer reviewed.
