@@ -38,3 +38,25 @@ This data contains version history information for each preprint on EcoEvoRxiv. 
  - **Update Date**	Date published preprint was updated
  - **Current Version**	Current version number of preprint
  - **Version date** Date of version 
+
+### Moderators to collect from preprints
+- Country of the corresponding author
+- Date between submission and acceptance
+- How many versions
+- Title changes?
+- Type of article
+- Data open?
+- Code open?
+- Journal names
+- Journal impact factor/Cite Scores
+- Number of citations/ age corrected citation rate
+- Published DOI
+- Published data from published version
+- PCI recommendation?
+- Gender - Use R package that determines likely gender of corrsponding author based on first name
+- Career stage of corresponding author? (first publication year)
+
+### How to collect data from preprints?	
+We will use a google form to collect releavnt data about each preprint. The form will be filled out by a each Hackathon participant for a subset of preprints. Training session. We will do a subset of preprints together to make sure we are all on the same page.
+
+Anyone who can't come should check existing data.
