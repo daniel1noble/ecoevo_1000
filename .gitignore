@@ -3,6 +3,8 @@
 .Rapp.history
 .DS_Store
 
+~*.xlsx
+
 # Session Data files
 .RData
 .RDataTmp
