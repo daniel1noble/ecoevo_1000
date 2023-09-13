@@ -56,7 +56,8 @@ This data contains version history information for each preprint on EcoEvoRxiv. 
 - Gender - Use R package that determines likely gender of corrsponding author based on first name
 - Career stage of corresponding author? (first publication year)
 - Postprint / preprint needs to be established - binary (1 = preprint/0)
-
+- Taxa being studied
+- Discussion on the preprint?
 ### How to collect data from preprints?	
 
 We will use a google form to collect releavnt data about each preprint. The form will be filled out by a each Hackathon participant for a subset of preprints. Training session. We will do a subset of preprints together to make sure we are all on the same page.
