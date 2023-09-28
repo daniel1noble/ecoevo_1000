@@ -32,17 +32,4 @@ Preprints attempt to break down barriers to scientific publising by: 1) increasi
 
 Preprint servers, such as *EcoEvoRxiv*, can empower researchers to make their findings more accessible, open and transparent but only if they are used, and used well. Significant barriers to preprint use still exist globally – from worry about XXX to XXX. Nonetheless, we lack a systematic understanding of the factors that influence preprint use in ecology and evolution which can help inform future initatives and help us begin to break down barriers to their use in our field. Here, we explore the first 1000 preprints uploaded to *EcoEvoRxiv* to understand preprint practices and use in our field, focusing on our attention on understanding: 1) how long it takes for a preprint to become published, and how many preprints remain unpublished; 2) what countries make use of preprints; 3) how career stage and gender impact preprint use; 4) whether data and code are more likely to be shared in preprints; and 5) the extent to which authors make use of preprint servers for registeretd reports and community driven peer review. 
 
-
-```{r}
-
-```
-
-
-```{r}
-
-```
-
-```{r}
-
-```
 # References
