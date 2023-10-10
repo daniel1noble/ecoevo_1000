@@ -39,7 +39,9 @@ This data contains version history information for each preprint on EcoEvoRxiv. 
  - **Current Version**	Current version number of preprint
  - **Version date** Date of version 
 
-### Moderators to collect from preprints
+# Preprint Data Collection
+
+### Data to be Collected on preprints
 - Country of the corresponding author
 - Date between submission and acceptance
 - How many versions
@@ -66,7 +68,8 @@ We will use a google form to collect releavnt data about each preprint. The form
 
 Anyone who can't come should check existing data.
 
-### Intended journal
+# Intended Research Journal
+
 **Nature Ecology and Evolution**
 Brief Communication
 	- A Brief Communication reports a concise study of high quality and broad interest. 
