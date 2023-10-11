@@ -5,7 +5,7 @@ The goal of this Hackathon is to quantify various attributes of first 1000 prepr
 ### Hackathon Participants
 Anyone registered for the [SORTEE conference](https://events.humanitix.com/sortee-conference-2023-e8dqpa5c) is welcome to join the Hackathon which will take place October, 17th 2023 (8:30-10:30 PM AEST). The Hackathon will be held virtually via [Zoom](https://anu.zoom.us/j/82267359721?pwd=V0JGZHhTMzlNSTM1MjdoblVGZGh2dz09) and run by Daniel Noble, Shinichi Nakagawa and Malgorzata Lagisz as part of the SORTEE conference.
 
-Participants will need to provide details of their involvement in our [delegate data sheet]() so that we can allocate papers, awknowledge contributions and maintain contact with participants.
+Participants will need to provide details of their involvement in our [delegate data sheet](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit?usp=sharing) so that we can allocate papers, awknowledge contributions and maintain contact with participants.
 
 ### What will we do?
 Participants that are part of the Hackathon will help collect data on a subset of the preprints from *EcoEvoRxiv*. A list of some of the information we would like to collect can be found below. 
@@ -29,7 +29,7 @@ The format of the paper as described by the journal is as follows:
 
 ### Co-authorship
 If you would like to be listed as a co-author on the resulting manuscript:
-1) You will need to have filled out the [delegate data sheet]() so that we can contact you.
+1) You will need to have filled out the [delegate data sheet](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit?usp=sharing) so that we can contact you.
 2) You will need to complete data collection for at least XX preprints or contribute to the data collection process and checking of XX preprints if you are not able to attend.
 3) Contribute to any discussion and feedback on the resulting manuscript.
 
