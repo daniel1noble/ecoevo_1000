@@ -74,6 +74,8 @@ This data contains version history information for each preprint on EcoEvoRxiv. 
 
 # Preprint Data Collection
 
+Data for individual preprints will be collected using our (Google Form)[https://forms.gle/Ph6DqkH8gZJbhLrP9]. The form will be filled out by each Hackathon participant for a subset of preprints. 
+
 ### Data to be Collected on preprints
 - Country of the corresponding author
 - Date between submission and acceptance
