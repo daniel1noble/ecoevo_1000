@@ -2,6 +2,13 @@
 
 The goal of this Hackathon is to quantify various attributes of first 1000 preprints to better understand preprint practices and publication pathways in Ecology and Evolution. There are currently well >1100 preprints on the new *EcoEvoRxiv*, which was established in 2018. 
 
+The aims of this project are to determine:
+1) how long it takes for a preprint to become published, and how many preprints remain unpublished; 
+2) what countries make use of preprints; 
+3) how career stage and gender impact preprint use; 
+4) whether data and code are more likely to be shared in preprints; and 
+5) the extent to which authors make use of preprint servers for registered reports and community driven peer review. 
+
 ### Hackathon Participants
 Anyone registered for the [SORTEE conference](https://events.humanitix.com/sortee-conference-2023-e8dqpa5c) is welcome to join the Hackathon which will take place October, 17th 2023 (8:30-10:30 PM AEST). The Hackathon will be held virtually via [Zoom](https://anu.zoom.us/j/82267359721?pwd=V0JGZHhTMzlNSTM1MjdoblVGZGh2dz09) and run by Daniel Noble, Shinichi Nakagawa and Malgorzata Lagisz as part of the SORTEE conference.
 
@@ -16,10 +23,10 @@ We will be using GitHub and we would recommend everyone signup and [create an ac
 ### Hackathon Schedule
 1) Introductions and Formalities (5-10 min)
 2) Introduction to the Hackathon and Where to get Material (15 min)
-- GitHub
-- Google Sheets
-- Google Form
-- Communication channels
+	- GitHub
+	- Google Sheets
+	- Google Form
+	- Communication channels
 3) Training session with one paper and Google form (Losia) (10 min)
 4) Same assigned paper training everyone extracts data (10 min)
 5) Questions and discussions (10 min)
@@ -50,15 +57,15 @@ The format of the paper as described by the journal is as follows:
 If you would like to be listed as a co-author on the resulting manuscript:
 1) You will need to have filled out the [delegate data sheet](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit?usp=sharing) so that we can contact you.
 2) You will need to complete data collection for at least 25 preprints if you're in attendance.
-3) If you cannot attend, you must either contribute to the data collection for at least 25 preprints or checking of 50 preprints. 
+3) If you cannot attend, you must either contribute to the data collection for at least 25 preprints or checking of 50 preprints outside of the Hackathon. 
 4) Contribute to any discussion and feedback on the resulting manuscript.
 5) Reply promptly to any emails regarding the manuscript (within 2 weeks).
 
-Project organisers will determine their own authorship position. Co-authorship otherwise is determined by the degree of contribution (as determined by project organisers) or for equal contribution authorship is alphabetical.    
+Project organisers will determine their own authorship position. Co-authorship is otherwise determined by the degree of contribution of a given author (as determined by project organisers) or for equal contribution authorship, authors are listed in alphabetical order.    
 
-Organisers retain the right to to deny co-authorship to anyone who does not meet the above criteria and in special cases (e.g., not following code of contact, not providing authorship details). If you cannot fulfill the authorship criteria listed above or are deemed not to have contributed substantially, then you will be acknowledged in the manuscript as a Hackthon contributor.  
+Organisers retain the right to to deny co-authorship to anyone who does not meet the above criteria and in special cases (e.g., not following code of conduct, not providing authorship details). If you cannot fulfill the authorship criteria listed above or are deemed not to have contributed substantially, then you will be acknowledged in the manuscript as a Hackathon contributor.  
 
-We already strated drafting the manuscript (see the `ms/ms.qmd` file). The file can be rendered to a word or pdf document. We will be using the collected data to provide a quantitative analyses of the EcoEvoRxive preprints to answer key questions outlined in the manuscript.
+We have already started drafting the manuscript (see the `ms/ms.qmd` file). The file can be rendered to a word or pdf document. We will be using the collected data to provide a quantitative analyses of the *EcoEvoRxiv* preprints to answer key questions outlined in the manuscript.
 
 # Preprint Data Collection
 
