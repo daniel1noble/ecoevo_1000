@@ -9,6 +9,8 @@ The aims of this project are to determine:
 4) whether data and code are more likely to be shared in preprints; and 
 5) the extent to which authors make use of preprint servers for registered reports and community driven peer review. 
 
+The details outlined in this README have been pre-registered on [OSF](https://osf.io/2meqc/).
+
 ### Hackathon Participants
 Anyone registered for the [SORTEE conference](https://events.humanitix.com/sortee-conference-2023-e8dqpa5c) is welcome to join the Hackathon which will take place October, 17th 2023 (8:30-10:30 PM AEST). The Hackathon will be held virtually via [Zoom](https://anu.zoom.us/j/82267359721?pwd=V0JGZHhTMzlNSTM1MjdoblVGZGh2dz09) and run by Daniel Noble, Shinichi Nakagawa and Malgorzata Lagisz as part of the SORTEE conference.
 
