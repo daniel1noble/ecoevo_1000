@@ -13,6 +13,19 @@ We will be using Zoom chat for conversations during the Hackthon. Anything after
 #### Preparation for the Hackathon
 We will be using GitHub and we would recommend everyone signup and [create an account](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjk-6Ga7PGBAxXRSmwGHY4hAHsQjBB6BAgIEAE&url=https%3A%2F%2Fgithub.com%2Fsignup&usg=AOvVaw0a6qEmIZVdziwPUb-hFApr&opi=89978449). 
 
+### Hackathon Schedule
+1) Introductions and Formalities (5-10 min)
+2) Introduction to the Hackathon and Where to get Material (15 min)
+- GitHub
+- Google Sheets
+- Google Form
+- Communication channels
+3) Training session with one paper and Google form (Losia) (10 min)
+4) Same assigned paper training everyone extracts data (10 min)
+5) Questions and discussions (10 min)
+6) Short Break (5 min)
+7) Data collection (60 min)
+
 ### What will we do?
 Participants that are part of the Hackathon will help collect data on a subset of the preprints from *EcoEvoRxiv*. A list of some of the information we would like to collect can be found below. 
 
@@ -47,43 +60,6 @@ Organisers retain the right to to deny co-authorship to anyone who does not meet
 
 The manuscript has already been started (see the `ms/ms.qmd` file). The file can be rendered to a word or pdf document. We will be using the data to provide a quantitative analyses that targets key questions outlined in the manuscript.
 
-# Meta Data for files in `data/` folder
-
-This is the main dataset that contains the most recent version of each preprint submitted to EcoEcoRxiv along with whether the preprint is published and the dates preprints were published. It should be noted that the date the most recent publication was submitted should be the date of publication of a published DOI is listed.
-
-### Column Names and Information for [`20231003_EER_preprints_metadata.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER_preprints_metadata.xlsx)
-- **Preprint ID**: Janeway's internal identifier for the preprint 
-- **Preprint Title**: Title of the preprint 
-- **Preprint DOI**: DOI of the preprint
-- **Publisher DOI**: DOI of the postprint/publisher's article, if any
-- **Reuse Licence**: Creative Commons reuse licence
-- **Submission Date**: Date preprint was submitted to EcoEvoRxiv
-- **Accepted Date**: Date preprint was accepted to ​EER 
-- **Published Date**: Date preprint was published in EER (may differ from accepted date)
-- **Update Date**: Date preprint was last updated by an EER moderator
-- **Current Version**: Current version now 
-- **Version creation date**: Date that version was created/submitted (may differ from update date)
-- **Submitting Author**: Name of submitting author
-- **Submitting Author Email**: Submitting author's email address
-- **Authors List**: List of all authors
-- **Total authors**: Total number of authors 
-
-### Column Names and Information for [`20231003_EER_allversions.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER%20_allversions.xlsx)
-
-This data contains version history information for each preprint on EcoEvoRxiv. It is meant to supplement the main dataset `20230824_EER_Preprints_metadata.xlsx`.
-
- - **Preprint ID**	Title of the preprint
- - **Preprint DOI**	DOI of the preprint
- - **Publisher DOI** DOI of the postprint/publisher's article, if any
- - **Reuse Licence** License selected by author	
- - **Submitting Author** Name of submitting author (first, last)
- - **Submission Date** Date of version submission
- - **Accepted Date** Date of acceptance for version
- - **Published Date** Date published on EcoEvoRxiv
- - **Update Date**	Date published preprint was updated
- - **Current Version**	Current version number of preprint
- - **Version date** Date of version 
-
 # Preprint Data Collection
 
 Data for individual preprints will be collected using our [Google Form](https://forms.gle/Ph6DqkH8gZJbhLrP9). The form will be filled out by each Hackathon participant for a subset of preprints. 
@@ -117,8 +93,39 @@ Data for individual preprints will be collected using our [Google Form](https://
 - **Preprint comments**: Make note of any relevant comments about the preprint that may be useful for the manuscript.
 - **Publication comments**: Make note of any relevant comments about the preprint that may be useful for the manuscript.
 
-### How to collect data from preprints?	
+# Meta Data for files in `data/` folder
 
-We will use a [Google Form](https://forms.gle/Ph6DqkH8gZJbhLrP9) to collect relevant data about each preprint. The form will be filled out by a each Hackathon participant for a subset of preprints. 
+This is the main dataset that contains the most recent version of each preprint submitted to EcoEcoRxiv along with whether the preprint is published and the dates preprints were published. It should be noted that the date the most recent publication was submitted should be the date of publication of a published DOI is listed.
 
-We will first have a training session by all doing a subset of preprints together to make sure we are all on the same page.
+### Column Names and Information for [`20231003_EER_preprints_metadata.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER_preprints_metadata.xlsx). **Note**: These columns are the same descriptors as that found in the [Preprint Meta-data](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319)
+- **Preprint ID**: Janeway's internal identifier for the preprint 
+- **Preprint Title**: Title of the preprint 
+- **Preprint DOI**: DOI of the preprint
+- **Publisher DOI**: DOI of the postprint/publisher's article, if any
+- **Reuse Licence**: Creative Commons reuse licence
+- **Submission Date**: Date preprint was submitted to EcoEvoRxiv
+- **Accepted Date**: Date preprint was accepted to ​EER 
+- **Published Date**: Date preprint was published in EER (may differ from accepted date)
+- **Update Date**: Date preprint was last updated by an EER moderator
+- **Current Version**: Current version now 
+- **Version creation date**: Date that version was created/submitted (may differ from update date)
+- **Submitting Author**: Name of submitting author
+- **Submitting Author Email**: Submitting author's email address
+- **Authors List**: List of all authors
+- **Total authors**: Total number of authors 
+
+### Column Names and Information for [`20231003_EER_allversions.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER%20_allversions.xlsx)
+
+This data contains version history information for each preprint on EcoEvoRxiv. It is meant to supplement the main dataset `20230824_EER_Preprints_metadata.xlsx`.
+
+ - **Preprint ID**	Title of the preprint
+ - **Preprint DOI**	DOI of the preprint
+ - **Publisher DOI** DOI of the postprint/publisher's article, if any
+ - **Reuse Licence** License selected by author	
+ - **Submitting Author** Name of submitting author (first, last)
+ - **Submission Date** Date of version submission
+ - **Accepted Date** Date of acceptance for version
+ - **Published Date** Date published on EcoEvoRxiv
+ - **Update Date**	Date published preprint was updated
+ - **Current Version**	Current version number of preprint
+ - **Version date** Date of version 
