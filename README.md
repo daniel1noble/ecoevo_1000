@@ -7,6 +7,12 @@ Anyone registered for the [SORTEE conference](https://events.humanitix.com/sorte
 
 Participants will need to provide details of their involvement in our [delegate data sheet](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit?usp=sharing) so that we can allocate papers, awknowledge contributions and maintain contact with participants.
 
+### Communication During the Hackathon
+We will be using Zoom chat for conversations during the Hackthon. Anything after the Hackathon please use the [GitHub Discussion Forum](https://github.com/daniel1noble/ecoevo_1000/discussions). 
+
+#### Preparation for the Hackathon
+We will be using GitHub and we would recommend everyone signup and [create an account](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjk-6Ga7PGBAxXRSmwGHY4hAHsQjBB6BAgIEAE&url=https%3A%2F%2Fgithub.com%2Fsignup&usg=AOvVaw0a6qEmIZVdziwPUb-hFApr&opi=89978449). 
+
 ### What will we do?
 Participants that are part of the Hackathon will help collect data on a subset of the preprints from *EcoEvoRxiv*. A list of some of the information we would like to collect can be found below. 
 
