@@ -50,36 +50,36 @@ The format of the paper as described by the journal is as follows:
 If you would like to be listed as a co-author on the resulting manuscript:
 1) You will need to have filled out the [delegate data sheet](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit?usp=sharing) so that we can contact you.
 2) You will need to complete data collection for at least 25 preprints if you're in attendance.
-3)  If you cannot attend, you must either contribute to the data collection for 25 preprints or checking of 50 preprints. 
+3) If you cannot attend, you must either contribute to the data collection for at least 25 preprints or checking of 50 preprints. 
 4) Contribute to any discussion and feedback on the resulting manuscript.
 5) Reply promptly to any emails regarding the manuscript (within 2 weeks).
 
-Project organisers will determine their own authorship position. Co-authorship otherwise is determined by the degree of contribution (as determined by project organisers) or for equal contribution authorship is alphabetical. Co-authorship will also be at the dicretion 
+Project organisers will determine their own authorship position. Co-authorship otherwise is determined by the degree of contribution (as determined by project organisers) or for equal contribution authorship is alphabetical.    
 
-Organisers retain the right to to deny co-authorship to anyone who does not meet the above criteria and in special cases (e.g., not following code of contact, not providing authorship details). If you cannot complete all these points or are determined not to have contributed substantially then you will be acknowledged in the manuscript as a Hackthon contributor. 
+Organisers retain the right to to deny co-authorship to anyone who does not meet the above criteria and in special cases (e.g., not following code of contact, not providing authorship details). If you cannot fulfill the authorship criteria listed above or are deemed not to have contributed substantially, then you will be acknowledged in the manuscript as a Hackthon contributor.  
 
-The manuscript has already been started (see the `ms/ms.qmd` file). The file can be rendered to a word or pdf document. We will be using the data to provide a quantitative analyses that targets key questions outlined in the manuscript.
+We already strated drafting the manuscript (see the `ms/ms.qmd` file). The file can be rendered to a word or pdf document. We will be using the collected data to provide a quantitative analyses of the EcoEvoRxive preprints to answer key questions outlined in the manuscript.
 
 # Preprint Data Collection
 
-Data for individual preprints will be collected using our [Google Form](https://forms.gle/Ph6DqkH8gZJbhLrP9). The form will be filled out by each Hackathon participant for a subset of preprints. 
+Data for individual preprints will be collected using our [Google Form](https://forms.gle/Ph6DqkH8gZJbhLrP9). The form will be filled out by each Hackathon participant for a subset of preprints. Some journal-level data will be collected later from journal websites and databases.
 
-### Data to be Collected on preprints
-- **Extractors first name**: This will be used to identify who collected the data and should be all lower case.
-- **Extractors last name**: This will be used to identify who collected the data and should be all lower case.
+### Data to be manually collected on preprints
+- **Extractors first name**: This will be used to identify who collected the data.
+- **Extractors last name**: This will be used to identify who collected the data .
 - **Preprint DOI**: Copy and paste from the provided list of preprints from the [Preprint Meta-data](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319) data file
-- **Submitting/ corresponding authors firstname**: First name of the author submitting the preprint. If there are multiple authors then use the first author listed on the preprint. All lower case letters.
-- **Submitting/ corresponding authors lastname**: Last name of the author submitting the preprint. If there are multiple authors then use the first author listed on the preprint. All lower case letters.
+- **Submitting/ corresponding authors firstname**: First name (given name) of the author submitting the preprint. If there are multiple authors then use the first author listed on the preprint.  
+- **Submitting/ corresponding authors lastname**: Last name (family name) of the author submitting the preprint. If there are multiple authors then use the first author listed on the preprint.  
 - **Country of the corresponding / submitting author**: Country of affiliation for the author submitting the preprint. Use standard names ISO 3166 which can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)
 - **Year of first publication for corresponding/submitted author**: Use [Google Scholar](https://scholar.google.com.au) to collect publication year of journal article of the author submitting the preprint. If no [Google Scholar](https://scholar.google.com.au) Profile is found to discern this information please indicate 'NA'.
 - **How many versions of the preprint exist**: This can be found in the [Preprint Meta-data](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319) data file.
 - **Taxa being studied**: What taxa are focus of the study described in the preprint? (select all that apply). Levels include "Plants", "Animals", "Fungi", "Algi", "Invertabrates", "Vertebrates", "Microorganisms (bacteria, viruses)", "Other".
 - **Discussion on the preprint?**: Have there been any comments made on the preprint in the discussion panel on the preprint landing page?
 - **Type of article**: Research Article - is any article-like manuscript intended for publication in research journals with new empirical findings; methods paper, are papers presenting new methodological or computational approaches; Reviews and Meta-analyses, are papers quantitatively or qualitatively synthesising a given topic;  opinions, are usually short papers providing new perspectives on a topic; comments, are papers that explicitly comment on an already published research article.
-- **Link to Data for Preprint**: Link to data for preprint if available
-- **Link to Code for Preprint**: Link to code for preprint if available
+- **Link to Data for Preprint**: Link to data for preprint if available.  
+- **Link to Code for Preprint**: Link to code for preprint if available.   
 - **Number of citations to preprint**: Collect manually from [Google Scholar](https://scholar.google.com.au).
-- **PCI recommendation**: Has the preprint been recomended by Peer Community In (PCI)? Two steps to try. 1) PCI recommendations may be associated with the preprint on the preprint landing page. If so, it will clearly indicate this and or provide a link to a recommendation; 2) In a Google Search, add the following search query: "peercommunityin.org recommendation "TITLE OF PREPRINT"". Replace TITLE OF PREPRINT with the preprint title. See if it's in the first page of the search. If not, then assume it is not recommended.
+- **PCI recommendation**: Has the preprint been recomended by Peer Community In (PCI)? Two steps to try. 1) PCI recommendations may be associated with the preprint on the preprint landing page. If so, it will clearly indicate this and or provide a link to a recommendation; 2) In a Google Search, add the following search query: "peercommunityin.org recommendation "TITLE OF PREPRINT"". Replace TITLE OF PREPRINT with the preprint title. See if it's in the first page of the search. If not, then assume it is not recommended.  
 - **Publication DOI**: If the preprint has been published as a journal article, provide the DOI of that article. Note that if already known to be published there will be a published DOI in the [Preprint Meta-data](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319) data file. Please copy and paste this DOI. If there is no DOI in the [Preprint Meta-data](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319) data file then please follow these steps: 1) copy the preprint title; 2) Search in Google for the preprint title and determine on the first page of the search whether it has been published in a peer-reviewed journal. 3) If preprint has been published but it is not yet recorded in the [Preprint Meta-data](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319) data file then please copy and paste the DOI of the published article. 4) If the preprint has not been published then please indicate 'NA'.
 - **Journal name**: If the preprint has been published as a journal article, provide journal name (full name). Please use lower case for all letters.
 - **Double-blind Peer review**: Does the published journal have a policy of double blind or blind peer review? Please review the journals policy page. If the journal does not have a policy page or it is unclear then please indicate 'No Blinding'.
@@ -95,7 +95,7 @@ Data for individual preprints will be collected using our [Google Form](https://
 
 # Meta Data for files in `data/` folder
 
-This is the main dataset that contains the most recent version of each preprint submitted to EcoEcoRxiv along with whether the preprint is published and the dates preprints were published. It should be noted that the date the most recent publication was submitted should be the date of publication of a published DOI is listed.
+This is the main dataset that contains the most recent version of each preprint submitted to EcoEcoRxiv along with whether the preprint is published (some might be missing) and the dates preprint was published. It should be noted that the date the most recent publication was submitted should be the date of publication of a published DOI listed.
 
 ### Column Names and Information for [`20231003_EER_preprints_metadata.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER_preprints_metadata.xlsx). **Note**: These columns are the same descriptors as that found in the [Preprint Meta-data](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319)
 - **Preprint ID**: Janeway's internal identifier for the preprint 
