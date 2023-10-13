@@ -22,6 +22,14 @@ crossref:
   tbl-prefix: "Table"
 ---
 
+```{r, setup}
+#| label: setup
+
+# Load packages
+#install.packages("pacman")
+pacman::p_load(tidyverse, here, patchwork, readxl)
+```
+
 Authors: Daniel W.A. Noble, Malgorzata Lagisz, Hackathon Participants, Shinichi Nakagawa
 
 # Introduction
