@@ -32,7 +32,11 @@ pacman::p_load(tidyverse, here, patchwork, readxl)
 # Load in the data
   data <- read_xlsx(here("data", "20231003_EER_preprints_metadata.xlsx"))
 
-pr <- length(unique(data$`Preprint ID`))
+# How many preprints?
+  pr <- length(unique(data$`Preprint ID`))
+
+# Dates preprints were published, range and graph
+  dates <- range(data$`Published Date`)
 ```
 
 Authors: Daniel W.A. Noble, Malgorzata Lagisz, Hackathon Participants, Shinichi Nakagawa
@@ -47,6 +51,18 @@ Preprint servers, such as *EcoEvoRxiv*, can empower researchers to make their fi
 
 Here, we explore the first preprints uploaded to *EcoEvoRxiv* to understand preprint practices and use in our field, focusing our attention on understanding: 1) how long it takes for a preprint to become published, and how many preprints remain unpublished; 2) what countries make use of preprints; 3) how career stage and gender impact preprint use; 4) whether data and code are more likely to be shared in preprints; and 5) the extent to which authors make use of preprint servers for registered reports and community driven peer review. 
 
-We downloaded metadata on the `r pr` preprints currently available on *EcoEvoRxiv* (as of the 3rd October 2023). 
+We downloaded metadata on the `r pr` preprints currently available on *EcoEvoRxiv* (as of the `r gsub("UTC", "", dates[2])`). 
+
+```{r, figdates}
+#| label: fig-figdates
+#| fig-cap: Number of preprints publihsed on *EcoEvoRxiv* across the years.
+
+ggplot(data, aes(x = `Published Date`)) +
+  geom_histogram(fill = "grey", color = "black") +
+  labs(x = "Published Date", y = "Number of preprints") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
 
 # References
