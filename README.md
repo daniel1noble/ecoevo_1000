@@ -35,6 +35,14 @@ We will be using GitHub and we would recommend everyone signup and [create an ac
 6) Short Break (5 min)
 7) Data collection (60 min)
 
+We will probably not finish data collection during the Hackathon and it will be likely that those participating will need to collect additional data outside of the Hackathon in order to complete their 25 papers. As such, we're hoping to stick to the tentative dates outlined below to complete the data collection and a first draft of the manuscript.
+
+1)  6th November, 2023: First round of data collection complete for each co-athor's 25 papers
+2) 13th November, 2023: Second round of data collection complete for any additional papers
+3) 20th November, 2023: Cross checking of data complete.
+4) 27th November, 2023: Data analysis complete.
+5) 13th December, 2023: First draft of manuscript complete and sent to all co-authors for feedback.
+
 ### What will we do?
 Participants that are part of the Hackathon will help collect data on a subset of the preprints from *EcoEvoRxiv*. A list of some of the information we would like to collect can be found below. 
 
