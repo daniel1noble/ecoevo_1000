@@ -32,11 +32,34 @@ pacman::p_load(tidyverse, here, patchwork, readxl)
 # Load in the data
   data <- read_xlsx(here("data", "20231003_EER_preprints_metadata.xlsx"))
 
+
 # How many preprints?
   pr <- length(unique(data$`Preprint ID`))
 
+# Check duplicate titles. Appears some folks submitted the same paper multiple times instead of simply updating their existing one.
+  
+  # First make sure there is no case sensitivity 
+  data <- data %>% mutate(title = tolower(`Preprint Title`))
+
+  # Check for duplicates
+  dupl <-  data %>%
+    group_by(title) %>% 
+    summarise(n = n()) %>% 
+    filter(n > 1)
+
+  # Remove duplicates
+    data <- data %>% 
+            distinct(title, .keep_all = TRUE)
+
+  # Check success. Should be 1216. Yes
+    dupl <- data %>%
+            group_by(title) %>% 
+            summarise(n = n()) %>% 
+            filter(n > 1)
+
 # Dates preprints were published, range and graph
   dates <- range(data$`Published Date`)
+
 ```
 
 Authors: Daniel W.A. Noble, Malgorzata Lagisz, Hackathon Participants, Shinichi Nakagawa
