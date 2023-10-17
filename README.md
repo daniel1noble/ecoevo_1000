@@ -110,6 +110,24 @@ Data for individual preprints will be collected using our [Google Form](https://
 - **Preprint comments**: Make note of any relevant comments about the preprint that may be useful for the manuscript.
 - **Publication comments**: Make note of any relevant comments about the preprint that may be useful for the manuscript.
 
+### Frequently Asked Questions (FAQ)
+
+During the tutorial by Losia and the following training session of the Hackathon, a range of questions were raised by the delegates. Most of them have already been accommodated in the updated Google Form and are likely no longer relevant; for sake of clarity and transparency, the questions are listed here:
+
+- **Q: Does the form require us to have access to the full text of the publication?** A: Yes, it would for some questions. If you cannnot access it, move to another preprint and leave this one to someone who does have access. If you cannot access to published articles at all, contact Shinichi, Dan, or Losia.
+- **Q: Should we use ORCIDs, if they are available on any of the preprints?** A: Yes, if it is difficult to find the submitting author on Google Scholar, ORCIDs might be a helpful alternative.
+- **Q: What should we fill in for citation number when the preprint is *not* on Google Scholar?** A: The field is restricted to numeric values; please use '999'.
+- **Q: Which date should we use for publication date (publication date online or publication date print)?** A: Please use the date of online publication.
+- **Q: Are we submitting the form once we've entered all the data in the form?** A: Yes. Once all required fields are filled in (marked with '\*'), the form can be submitted.
+- **Q: What should we do if a preprint/publication has more than 1 repository in which they stored data/code?** A: Please pick either of the repositories. Key is whether the code and data are available at all, so as long as it is at least in one place, it's good.
+- **Q: What should we do if the data/code is submitted as supplementary files?** A: Please use the DOI of the paper to which the supplements belong, and add a comment in `Preprint_comments` or `Publication_comments` at the end of the Google Form.
+- **Q: In meta-analyses, the taxa being studied might be multiple. How should we record this?** A: You can tick multiple boxes under `Taxa_being_studied`, so please tick all that apply.
+- **Q: What country code should we use for `Submitting_author_country`?** A: Please use the ISO 3166 English short name (i.e., the first column) as listed here: [ISO online browsing platform](https://www.iso.org/obp/ui/#search/code/).
+- **Q: What should we fill in when the publication date is only month and year (e.g., March 2023)?** A: In these instances, please select the first day of the month; i.e., 01/03/2023.
+- **Q: What should we do if the corresponding author has multiple affiliations?** A: Please use the first affilitation to fill in `Submitting_author_country`.
+- **Q: If the author's first publication in Google Scholar is a thesis or conference paper do we still use that year? Or do we use the year for their first peer-reviewed publication?** A: Please use the first peer-reviewed publication.
+- **Q: Should we use first and middle name (e.g., Israel T) or only first name (Israel) for the corresponding author?** A: Please use the first and middle names as provided.
+
 # Meta Data for files in `data/` folder
 
 This is the main dataset that contains the most recent version of each preprint submitted to EcoEcoRxiv along with whether the preprint is published (some might be missing) and the dates preprint was published. It should be noted that the date the most recent publication was submitted should be the date of publication of a published DOI listed.
@@ -121,7 +139,7 @@ This is the main dataset that contains the most recent version of each preprint 
 - **Publisher DOI**: DOI of the postprint/publisher's article, if any
 - **Reuse Licence**: Creative Commons reuse licence
 - **Submission Date**: Date preprint was submitted to EcoEvoRxiv
-- **Accepted Date**: Date preprint was accepted to ​EER 
+- **Accepted Date**: Date preprint was accepted to EER 
 - **Published Date**: Date preprint was published in EER (may differ from accepted date)
 - **Update Date**: Date preprint was last updated by an EER moderator
 - **Current Version**: Current version now 
