@@ -5,6 +5,9 @@ csl: ../bib/nature.csl
 format:
   docx:
     reference-doc: ../bib/template.docx
+  pdf:
+    include-in-header: 
+      text: '\usepackage{lineno}\linenumbers'
 editor_options: 
   chunk_output_type: console
 execute:
