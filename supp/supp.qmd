@@ -1,5 +1,5 @@
 ---
-title: "Empowering the use of preprints in ecology and evolution: an exploration of the first 1000 *EcoEvoRxiv* preprints"
+title: "Supplementary Materials for: Empowering the use of preprints in ecology and evolution: an exploration of the first 1000 *EcoEvoRxiv* preprints"
 bibliography: ../bib/refs.bib
 csl: ../bib/nature.csl
 format:
@@ -25,3 +25,90 @@ crossref:
   tbl-prefix: "Table"
 ---
 
+```{r, setup}
+#| label: setup
+
+# Load packages
+#install.packages("pacman")
+pacman::p_load(tidyverse, here, patchwork, readxl, googlesheets4, janitor)
+
+# Set rounding options
+options(scipen = 1, digits = 2)
+
+# Load in the data
+  data <- read_xlsx(here("data", "20231003_EER_preprints_metadata.xlsx"))
+
+# Check duplicate titles. Appears some folks submitted the same paper multiple times instead of simply updating their existing one.
+  
+  # First make sure there is no case sensitivity 
+  data <- data %>% mutate(title = tolower(`Preprint Title`))
+
+  # Check for duplicates
+  dupl <-  data %>%
+    group_by(title) %>% 
+    summarise(n = n()) %>% 
+    filter(n > 1)
+
+  # Remove duplicates
+    data <- data %>% 
+            distinct(title, .keep_all = TRUE)
+
+  # Check success. Should be 1216. Yes
+    dupl2 <- data %>%
+            group_by(title) %>% 
+            summarise(n = n()) %>% 
+            filter(n > 1)
+
+# How many preprints?
+  pr <- length(unique(data$`Preprint ID`))
+
+# Dates preprints were published, range and graph
+  dates <- range(data$`Published Date`)
+
+# Delegate details
+delegates <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Delegate Details")
+
+del_details <- delegates  %>% rename("attend" = "Attended hackathon (yes/no)") %>%
+			mutate(attend = str_to_title(attend))  %>% tabyl(attend)
+
+# Raw data
+master_list <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Master List of Preprints")
+
+contr_extract <- master_list  %>%  tabyl(Extractor_Full_Name)
+
+```
+
+
+# Materials and Methods
+
+## Pre-registration, Data and Code Availability
+We preregistered the study on the Open Science Framework (OSF) (https://osf.io/d7zws) as an open-ended registration. We also created relevant updated study plan releases on our GitHub repository to capture key changes to the project as it developed (https://github.com/daniel1noble/ecoevo_1000). All data and code for reproducing the analyses and conclusions within our paper can be found on GitHub (https://github.com/daniel1noble/ecoevo_1000).
+
+## Data collection
+We downloaded metadata on all preprints lodged on *EcoEvoRxiv* between `r gsub("UTC", "", dates[1])` and `r gsub("UTC", "", dates[2])`. This information included data on preprint submission and acceptance dates, date when the preprint was last updated, the reuse license, preprint ID and Digitial Object Identifier (DOI), preprint title, submitting author and co-authors, the number of versions submitted by authors and, if available, a DOI for the published version of the preprint. 
+
+As part of the Society for Open, Reliable and Transparent Ecology and Evolutionary Biology's (SORTEE - https://www.sortee.org) conference, we ran a workshop (i.e., Hackathon) where we invited interested SORTEE members and conference registrants to participate in the data collection process. We provided a detailed data collection protocol to all delegates prior to the workshop ([vers. 1.0 - release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0)). We used the workshop to train participants on how to collect data from *EcoEvoRxiv* preprints. This involved a demonstration of a single preprint followed by data collection by all attendees on the same preprint. Any confusion or questions were addressed by the workshop facilitators and the study data collection instructions and study plan were updated accordingly ([vers.1.1 - release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/V1.1)). 
+
+We had a total of `r del_details[2,2]` participants in the workshop, and an additional `r del_details[1,2]` that could not attend but were interested in contributing. Participants assigned themselves to collect data from between `r range(contr_extract$n)[1]` to `r range(contr_extract$n)[2]` preprints (mean = `r mean(contr_extract$n)`, standard deviation = `r sd(contr_extract$n)`). Data collection was achieved using a Google Form to standardise data input. Participants collected the following information for each of their assigned preprints: 
+
+- **Preprint DOI**: Copy and pasted from the preprint meta-data file.
+- **Submitting/ corresponding authors firstname**: First name (given name) and second name (or initials, if provided) of the author submitting the preprint. Usually there was one submitting author in the meta-data preprint list. If there were multiple authors then the first author listed on the preprint was used.
+- **Submitting/ corresponding authors lastname**: Last name of the author submitting the preprint. Usually there was one submitting author in the meta-data preprint list. If there were multiple authors then the first author listed on the preprint was used.
+- **Country of the corresponding / submitting author**: Country of affiliation for the author submitting the preprint collecting accoring to standard ISO 3166 names. If teh country could not be determined the affiliation was considered as "NA". 
+- **Year of first publication for corresponding/submitted author**: We used [Google Scholar](https://scholar.google.com.au) to collect publication year of the first journal article published by author submitting the preprint. If the submitting author had no profile or did not publish the value enetred was '0'.
+- **Taxa being studied**: We collected information about the broad group of taxa that were the focus of the preprint. These categories were "Plants", "Animals", "Fungi", "Algi", "Invertabrates", "Vertebrates", "Microorganisms (bacteria, viruses)", or "Other". Multiple categories could be selected if the preprint contained information on multiple taxa.
+- **Discussion on the preprint?**: We identified whether there were community discussions around the preprint on the landing page of each preprint. If there were, we indicated 'yes', otherwise we indicated 'no'. Additional discussions around a preprint may have occurred on other platforms (e.g., Twitter, Facebook, etc.) but we did not collect this information.
+- **Type of article**: *EcoEvoRxiv* publishes a greater diversity of preprints compared with other preprint servers. We therefore collected data on article type. The categories were: *Research Article*: any article-like manuscript intended for publication in research journals with new empirical findings; *Methods paper*: papers presenting new methodological or computational approaches; *Reviews and Meta-analyses*: papers quantitatively or qualitatively synthesising a given topic;  *Opinions*: usually short papers providing new perspectives on a topic; *Comments*: papers that explicitly comment on an already published research article; and *Other*: which includes any other category of preprint which may also be government, non-profit, or industry reports, white papers, or other documents that are not intended for publication in a research journal.
+- **Link to Data for Preprint**: We were explicitly interested in whether data for the preprint was already publically available. To collect these data we scrolled through the first version of the preprint and any related files on *EcoEvoRxiv* to see if a link (or accession number) to underlying data was provided. If it was reported we took the link to the data.  If the preprint was not an empirical or equivalent article based on data and data analyses (so usually for opinions, comments, narrative reviews, theoretical paper, etc.) we entered 'NA'. If the preprint was based on data but no link (or accession number) to data repository was reported we entered 'none'. If multiple links were provided we took one.
+- **Link to Code for Preprint**: We were also interested in whether code for data analysis was already publically available. To collect these data we scrolled through the first version of the preprint and any related files on *EcoEvoRxiv* to see if a link (or accession number) to underlying code was provided. If it was reported we took the link to the code.  If the preprint was not an empirical or equivalent article based on data and data analyses (so usually for opinions, comments, narrative reviews, theoretical paper, etc.) we entered 'NA'. If the preprint was based on data but no link (or accession number) to data repository with code was reported we entered 'none'. If multiple links were provided we took one.
+- **Number of citations to preprint**: To understand citation patterns of preprints on *EcoEvoRxiv* we used Google Sscholar to search for the number of citations attributed to the preprint. If the preprint version was not on Google Scholar or was merged with an already published version we considered it as 'NA' (coded as '999'). If the preprint version was online and clearly indicated (i.e., EcoEvoRxiv) then we took the number of citations at the time of collection. While citation counts may vary slightly, the first round of data collection was done in a short time frame. As such, we do not anticipate that citation counts would have changed significantly between the time of data collection and the time of submission of this manuscript.
+- **PCI recommendation**: We also deteremined if the preprint been recomended by Peer Community In (PCI). To do this, we searched for any PCI recommendations associated with the preprint on the preprint landing page. If that none was available on the landing page then we searched "peercommunityin.org recommendation "TITLE OF PREPRINT"" on Google. If a link was discovered, we indicated 'yes' and took the DOI link. If not, then we assumed it was not recommended.
+- **Publication DOI**: If the preprint had been published as a journal article, we collected the published DOI of that article. 
+- **Journal name**: If the preprint had been published as a journal article we recorded the journal name.
+- **Publicaton Date**. If the preprint has been published as a journal article, we collected the (first) publication date (Month, Day, Year).
+- **Title Change**: If the preprint had been published as a journal article, we assessed whether the title had changed between the first version of the preprint and the published article. Note that any word change was sufficient for a 'yes'. 
+- **Number of citations to publication**: We collected the number of citations to the published version of the article manually from [Google Scholar](https://scholar.google.com.au) if published.
+- **Link to Data for Publication**: If the preprint was published we collected the link to any published data provided on the publishers webpage or within the published paper. If a link to the data was not visble we recorded the paper as not having provided data ('none'). If the paper had not been published or not based on data and data analyses (opinions, comments, narrative reviews, theoretical paper, etc.) we entered 'NA'. 
+- **Link to Code for Publication**: If the preprint was published we collected the link to any published code provided on the publishers webpage or within the published paper. If a link to the data was not visble we recorded the paper as not having provided data ('none'). If the paper had not been published or not based on data and data analyses (opinions, comments, narrative reviews, theoretical paper, etc.) we entered 'NA'. 
+
+Additional variables of interest (i.e., journal impact factor, preprint and review policy, gender of submitting author) could be determined oustide of this data collection period.
