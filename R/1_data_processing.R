@@ -15,6 +15,12 @@
 	# Master preprint list 
 	master_list <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Master List of Preprints")
 
-# Check on status
+	# Check on status
 	status <- master_list  %>% rename("completed" = "Completed_Yes_No_extractor") %>%
 			mutate(completed = str_to_title(completed))  %>% tabyl(completed)
+
+	# raw data
+	data <- read_sheet("https://docs.google.com/spreadsheets/d/1032gLryvtCNJ7eJjKBjrn7txxDRUGql9SoIG18QnFrQ/edit?resourcekey#gid=1062856014")
+
+
+
