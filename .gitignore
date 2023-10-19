@@ -51,3 +51,7 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 ms/ms.pdf
+
+# Out
+output/emails/
+
