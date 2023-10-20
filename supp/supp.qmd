@@ -71,10 +71,13 @@ delegates <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKo
 del_details <- delegates  %>% rename("attend" = "Attended hackathon (yes/no)") %>%
 			mutate(attend = str_to_title(attend))  %>% tabyl(attend)
 
-# Raw data
+# Master preprint list
 master_list <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Master List of Preprints")
 
 contr_extract <- master_list  %>%  tabyl(Extractor_Full_Name)
+
+# raw data
+	data_coll <- read_sheet("https://docs.google.com/spreadsheets/d/1032gLryvtCNJ7eJjKBjrn7txxDRUGql9SoIG18QnFrQ/edit?resourcekey#gid=1062856014")
 
 ```
 
@@ -112,6 +115,9 @@ We had a total of `r del_details[2,2]` participants in the workshop, and an addi
 - **Link to Code for Publication**: If the preprint was published we collected the link to any published code provided on the publishers webpage or within the published paper. If a link to the data was not visble we recorded the paper as not having provided data ('none'). If the paper had not been published or not based on data and data analyses (opinions, comments, narrative reviews, theoretical paper, etc.) we entered 'NA'. 
 
 Additional variables of interest (i.e., journal impact factor, preprint and review policy, gender of submitting author) could be determined oustide of this data collection period.
+
+## Data Checking and Validation
+Data from each preprint was cross checked by two authors to ensure accuracy and consistency of the data collected. Any discrepencies were either discussed or fixed prior to analysis. 
 
 # Supplementary Results
 
