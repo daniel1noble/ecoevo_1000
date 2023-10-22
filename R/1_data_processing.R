@@ -22,6 +22,7 @@
 	# raw data
 	data <- read_sheet("https://docs.google.com/spreadsheets/d/1032gLryvtCNJ7eJjKBjrn7txxDRUGql9SoIG18QnFrQ/edit?resourcekey#gid=1062856014")
 
-	data <- data  %>% clean_names()
+	# clean raw data
+	data <- data %>% clean_names()
 
 
