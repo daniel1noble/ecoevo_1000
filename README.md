@@ -11,6 +11,7 @@ The aims of this project are to determine:
 6) citation rates of preprints and published articles. Possibly also looking at social media.
 7) how much community discussion occurs along side preprints.
 8) versioning of preprints and whether titles change between preprint and published article.
+9) If a preprint in published, is the published version open access?
 
 The details outlined in this README have been pre-registered on [OSF](https://doi.org/10.17605/OSF.IO/D7ZWS). We have also captured this pre-study research plan as a [release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0).
 
