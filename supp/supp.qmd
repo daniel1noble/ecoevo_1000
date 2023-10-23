@@ -79,9 +79,6 @@ contr_extract <- master_list  %>%  tabyl(Extractor_Full_Name)
 # raw data
 	data_coll <- read_sheet("https://docs.google.com/spreadsheets/d/1032gLryvtCNJ7eJjKBjrn7txxDRUGql9SoIG18QnFrQ/edit?resourcekey#gid=1062856014")
 
-# Who from the delegate list is not listed in the mastersheet?
-  contr_extract %>% filter(Extractor_Full_Name %in% delegates$Lastname)
-
 ```
 
 
