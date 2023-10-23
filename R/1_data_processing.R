@@ -7,8 +7,11 @@
 
 # Load data from Google Sheets
 	# Delegate list
-	delegates <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Delegate Details")
+	delegates <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Delegate Details")  %>%  clean_names()
 
+	# Check on who attended the hackathon
+	delegates  %>% tabyl("attended_hackathon_yes_no")
+	
 	# Export emails
 	write.csv(delegates$Email, "output/emails/delegates_emails.csv", row.names = FALSE)
 
