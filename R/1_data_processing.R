@@ -25,6 +25,15 @@
 	status <- master_list  %>% rename("completed" = "completed_yes_no_extractor") %>%
 			mutate(completed = str_to_title(completed))  %>% tabyl(completed)
 
+	# Check allocation of papers
+		contr_extract <- master_list  %>%  tabyl(extractor_full_name)
+
+	# Check how many each person has done relative to their total
+		contr_extract2 <- master_list %>% group_by(extractor_full_name) %>% summarise(n = n(), yes = sum(completed_yes_no_extractor == "Yes"), no = sum(completed_yes_no_extractor == "No"), prop = yes/n)  %>% data.frame()
+
+	# Check who hasn't yet started
+		not_done <- contr_extract2  %>% filter(prop != 1)
+	
 	# raw data
 	data <- read_sheet("https://docs.google.com/spreadsheets/d/1032gLryvtCNJ7eJjKBjrn7txxDRUGql9SoIG18QnFrQ/edit?resourcekey#gid=1062856014") %>% clean_names()
 
