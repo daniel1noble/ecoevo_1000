@@ -72,9 +72,7 @@ del_details <- delegates  %>% rename("attend" = "Attended hackathon (yes/no)") %
 			mutate(attend = str_to_title(attend))  %>% tabyl(attend)
 
 # Master preprint list
-master_list <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Master List of Preprints")
-
-contr_extract <- master_list  %>%  tabyl(Extractor_Full_Name)
+master_list <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Master List of Preprints") %>% clean_names()
 
 # raw data
 	data_coll <- read_sheet("https://docs.google.com/spreadsheets/d/1032gLryvtCNJ7eJjKBjrn7txxDRUGql9SoIG18QnFrQ/edit?resourcekey#gid=1062856014")
