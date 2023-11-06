@@ -29,7 +29,7 @@
 		contr_extract <- master_list  %>%  tabyl(extractor_full_name)
 
 	# Check how many each person has done relative to their total
-		contr_extract2 <- master_list %>% group_by(extractor_full_name) %>% summarise(n = n(), yes = sum(completed_yes_no_extractor == "Yes"), no = sum(completed_yes_no_extractor == "No"), prop = yes/n)  %>% data.frame()
+		contr_extract2 <- master_list %>% group_by(extractor_full_name) %>% summarise(n = n(), yes = sum(completed_yes_no_extractor == "Yes"), no = sum(completed_yes_no_extractor == "No"), prop = yes/n)  %>% data.frame()  %>% arrange(n)
 
 	# Check who hasn't yet started
 		not_done <- contr_extract2  %>% filter(prop != 1)
