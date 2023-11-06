@@ -37,6 +37,10 @@
 	# Grab emails of those not yet done so they can be emailed to be reminded
 		not_done_emails <- left_join(not_done, delegates, by = "extractor_full_name")  %>% select(extractor_full_name, n, yes,no,prop, email) 
 
+	# Join together delegate list with master list
+		joined <- full_join(delegates, contr_extract2, by = "extractor_full_name", multiple = "all")  %>% arrange(extractor_full_name) %>% data.frame()
+
+
 	# Write this sheet
 		write.csv(not_done_emails, file = here("output", "emails", "not_done_emails.csv"))
 
