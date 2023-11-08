@@ -68,6 +68,12 @@
 # in raw data
 ###-------------------------###
 
+# List of to DO
+# - [x] Check that the preprint DOI's are correct and that we have expected number
+# - [] Determine which preprints are missing and collect the data for these
+# - [] Filter out the training paper data (aside from one paper for inclusion in the data)
+# - [] check all pilot data has been removed
+
 # Have a look at how many preprint DOI's there should be 1216 unique ones
 		data  %>% select(preprint_doi)  %>% distinct()  %>% nrow() #1201....
 
