@@ -69,7 +69,7 @@
 ###-------------------------###
 
 # Have a look at how many preprint DOI's there should be 1216 unique ones
-		data  %>% select(preprint_doi)  %>% distinct()  %>% nrow() #1191....
+		data  %>% select(preprint_doi)  %>% distinct()  %>% nrow() #1201....
 
 # Which preprint DOI's are in the master list but are not found in the data?
 		missing <- master_list  %>% filter(!preprint_doi %in% data$preprint_doi)  %>% select(preprint_doi)  %>% distinct()  %>% data.frame()
