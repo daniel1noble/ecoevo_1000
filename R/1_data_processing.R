@@ -1,11 +1,15 @@
 ###–––––––––––––––––––––––––––––––––––––––––––––––––###
 # Purpose: Loading and cleaning Google Sheet Data
 ###–––––––––––––––––––––––––––––––––––––––––––––––––###
-
+###-------------------------###
 # Load packages
+###-------------------------###
 	pacman::p_load(tidyverse, googlesheets4, janitor, here)
 
-# Load data from Google Sheets
+###-------------------------###
+# Load data from Google Sheets 
+# and save raw files
+###-------------------------###
 	# Delegate list
 
 	# Simplify a few names to avoid issues down the road
@@ -59,5 +63,9 @@
 	# Write the raw data
 		write.csv(data, file = here("data", "raw_data.csv"))
 
+###-------------------------###
+# Processing and fixing mistakes
+# in raw data
+###-------------------------###
 
 
