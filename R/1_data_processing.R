@@ -78,6 +78,9 @@
 		missed <- left_join(missing, master_list, by = "preprint_doi", suffix = c("_missing", "_master"))  %>% data.frame()
 		write.csv(missed, file = here("data", "missing_preprints.csv"))
 
+# Lets assume maybe that the wrong DOI was entered in, so lets tally the same DOIs
+		doi_tally <- data  %>% group_by(preprint_doi) %>% summarise(n = n())  %>% 
+					filter(n>1)  %>% data.frame()
 
 # We first need to filter out all the pilot runs from Losia and the hackathon.
 	# Remove losia's test runs
