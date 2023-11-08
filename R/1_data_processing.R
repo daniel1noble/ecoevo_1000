@@ -68,4 +68,28 @@
 # in raw data
 ###-------------------------###
 
+# Have a look at how many preprint DOI's there should be 1216 unique ones
+		data  %>% select(preprint_doi)  %>% distinct()  %>% nrow() #1191....
+
+# Which preprint DOI's are in the master list but are not found in the data?
+		missing <- master_list  %>% filter(!preprint_doi %in% data$preprint_doi)  %>% select(preprint_doi)  %>% distinct()  %>% data.frame()
+		
+# Find out which preprints were missing, merge missing and masterlist to identify who
+		missed <- left_join(missing, master_list, by = "preprint_doi", suffix = c("_missing", "_master"))  %>% data.frame()
+		write.csv(missed, file = here("data", "missing_preprints.csv"))
+
+
+# We first need to filter out all the pilot runs from Losia and the hackathon.
+	# Remove losia's test runs
+		data <- data  %>% filter(!c(extractors_first_name == "Losia" & extractors_last_name == "Lagisz" & timestamp < "2023-10-17"))  %>% data.frame()
+
+	# Remove the training paper, but save a training data as that can be used to check for consistency
+		data2 <- data  %>% filter(!c(submitting_corresponding_author_last_name == "Nakagawa" & timestamp < as.Date("10/17/2023 21:51:35", format = "%m-%d-$Y")))  %>% data.frame()
+		
+		training_data <- data  %>% 
+						filter(c(submitting_corresponding_author_last_name == "Nakagawa" & timestamp < as.Date("10/17/2023", format = "%m-%d-$Y")))  %>% 
+						data.frame()
+
+# Merge together the masterlist information with the data
+		data <- left_join(data, master_list, by = "data_link_article", suffix = c("_data", "_master"))  %>% data.frame()
 
