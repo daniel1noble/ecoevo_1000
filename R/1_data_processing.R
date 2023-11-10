@@ -82,7 +82,7 @@
 		
 # Find out which preprints were missing, merge missing and masterlist to identify who
 		missed <- left_join(missing, master_list, by = "preprint_doi", suffix = c("_missing", "_master"))  %>% data.frame()
-		write.csv(missed, file = here("data", "missing_preprints.csv"))
+		#write.csv(missed, file = here("data", "missing_preprints.csv"))
 
 # Lets assume maybe that the wrong DOI was entered in, so lets tally the same DOIs
 		doi_tally <- data  %>% group_by(preprint_doi) %>% summarise(n = n())  %>% 
@@ -98,7 +98,28 @@
 		training_data <- data  %>% 
 						filter(c(submitting_corresponding_author_last_name == "Nakagawa" & preprint_doi %in% c("https://doi.org/10.24072/pcjournal.261", "https://doi.org/10.32942/X2H59D")))  %>% 
 						data.frame()
+		
+		# Add back in one extraction from the training paper so we have it in the final data
+		data2 <- rbind(data2, training_data[training_data$extractors_last_name == "Noble",])  %>% data.frame()
+
+		# Check where duplicates are?
+		dups <- data2  %>% group_by(preprint_doi) %>% summarise(n = n())  %>% filter(n>1)  %>% data.frame()
+
+		# Ok, looks like only one duplicate, so lets have a look at the two rows
+		data2_dups <- data2  %>% filter(preprint_doi == dups$preprint_doi)  %>% data.frame()
+
+		# Looks like someone extracted one of mine twice, so lets remove the later one
+		data2 <- data2  %>% filter(!c(extractors_last_name == "Dimri" & preprint_doi == dups$preprint_doi))
+
+		# Now lets see why we have more preprints than 1216. This is probably because of incorrect DOI's. Check which ones are NOT in teh masterlist
+		doubles <- data2  %>% filter(!preprint_doi %in% master_list$preprint_doi)  %>% data.frame()
+
+		# OK, this makes sense as these are all errors in DOI entry. We'll remove these
+		data2 <- data2  %>% filter(preprint_doi %in% master_list$preprint_doi)  %>% data.frame()
 
 # Merge together the masterlist information with the data
-		data <- left_join(data, master_list, by = "data_link_article", suffix = c("_data", "_master"))  %>% data.frame()
+		data2 <- left_join(data2, master_list, by = "preprint_doi", suffix = c("_data", "_master"))  %>% data.frame()
+
+# Number of preprints now matches and we have 1216 unique preprints. Lets write this file out before doing some cleaning
+		write.csv(data2, file = here("data", "full_data.csv"))
 
