@@ -75,7 +75,7 @@
 # - [] check all pilot data has been removed
 
 # Have a look at how many preprint DOI's there should be 1216 unique ones
-		data  %>% select(preprint_doi)  %>% distinct()  %>% nrow() #1201....
+		data  %>% select(preprint_doi)  %>% distinct()  %>% nrow() #1218....some duplicates clearly
 
 # Which preprint DOI's are in the master list but are not found in the data?
 		missing <- master_list  %>% filter(!preprint_doi %in% data$preprint_doi)  %>% select(preprint_doi)  %>% distinct()  %>% data.frame()
@@ -93,10 +93,10 @@
 		data <- data  %>% filter(!c(extractors_first_name == "Losia" & extractors_last_name == "Lagisz" & timestamp < "2023-10-17"))  %>% data.frame()
 
 	# Remove the training paper, but save a training data as that can be used to check for consistency
-		data2 <- data  %>% filter(!c(submitting_corresponding_author_last_name == "Nakagawa" & timestamp < as.Date("10/17/2023 21:51:35", format = "%m-%d-$Y")))  %>% data.frame()
+		data2 <- data  %>% filter(!c(submitting_corresponding_author_last_name == "Nakagawa" & preprint_doi %in% c("https://doi.org/10.24072/pcjournal.261", "https://doi.org/10.32942/X2H59D")))  %>% data.frame()
 		
 		training_data <- data  %>% 
-						filter(c(submitting_corresponding_author_last_name == "Nakagawa" & timestamp < as.Date("10/17/2023", format = "%m-%d-$Y")))  %>% 
+						filter(c(submitting_corresponding_author_last_name == "Nakagawa" & preprint_doi %in% c("https://doi.org/10.24072/pcjournal.261", "https://doi.org/10.32942/X2H59D")))  %>% 
 						data.frame()
 
 # Merge together the masterlist information with the data
