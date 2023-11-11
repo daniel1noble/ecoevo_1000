@@ -97,10 +97,14 @@ data2 <- data2  %>% select(extractors_first_name, extractors_last_name, preprint
 		data3 <- read_excel(here("data", "20231003_EER_preprints_metadata.xlsx"))  %>% clean_names()
 
 	# Subset the relevant rows
-		data3  <- data3  %>%  select(preprint_doi, publisher_doi, published_date, current_version, total_authors)
+		data3  <- data3  %>%  select(preprint_doi, publisher_doi, published_date, current_version, total_authors)  %>% rename("preprint_published_date" = "published_date" )
 
 # Join together and create time between preprint and pub
 	data2 <- left_join(data2, data3, by = c("preprint_doi" = "preprint_doi")) 
-	
-	# NOTE> Something wrong with dates. NEEDS FIXING
-	data2  <-  data2  %>% mutate(time_between_preprint_and_pub_days = ymd(publication_date)- ymd(published_date))
+
+#Calculate the time between dates. Note that there are clearly a bunch of postprints, some even quite older published (hence negative days). 
+	data2  <-  data2  %>% mutate(time_between_preprint_and_pub_days = ymd(publication_date)- ymd(preprint_published_date))
+
+# probably worth flagging postprints. This could then also be checked.
+	data2 <- data2  %>% mutate(postprint = ifelse(time_between_preprint_and_pub_days <= 0, "postprint", "preprint"),
+							   postprint = ifelse(is.na(time_between_preprint_and_pub_days), "preprint", postprint))
