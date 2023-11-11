@@ -3,6 +3,12 @@
 # Cleaning and fixing mistakes
 # in raw data
 ###-------------------------###
+###-------------------------###
+# Load packages
+###-------------------------###
+	pacman::p_load(tidyverse, googlesheets4, janitor, here)
+
+
 		# Load in the data
 		data2 <- read.csv(here("data", "full_data.csv")) 
 
