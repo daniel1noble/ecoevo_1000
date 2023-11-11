@@ -6,11 +6,10 @@
 ###-------------------------###
 # Load packages
 ###-------------------------###
-	pacman::p_load(tidyverse, googlesheets4, janitor, here)
+	pacman::p_load(tidyverse, googlesheets4, janitor, here, readxl)
 
-
-		# Load in the data
-		data2 <- read.csv(here("data", "full_data.csv")) 
+# Load in the data
+		data2 <- read_csv(here("data", "full_data.csv")) 
 
 # Make sure all data is in the same case structure and strip any white space
 		data2 <- data2  %>% mutate(across(where(is.character), str_to_lower))  %>% mutate(across(where(is.character), str_trim)) 
@@ -89,3 +88,19 @@
 		   publication_journal= ifelse(publication_journal == "aobplants", "aob plants", publication_journal),
 		   publication_journal= ifelse(publication_journal == "na", NA, publication_journal),
 		   publication_journal= ifelse(type_of_preprint == "book chapter", "book chapter", publication_journal))
+
+## Let's also so some reordering (and dropping) of columns as we have merged things.
+
+data2 <- data2  %>% select(extractors_first_name, extractors_last_name, preprint_id, preprint_doi, preprint_title, submitting_author, submitting_author_country, submitting_author_first_publication_year, type_of_preprint, taxa_being_studied, data_link_preprint, code_link_preprint, number_of_citations_preprint, pci_recommendation_preprint, publication_doi, publication_journal, publication_date, publication_title_changed, number_of_citations_article, data_link_article, code_link_article)
+
+# Need to load in the larger data file to get the dates and version numbers to merge with these data
+		data3 <- read_excel(here("data", "20231003_EER_preprints_metadata.xlsx"))  %>% clean_names()
+
+	# Subset the relevant rows
+		data3  <- data3  %>%  select(preprint_doi, publisher_doi, published_date, current_version, total_authors)
+
+# Join together and create time between preprint and pub
+	data2 <- left_join(data2, data3, by = c("preprint_doi" = "preprint_doi")) 
+	
+	# NOTE> Something wrong with dates. NEEDS FIXING
+	data2  <-  data2  %>% mutate(time_between_preprint_and_pub_days = ymd(publication_date)- ymd(published_date))
