@@ -108,3 +108,9 @@ data2 <- data2  %>% select(extractors_first_name, extractors_last_name, preprint
 # probably worth flagging postprints. This could then also be checked.
 	data2 <- data2  %>% mutate(postprint = ifelse(time_between_preprint_and_pub_days <= 0, "postprint", "preprint"),
 							   postprint = ifelse(is.na(time_between_preprint_and_pub_days), "preprint", postprint))
+
+# Lets get the updates list of preprints done by various people. Not spelling errors in people names that need fixing
+
+replace = c("Antica Culina" = "Antica Culin", "Matt Grainger" = "Matthew Grainger",  "Melina de Souza leite" = "Melina de Souza Leite")
+contr_extract <- data2  %>% mutate(extractor_full_name = paste0(extractors_first_name, " ", extractors_last_name),
+									extractor_full_name = str_replace_all(extractor_full_name, replace))  %>%  tabyl(extractor_full_name)  %>%  arrange(desc(n)) 
