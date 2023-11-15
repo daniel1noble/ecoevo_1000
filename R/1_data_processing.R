@@ -121,4 +121,4 @@
 		data2 <- left_join(data2, master_list, by = "preprint_doi", suffix = c("_data", "_master"))  %>% data.frame()
 
 # Number of preprints now matches and we have 1216 unique preprints. Lets write this file out before doing some cleaning
-		write.csv(data2, file = here("data", "full_data.csv"))
+		write.csv(data2, file = here("output", "data", "full_data.csv"))

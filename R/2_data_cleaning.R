@@ -279,4 +279,4 @@ table(data4$code_link_article_cleaned, useNA = "always")
 #sort by extractors_last_name
 
 data4 <- data4 %>% arrange(extractors_last_name)
-write.csv(data4, here("data", "data4_processed_check.csv"))
+write.csv(data4, here("output", "data", "data4_processed_check.csv"))
