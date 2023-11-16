@@ -6,7 +6,7 @@
 ###-------------------------###
 # Load packages
 ###-------------------------###
-	pacman::p_load(tidyverse, googlesheets4, janitor, here, readxl)
+	pacman::p_load(tidyverse, googlesheets4, janitor, here, readxl, writexl)
 
 # Load in the data
 		data2 <- read_csv(here("data", "full_data.csv")) 
@@ -279,4 +279,5 @@ table(data4$code_link_article_cleaned, useNA = "always")
 #sort by extractors_last_name
 
 data4 <- data4 %>% arrange(extractors_last_name)
-write.csv(data4, here("output", "data", "data4_processed_check.csv"))
+#write.csv(data4, here("output", "data", "data4_processed_check.csv"), fileEncoding = "UTF-8")
+write_xlsx(data4, path = here("output", "data", "data4_processed_check.xlsx"))
