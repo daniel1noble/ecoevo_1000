@@ -281,3 +281,16 @@ table(data4$code_link_article_cleaned, useNA = "always")
 data4 <- data4 %>% arrange(extractors_last_name)
 #write.csv(data4, here("output", "data", "data4_processed_check.csv"), fileEncoding = "UTF-8")
 write_xlsx(data4, path = here("output", "data", "data4_processed_check.xlsx"))
+
+## Allocation of paper checking
+	replace <- c("Stefan J.G. Vriend" = "Stefan Vriend", "Matt Grainger" = "Matthew Grainger", "Gideon Gywa Deme" = "Gideon Deme", "Magdalena M. Mair" = "Magdalena Mair", "Malgorzata Lagisz" = "Losia Lagisz",  "Antica Culin" = "Antica Culina", "Melina de Souza leite" = "Melina de Souza Leite")
+
+	delegates <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Delegate Details")  %>%  clean_names()  %>% mutate(extractor_full_name = paste0(firstname, " ", lastname))  %>% mutate(extractor_full_name = str_to_lower(str_replace_all(extractor_full_name, replace)))  %>% select(extractor_full_name, email)  %>% data.frame() 
+
+	# Check allocation for those who extracted
+	alloc_final <- data4 %>% mutate(extractor_fullname = paste0(extractors_first_name, " ", extractors_last_name)) %>%  group_by(extractor_fullname) %>% summarise(n = n())  %>% data.frame()
+	
+	# Mereg with delegate list, which has people who didn't extract
+	alloc_final  <- full_join(delegates, alloc_final, by = join_by("extractor_full_name" == "extractor_fullname"), keep = TRUE)  %>% arrange(desc(extractor_full_name)) %>% data.frame()
+
+	write_xlsx(alloc_final, path = here("output", "data", "alloc_final.xlsx"))
