@@ -293,4 +293,4 @@ write_xlsx(data4, path = here("output", "data", "data4_processed_check.xlsx"))
 	# Mereg with delegate list, which has people who didn't extract
 	alloc_final  <- full_join(delegates, alloc_final, by = join_by("extractor_full_name" == "extractor_fullname"), keep = TRUE)  %>% arrange(desc(extractor_full_name)) %>% data.frame()
 
-	write_xlsx(alloc_final, path = here("output", "data", "alloc_final.xlsx"))
+	write_xlsx(alloc_final, path = here("output", "data", "alloc_final2.xlsx"))
