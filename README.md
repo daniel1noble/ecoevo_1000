@@ -172,7 +172,7 @@ This data contains version history information for each preprint on EcoEvoRxiv. 
 
 ### Cross checking data
 
-Everyone will contribute to data checking after we do an initial clean up of the data. 
+Everyone will contribute to data checking after we do an initial clean up of the data. We'll aim for a tentative deadline of December 20th.
 
 Instructions on how to cross check (please READ THESE CAREFULLY) are found [here](https://docs.google.com/document/d/1Clgr0PlUkiQvW6D_4FZhfSUGwgxB70_sEuxeX7SwZgo/edit#heading=h.xtbba2n2kuvf).
 
