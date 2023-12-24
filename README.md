@@ -177,3 +177,5 @@ Everyone will contribute to data checking after we do an initial clean up of the
 Instructions on how to cross check (please READ THESE CAREFULLY) are found [here](https://docs.google.com/document/d/1Clgr0PlUkiQvW6D_4FZhfSUGwgxB70_sEuxeX7SwZgo/edit#heading=h.xtbba2n2kuvf).
 
 The data sheet that needs cross checking can be found [here](https://docs.google.com/spreadsheets/d/1h4nsea8O5pKj6DsL_Hi7CJZ9lhsTMUJiN5fakhSDkuA/edit#gid=0)
+
+# About 10 people still need to check
