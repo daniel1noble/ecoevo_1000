@@ -76,7 +76,7 @@ Preprint servers, such as *EcoEvoRxiv*, can empower researchers to make their fi
 
 Here, we explore the first preprints uploaded to *EcoEvoRxiv* to understand preprint practices and use in our field, focusing our attention on understanding: 1) how long it takes for a preprint to become published, and how many preprints remain unpublished; 2) what countries make use of preprints; 3) how career stage and gender impact preprint use; 4) whether data and code are more likely to be shared in preprints; and 5) the extent to which authors make use of preprint servers for registered reports and community driven peer review. 
 
-We downloaded metadata on the preprints currently available on *EcoEvoRxiv* (as of the `r gsub("UTC", "", dates[2])`). After removing `r dim(dupl)[1]` duplicate titles – suggesting a few authors created multiple submissons for the same preprint rather than updating an existing submission – we had data for a total of `r pr` preprints with ~55-60 preprints published each month in the last two years (@fig-figdates).
+We downloaded metadata on the preprints available on *EcoEvoRxiv* (as of the `r gsub("UTC", "", dates[2])`). After removing `r dim(dupl)[1]` duplicate titles – suggesting a few authors created multiple submissons for the same preprint rather than updating an existing submission – we had data for a total of `r pr` preprints with ~55-60 preprints published each month in the last two years (@fig-figdates).
 
 ```{r, figdates}
 #| label: fig-figdates
