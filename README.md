@@ -178,10 +178,8 @@ Instructions on how to cross check (please READ THESE CAREFULLY) are found [here
 
 The data sheet that needs cross checking can be found [here](https://docs.google.com/spreadsheets/d/1h4nsea8O5pKj6DsL_Hi7CJZ9lhsTMUJiN5fakhSDkuA/edit#gid=0)
 
-# 6 people still need to check
+# 4 people still need to check
 - raphaël royauté
-- dalton leibold
 - szymek drobniak
 - heikel balti
 - elvira d'bastiani
-- matthew grainger
