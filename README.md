@@ -183,3 +183,5 @@ The data sheet that needs cross checking can be found [here](https://docs.google
 - szymek drobniak
 - heikel balti
 - elvira d'bastiani
+
+Emailed. 14 Jan
