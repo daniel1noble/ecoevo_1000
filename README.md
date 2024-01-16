@@ -179,7 +179,6 @@ Instructions on how to cross check (please READ THESE CAREFULLY) are found [here
 The data sheet that needs cross checking can be found [here](https://docs.google.com/spreadsheets/d/1h4nsea8O5pKj6DsL_Hi7CJZ9lhsTMUJiN5fakhSDkuA/edit#gid=0)
 
 # 4 people still need to check
-- szymek drobniak (dine by this week)
-- heikel balti (no word yet)
+- szymek drobniak (done by this week)
 
 Emailed. 14 Jan
