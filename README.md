@@ -181,3 +181,9 @@ The data sheet that needs cross checking can be found [here](https://docs.google
 # Checking (25 Jan)
 - szymek drobniak (done by this week); Allocated to two others
 
+# Next steps
+- go through rows and clean up data. 
+- Dan runs analysis
+- plan figures
+- Dan writes draft
+
