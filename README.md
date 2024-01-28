@@ -178,8 +178,8 @@ Instructions on how to cross check (please READ THESE CAREFULLY) are found [here
 
 The data sheet that needs cross checking can be found [here](https://docs.google.com/spreadsheets/d/1h4nsea8O5pKj6DsL_Hi7CJZ9lhsTMUJiN5fakhSDkuA/edit#gid=0)
 
-# Checking (25 Jan)
-- szymek drobniak (done by this week); Allocated to two others
+# Checking (28 Jan)
+- All data is now checked 
 
 # Next steps
 - go through rows and clean up data. 
