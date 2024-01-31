@@ -179,8 +179,8 @@ Instructions on how to cross check (please READ THESE CAREFULLY) are found [here
 The data sheet that needs cross checking can be found [here](https://docs.google.com/spreadsheets/d/1h4nsea8O5pKj6DsL_Hi7CJZ9lhsTMUJiN5fakhSDkuA/edit#gid=0)
 
 # Next steps
-- go through rows and clean up data. 
-- Dan runs analysis
-- plan figures
-- Dan writes draft
+- Losia will start goung through rows
+- Plan figures
+- Dan runs analysis and writes draft
+
 
