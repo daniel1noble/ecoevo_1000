@@ -178,8 +178,12 @@ Instructions on how to cross check (please READ THESE CAREFULLY) are found [here
 
 The data sheet that needs cross checking can be found [here](https://docs.google.com/spreadsheets/d/1h4nsea8O5pKj6DsL_Hi7CJZ9lhsTMUJiN5fakhSDkuA/edit#gid=0)
 
+### Final checked data.
+
+The final checked data can be found [here](https://docs.google.com/spreadsheets/d/1dIe7LtAn8BKPzr3l2SdEim1OpTr2J4rAoqrex7SOOFY/edit#gid=0)
+
 # Next steps
-- Losia will start goung through rows
+- Losia will start goung through rows (DONE)
 - Plan figures
 - Dan runs analysis and writes draft
 
