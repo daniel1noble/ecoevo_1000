@@ -1,5 +1,5 @@
 ---
-title: "Empowering the use of preprints in ecology and evolution: an exploration of the first 1000 *EcoEvoRxiv* preprints"
+title: "Empowering the use of community driven preprints in ecology and evolution"
 bibliography: ../bib/refs.bib
 csl: ../bib/nature.csl
 format:
@@ -89,5 +89,10 @@ ggplot(data, aes(x = `Published Date`)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
+
+- figure timeline of EcoEvoRxiv, aims and future and current developments infographics mixed with the data.
+- think about your preprint as workflow, continually evolving paper with support of the community. 
+- community driven peer review, can't update things with other preprints. 
+- our terms, we are not a journal, we are a preprint server. Cannot be company driven. 
 
 # References
