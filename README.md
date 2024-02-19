@@ -183,7 +183,7 @@ The data sheet that needs cross checking can be found [here](https://docs.google
 The final checked data can be found [here](https://docs.google.com/spreadsheets/d/1dIe7LtAn8BKPzr3l2SdEim1OpTr2J4rAoqrex7SOOFY/edit#gid=0)
 
 # Next steps
-- Losia will start goung through rows (DONE)
+- Losia will start goung through rows (DONE) - downloaded data
 - Plan figures
 - Dan runs analysis and writes draft
 
