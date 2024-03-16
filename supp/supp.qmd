@@ -1,5 +1,5 @@
 ---
-title: "Supplementary Materials for: Empowering the use of preprints in ecology and evolution: an exploration of the first 1000 *EcoEvoRxiv* preprints"
+title: "Supplementary Materials for: Empowering the use of community driven preprints in ecology and evolution"
 bibliography: ../bib/refs.bib
 csl: ../bib/nature.csl
 format:
@@ -8,6 +8,9 @@ format:
   pdf:
     include-in-header: 
       text: '\usepackage{lineno}\linenumbers'
+  html: 
+    highlight: pygments
+    theme: solarized-light
 editor_options: 
   chunk_output_type: console
 execute:
@@ -66,16 +69,25 @@ options(scipen = 1, digits = 2)
   dates <- range(data$`Published Date`)
 
 # Delegate details
-delegates <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Delegate Details") 
+  delegates <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Delegate Details") 
 
-del_details <- delegates  %>% rename("attend" = "Attended hackathon (yes/no)") %>%
+  del_details <- delegates  %>% rename("attend" = "Attended hackathon (yes/no)") %>%
 			mutate(attend = str_to_title(attend))  %>% tabyl(attend)
 
 # Master preprint list
-master_list <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Master List of Preprints") %>% clean_names()
+  master_list <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Master List of Preprints") %>% clean_names()
+
+# Check allocation of papers
+		contr_extract <- master_list  %>%  tabyl(extractor_full_name)
+
+	# Check how many each person has done relative to their total
+		contr_extract2 <- master_list %>% group_by(extractor_full_name) %>% summarise(n = n(), yes = sum(completed_yes_no_extractor == "Yes"), no = sum(completed_yes_no_extractor == "No"), prop = yes/n)  %>% data.frame()  %>% arrange(n)
 
 # raw data. For analysis
 	data_coll <- read_sheet("https://docs.google.com/spreadsheets/d/1032gLryvtCNJ7eJjKBjrn7txxDRUGql9SoIG18QnFrQ/edit?resourcekey#gid=1062856014")
+
+# Final Processed data
+  data2 <- read_csv(here("data", "final_data2.csv"))
 
 ```
 
@@ -119,6 +131,9 @@ Data from each preprint was cross checked by two authors to ensure accuracy and 
 
 # Supplementary Results
 
+## Preprint submission and publication dates over time
+*EcoEvoRxiv* was established in 2018 and there has been a steady increase in preprints (and postprints) to the journal since that time (@fig-figdates). 
+
 ```{r, figdates}
 #| label: fig-figdates
 #| fig-cap: Number of preprints published monthly to *EcoEvoRxiv* between 2018 and 2023.
@@ -129,4 +144,50 @@ ggplot(data, aes(x = `Published Date`)) +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+```
+
+## Publication time of preprints
+*EcoEvoRxiv* accepts postprints which means that, technically, a 'preprint' can be published before being lodged on the preprint server. It is difficult to know exactly what would be a postprint because authors may have had the acceptance and then put the paper online as a preprint while they waited for it to go online in a research journal. In many cases, identifying a postprint is straightforward. These are papers that have preprint publication dates that are later than the journal publication date. However, papers that were 'quick' to be accepted could also be postprints, as mentioned above. It seems highly unlikely for a paper to be accepted in a journal and online within a month after being submitted to *EcoEvoRxiv*. We therefore assume any preprint that was published within a month of being submitted is also likely a postprint. 
+
+```{r, fig-pubtime}
+#| label: fig-pubtime
+#| fig-cap: Time between submission and publication of preprints on *EcoEvoRxiv*. 'Preprints' that were published within a month of being submitted are considered postprints.
+
+preprints <- data2  %>% filter(time_between_preprint_and_pub_days >= 30)
+preprints %>% ggplot(aes(x = time_between_preprint_and_pub_days)) + geom_histogram(binwidth = 30) + labs(x = "Days", y = "Frequency") + theme_classic()
+
+# Summary of the data
+# what is the range
+sum_preprints <- preprints  %>% summarise(min = min(time_between_preprint_and_pub_days), max = max(time_between_preprint_and_pub_days), mean = mean(time_between_preprint_and_pub_days), median = median(time_between_preprint_and_pub_days), sd = sd(time_between_preprint_and_pub_days))
+```
+
+Overall, the maximum time between submission and publication was `r sum_preprints$max` days (@fig-pubtime). The median time to publication was `r sum_preprints$median` days (mean = `r sum_preprints$mean`; SD = `r sum_preprints$sd` days).
+
+
+## Preprint open access status when published
+
+```{r, oa}
+
+# Summary of the data
+sum_is_oa <- tabyl(preprints$is_oa)
+sum_oa_status <- tabyl(preprints$oa_status)
+```
+
+Preprints can be a useful way to ensure that research remains open and accessible to the research community as the paper is available online no matter what the published status of the preprint ends up being. Most of the published preprints ended up being open access(@fig-openaccess A), however, the status of many (i.e., `r sum_is_oa$n[3]` or `r sum_is_oa$percent[3]*100`%) were unknown, and `r sum_is_oa$n[1]` or `r sum_is_oa$percent[1]*100`% were not published in open access reserach journals. The open access status of the papers that were published in open access journals also varied widely (@fig-openaccess B).
+
+```{r, fig-openaccess}
+#| label: fig-openaccess
+#| fig-cap: Open access status of preprints when published. A) The number of papers pusblihed in open access journals compared to those not. Note that many journals could not be identified as open access (i.e, NA). B) The classification of open access status of the published preprints.
+
+########-------------------------###
+### What is the OA status of the published preprints?
+########-------------------------###
+
+# Lets first look only at the preprints. Then, we can look at the postprints. It's possible folks are putting up postprints because they are not OA journals and they want to share their work freely.
+
+p1 <- preprints  %>% ggplot(aes(x = is_oa)) + geom_bar() + labs(x = "Open Access", y = "Frequency") + theme_classic()
+
+p2 <- preprints  %>% ggplot(aes(x = oa_status)) + geom_bar() + labs(x = "Open Access Status", y = "Frequency") + theme_classic()
+
+(p1 + p2) + plot_annotation(tag_levels = 'A', tag_suffix=")")
 ```
