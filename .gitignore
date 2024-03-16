@@ -56,3 +56,19 @@ ms/ms.pdf
 output/emails/
 
 R/SI_methods_analyses_figures.Rmd
+supp/supp.html
+supp/supp_files/figure-html/fig-countries-1.png
+supp/supp_files/figure-html/fig-figdates-1.png
+supp/supp_files/figure-html/fig-openaccess-1.png
+supp/supp_files/figure-html/fig-pubtime-1.png
+supp/supp_files/libs/bootstrap/bootstrap-icons.css
+supp/supp_files/libs/bootstrap/bootstrap-icons.woff
+supp/supp_files/libs/bootstrap/bootstrap.min.css
+supp/supp_files/libs/bootstrap/bootstrap.min.js
+supp/supp_files/libs/clipboard/clipboard.min.js
+supp/supp_files/libs/quarto-html/anchor.min.js
+supp/supp_files/libs/quarto-html/popper.min.js
+supp/supp_files/libs/quarto-html/quarto-syntax-highlighting.css
+supp/supp_files/libs/quarto-html/quarto.js
+supp/supp_files/libs/quarto-html/tippy.css
+supp/supp_files/libs/quarto-html/tippy.umd.min.js
