@@ -48,3 +48,16 @@ data2 <- data  %>% left_join(OA_df2, by = c("publisher_doi" = "doi"))
 # We have now cross checked the paper in more detail to see if we missed any published papers. So, we should update the new time between preprint and publication dates, which is a time difference between the preprint and the published paper dates. CRoss checked two times to make sure they were calculated correct. Good!
 
 data2 <- data2  %>% mutate(time_between_preprint_and_pub_days = ymd(publication_date) - ymd(preprint_published_date))
+
+
+### Excluding postprints, how long does it take for a preprint to be published in Ecology and Evolution?
+
+data2  %>% filter(postprint == "preprint")  %>% ggplot(aes(x = time_between_preprint_and_pub_days)) + geom_histogram(binwidth = 30) + labs(title = "Time between preprint and publication in Ecology and Evolution", x = "Days", y = "Frequency") + theme_minimal()
+
+# Why are there weird dates (e.g, Should take at least 3 months to publish a paper, and also, anything below 0 should be a postprint.) Lets assue anything published within 3 months and those with negative dates are postprints.
+
+preprints <- data2  %>% filter(time_between_preprint_and_pub_days >= 90)
+preprints %>% ggplot(aes(x = time_between_preprint_and_pub_days)) + geom_histogram(binwidth = 30) + labs(title = "Time between preprint and publication in Ecology and Evolution", x = "Days", y = "Frequency") + theme_minimal()
+
+# what is the range
+preprints  %>% summarise(min = min(time_between_preprint_and_pub_days), max = max(time_between_preprint_and_pub_days), mean = mean(time_between_preprint_and_pub_days), median = median(time_between_preprint_and_pub_days), sd = sd(time_between_preprint_and_pub_days))
