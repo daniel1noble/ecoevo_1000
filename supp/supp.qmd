@@ -33,7 +33,7 @@ crossref:
 
 # Load packages
 #install.packages("pacman")
-pacman::p_load(tidyverse, here, patchwork, readxl, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable)
+pacman::p_load(tidyverse, here, patchwork, readxl, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggimage, gt, performance, ggthemes, mapproj)
 
 # Set rounding options
 options(scipen = 1, digits = 2)
@@ -203,7 +203,8 @@ p2 <- preprints  %>% ggplot(aes(x = oa_status)) + geom_bar() + labs(x = "Open Ac
   countries <- preprints  %>% tabyl(submitting_author_country)  %>% rename("country" = submitting_author_country, "n" = n)  %>% mutate(country = ifelse(country == "NA", "Unknown", country))  %>% arrange(desc(n))  %>% mutate(country=str_to_title(country))
 
 # Now we can plot the map, but before we do we need to make sure the names in the countries file match those in the region of the world map
-  world_map <- map_data(map = "world")
+  world_map <- map_data(map = "world") %>% 
+  filter(! long > 180)
 
 # List unique countries
   maps_country_name <- unique(world_map$region) # Names of regions in maps
@@ -217,8 +218,8 @@ ggplot(countries) +
   geom_map(aes(map_id = country, fill = valid_percent), map = world_map) +
   geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'black', fill = NA) +
   expand_limits(x = world_map$long, y = world_map$lat) +
-  theme_void() +
-  coord_fixed() + labs(fill="%")
+  theme_void() + expand_limits(x = world_map$long, y = world_map$lat) +
+  coord_fixed() + labs(fill="%") + theme_map(base_size = 22) + coord_map("moll")
 
 
   p1 <- countries  %>% ggplot(aes(map_id = country)) + geom_map(aes(fill = percent), map = map_data("world"), color = "black") + expand_limits(x = map_data("world")$long, y = map_data("world")$lat) + labs(fill = "Number of preprints", title = "Number of preprints by country") + theme_void() + theme(legend.position = "bottom")
