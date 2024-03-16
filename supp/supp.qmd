@@ -8,7 +8,7 @@ format:
   pdf:
     include-in-header: 
       text: '\usepackage{lineno}\linenumbers'
-  html: 
+  html:
     highlight: pygments
     theme: solarized-light
 editor_options: 
@@ -33,7 +33,7 @@ crossref:
 
 # Load packages
 #install.packages("pacman")
-pacman::p_load(tidyverse, here, patchwork, readxl, googlesheets4, janitor, maps, forcats,RColorBrewer)
+pacman::p_load(tidyverse, here, patchwork, readxl, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable)
 
 # Set rounding options
 options(scipen = 1, digits = 2)
@@ -194,8 +194,6 @@ p2 <- preprints  %>% ggplot(aes(x = oa_status)) + geom_bar() + labs(x = "Open Ac
 
 ## What countries use preprints the most?
 
-Unsurprisingly, countries in North America and Europe use preprints more exstensively compared to other countries with countries in Africa, Central America and parts of Asia still slow to use *EcoEvoRxiv* for their preprints (@fig-countries).
-
 ```{r, countries}
 #| label: fig-countries
 #| fig-cap: Percentage of preprints on *EcoEvoRxiv* across countries.
@@ -209,7 +207,7 @@ Unsurprisingly, countries in North America and Europe use preprints more exstens
 
 # List unique countries
   maps_country_name <- unique(world_map$region) # Names of regions in maps
-  countries[!countries$country %in% maps_country_name,] # Names of countries in our data that are not in the maps data, we need to fix these in countries
+  #countries[!countries$country %in% maps_country_name,] # Names of countries in our data that are not in the maps data, we need to fix these in countries
 
 # Fix names in countries
 replace = c("United States Of America" = "USA",  "United Kingdom" = "UK",  "Czechia" = "Czech Republic") 
@@ -225,5 +223,19 @@ ggplot(countries) +
 
   p1 <- countries  %>% ggplot(aes(map_id = country)) + geom_map(aes(fill = percent), map = map_data("world"), color = "black") + expand_limits(x = map_data("world")$long, y = map_data("world")$lat) + labs(fill = "Number of preprints", title = "Number of preprints by country") + theme_void() + theme(legend.position = "bottom")
 
+# Find the countries with 90% of the preprints
 
+most_use <- countries[cumsum(countries$valid_percent) <= 0.90, ]
+
+```
+
+A total of `r length(unique(countries$country))-1` countries have used *EcoEvoRxiv* as a preprint server. Unsurprisingly, countries in North America and Europe use preprints more exstensively. Countries in Africa, Central America and parts of Asia are still slow to use *EcoEvoRxiv* for their preprints (@fig-countries). Overall, 90% of the preprints come from `r nrow(most_use)-1` countries (@tbl-countries).
+
+```{r}
+#| label: tbl-countries
+#| tbl-cap: Countries with 90% of the preprints on EcoEvoRxiv.
+
+tbl_most <- most_use %>% filter(!is.na(valid_percent)) %>% mutate(Percentage = valid_percent*100) %>% select(country, Percentage)  %>% rename("Country" = country) 
+
+flextable(tbl_most) %>% bold(part = "header") %>% autofit()
 ```
