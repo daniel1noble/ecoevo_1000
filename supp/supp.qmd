@@ -3,14 +3,14 @@ title: "Supplementary Materials for: Empowering the use of community driven prep
 bibliography: ../bib/refs.bib
 csl: ../bib/nature.csl
 format:
+  html:
+    highlight: pygments
+    theme: solarized-light
   docx:
     reference-doc: ../bib/template.docx
   pdf:
     include-in-header: 
       text: '\usepackage{lineno}\linenumbers'
-  html:
-    highlight: pygments
-    theme: solarized-light
 editor_options: 
   chunk_output_type: console
 execute:
