@@ -4,8 +4,18 @@ bibliography: ../bib/refs.bib
 csl: ../bib/nature.csl
 format:
   html:
-    highlight: pygments
-    theme: solarized-light
+    toc: true
+    toc-location: left
+    toc-depth: 3
+    toc-title: "**Table of Contents**"
+    theme: simplex
+    embed-resources: true
+    code-fold: show
+    code-tools: true
+    number-sections: true
+    fontsize: "12"
+    max-width: "10"
+    code-overflow: wrap
   docx:
     reference-doc: ../bib/template.docx
   pdf:
@@ -147,7 +157,9 @@ ggplot(data, aes(x = `Published Date`)) +
 ```
 
 ## Publication time of preprints
-*EcoEvoRxiv* accepts postprints which means that, technically, a 'preprint' can be published before being lodged on the preprint server. It is difficult to know exactly what would be a postprint because authors may have had the acceptance and then put the paper online as a preprint while they waited for it to go online in a research journal. In many cases, identifying a postprint is straightforward. These are papers that have preprint publication dates that are later than the journal publication date. However, papers that were 'quick' to be accepted could also be postprints, as mentioned above. It seems highly unlikely for a paper to be accepted in a journal and online within a month after being submitted to *EcoEvoRxiv*. We therefore assume any preprint that was published within a month of being submitted is also likely a postprint. 
+*EcoEvoRxiv* accepts postprints which means that, technically, a 'preprint' can be published before being lodged on the preprint server. Identifying postprints can be challenging because meta-data does not exist to tag such preprints on *EcoEvoRxiv*. In addition, authors may have lodged a postprint while waiting for an accepted article to be published online for a given research journal. 
+
+In many cases, identifying a postprint is straightforward. These are papers that have preprint publication dates that are later than the journal publication date. However, papers that were 'quick' to be accepted could also be postprints, as mentioned above. It seems highly unlikely for a paper to be accepted in a journal and online within a month after being submitted to *EcoEvoRxiv*. We therefore assume that any preprint that was published within a month of being submitted is likely a postprint. 
 
 ```{r, fig-pubtime}
 #| label: fig-pubtime
@@ -215,7 +227,7 @@ replace = c("United States Of America" = "USA",  "United Kingdom" = "UK",  "Czec
 countries <- countries  %>% mutate(country = str_replace_all(country, replace))
 
 ggplot(countries) +
-  geom_map(aes(map_id = country, fill = valid_percent), map = world_map) +
+  geom_map(aes(map_id = country, fill = valid_percent*100), map = world_map) +
   geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'black', fill = NA) +
   expand_limits(x = world_map$long, y = world_map$lat) +
   theme_void() + expand_limits(x = world_map$long, y = world_map$lat) +
