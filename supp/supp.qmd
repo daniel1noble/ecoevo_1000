@@ -165,6 +165,10 @@ In many cases, identifying a postprint is straightforward. These are papers that
 #| label: fig-pubtime
 #| fig-cap: Time between submission and publication of preprints on *EcoEvoRxiv*. 'Preprints' that were published within a month of being submitted are considered postprints.
 
+# How many remain unpublished?
+unpub <- data2  %>% filter(is.na(publication_doi))  %>% nrow()
+
+# How many days between submission and publication
 preprints <- data2  %>% filter(time_between_preprint_and_pub_days >= 30)
 preprints %>% ggplot(aes(x = time_between_preprint_and_pub_days)) + geom_histogram(binwidth = 30) + labs(x = "Days", y = "Frequency") + theme_classic()
 
@@ -173,7 +177,7 @@ preprints %>% ggplot(aes(x = time_between_preprint_and_pub_days)) + geom_histogr
 sum_preprints <- preprints  %>% summarise(min = min(time_between_preprint_and_pub_days), max = max(time_between_preprint_and_pub_days), mean = mean(time_between_preprint_and_pub_days), median = median(time_between_preprint_and_pub_days), sd = sd(time_between_preprint_and_pub_days))
 ```
 
-Overall, the maximum time between submission and publication was `r sum_preprints$max` days (@fig-pubtime). The median time to publication was `r sum_preprints$median` days (mean = `r sum_preprints$mean`; SD = `r sum_preprints$sd` days).
+Overall, `r unpub` papers were unpublished out of the `r nrow(data2)` (`r (unpub / nrow(data2))*100`%). The maximum time between submission and publication was `r sum_preprints$max` days (@fig-pubtime). The median time to publication was `r sum_preprints$median` days (mean = `r sum_preprints$mean`; SD = `r sum_preprints$sd` days).
 
 
 ## Preprint open access status when published
