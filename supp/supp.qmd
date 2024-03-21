@@ -246,7 +246,7 @@ most_use <- countries[cumsum(countries$valid_percent) <= 0.90, ]
 
 ```
 
-A total of `r length(unique(countries$country))-1` countries have used *EcoEvoRxiv* as a preprint server. Unsurprisingly, countries in North America and Europe use preprints more exstensively. Countries in Africa, Central America and parts of Asia are still slow to use *EcoEvoRxiv* for their preprints (@fig-countries). Overall, 90% of the preprints come from `r nrow(most_use)-1` countries (@tbl-countries).
+A total of `r length(unique(countries$country))-1` countries have used *EcoEvoRxiv* as a preprint server. Unsurprisingly, countries in North America and Europe use preprints more exstensively. Countries in Africa, Central America and parts of Asia are still slow to use *EcoEvoRxiv* for their preprints (@fig-countries). Overall, 90% of the preprints come from just `r nrow(most_use)-1` countries (@tbl-countries).
 
 ```{r}
 #| label: tbl-countries
@@ -255,4 +255,28 @@ A total of `r length(unique(countries$country))-1` countries have used *EcoEvoRx
 tbl_most <- most_use %>% filter(!is.na(valid_percent)) %>% mutate(Percentage = valid_percent*100) %>% select(country, Percentage)  %>% rename("Country" = country) 
 
 flextable(tbl_most) %>% bold(part = "header") %>% autofit()
+```
+
+## Taxa studied in preprints
+
+```{r, taxa}
+cols <- c("plants", "algi", "fungi", "microorganisms", "invertebrates", "vertebrates")
+
+# Summary of the data
+sum_taxa <- data2  %>% select(all_of(cols))  %>% apply(., 2, sum, na.rm = TRUE)  %>% data.frame()   %>% rownames_to_column(var = "taxa")  %>% rename("n" = ".")
+
+blank_theme <- theme_minimal()+
+  theme(
+  axis.title.x = element_blank(),
+  axis.title.y = element_blank(),
+  panel.border = element_blank(),
+  panel.grid=element_blank(),
+  axis.ticks = element_blank(),
+  plot.title=element_text(size=14, face="bold")
+  )
+
+# Use data to create a pir chart and clean up colour palette
+
+pie <- sum_taxa  %>% ggplot(aes(x = "", y = n, fill = taxa)) + geom_bar(stat = "identity") + coord_polar("y", start=0) + blank_theme + labs(title = "Taxa studied in preprints") + theme(legend.position = "bottom")
+
 ```
