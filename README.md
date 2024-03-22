@@ -3,15 +3,15 @@
 The goal of this Hackathon is to quantify various attributes of first 1000 preprints to better understand preprint practices and publication pathways in Ecology and Evolution. There are currently well >1100 preprints on the new *EcoEvoRxiv*, which was established in 2018. 
 
 The aims of this project are to determine:
-1) how long it takes for a preprint to become published, and how many preprints remain unpublished; 
-2) what countries make use of preprints; 
-3) how career stage and gender impact preprint use; 
+1) how long it takes for a preprint to become published, and how many preprints remain unpublished; (complete)
+2) what countries make use of preprints; (complete)
+3) how career stage and gender impact preprint use;  (working on it)
 4) whether data and code are more likely to be shared in preprints; and 
-5) the extent to which authors make use of preprint servers for registered reports and community driven peer review (i.e., Peer Community In, PCI). 
+5) the extent to which authors make use of preprint servers for registered reports and community driven peer review (i.e., Peer Community In, PCI).  (complete, nearly no paper was PCI recommended.)
 6) citation rates of preprints and published articles. Possibly also looking at social media.
-7) how much community discussion occurs along side preprints.
+7) how much community discussion occurs along side preprints. (complete. Not worth doing as there are basically no discussions)
 8) versioning of preprints and whether titles change between preprint and published article.
-9) If a preprint in published, is the published version open access?
+9) If a preprint in published, is the published version open access? (complete)
 
 The details outlined in this README have been pre-registered on [OSF](https://doi.org/10.17605/OSF.IO/D7ZWS). We have also captured this pre-study research plan as a [release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0).
 
