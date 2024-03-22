@@ -43,7 +43,7 @@ crossref:
 
 # Load packages
 #install.packages("pacman")
-pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, ggthemes, mapproj)
+pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, ggthemes, mapproj, DemografixeR)
 
 # Set rounding options
 options(scipen = 1, digits = 2)
@@ -328,3 +328,16 @@ res <- summary(model)$coefficients
 We were interested in getting an understanding of whether career stage is related to preprint use. We used the first publication year of the submitting author as a proxy for career stage. We predicted that early career researchers would be more open to using preprints in Ecology and Evolution. 
 
 Interestingly, there was strong evidence that the number of preprints posted decreases with later career stages (negative binomial glm: year slope = `r res[2, "Estimate"]`, SE: `r res[2, "Std. Error"]`, *p* < 0.001, N = `r nrow(count_dat[complete.cases(count_dat),])`). The majority of preprints were submitted by authors who published their first paper in the last 10 years (@fig-career), with the median year of first publication of submitting authors being `r median(data2$submitting_author_first_publication_year, na.rm = TRUE)` (mean = `r round(mean(data2$submitting_author_first_publication_year, na.rm = TRUE),0)`; SD = `r sd(data2$submitting_author_first_publication_year, na.rm = TRUE)`).
+
+We cannot know gender of authors for certainty but we can use a data driven approach to suggest the probability a particular name is of a given gender (male or female). 
+
+
+```{r}
+
+# First need to get the authors first name
+data2 <- data2 %>% mutate(submitting_author_firstname = str_split(submitting_author, " ") %>% map_chr(1))
+# Now we can use the first name and the country (that's important) to get an idea of the persons gender. 
+genders <- genderize(data2$submitting_author_firstname, country_id = data2$submitting_author_country, simplify = FALSE)
+
+
+```
