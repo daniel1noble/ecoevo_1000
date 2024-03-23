@@ -235,7 +235,7 @@ ggplot(countries) +
   geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'black', fill = NA) +
   expand_limits(x = world_map$long, y = world_map$lat) +
   theme_void() + expand_limits(x = world_map$long, y = world_map$lat) +
-  coord_fixed() + labs(fill="%") + theme_map(base_size = 22) + coord_map("moll")
+  coord_fixed() + labs(fill="%") +  coord_map("moll")
 
 
   p1 <- countries  %>% ggplot(aes(map_id = country)) + geom_map(aes(fill = percent), map = map_data("world"), color = "black") + expand_limits(x = map_data("world")$long, y = map_data("world")$lat) + labs(fill = "Number of preprints", title = "Number of preprints by country") + theme_void() + theme(legend.position = "bottom")
@@ -335,6 +335,8 @@ Understanding gender publishing patterns is challenging. We cannot know the gend
 ```{r, fig-gender}
 #| label: fig-gender
 #| fig-cap: Number of preprints published by male and female submitting authors. 
+#| echo: false
+#| include: false
  
 # First need to get the authors first name
   data2 <- data2 %>% mutate(submitting_author_firstname = str_split(submitting_author, " ") %>% map_chr(1))
@@ -349,8 +351,8 @@ Understanding gender publishing patterns is challenging. We cannot know the gend
   data2 %>% filter(is.na(submitting_author_country_code))  %>% data.frame()
 
 # Now we can use the first name and the country (that's important) to get an idea of the persons gender. 
-  genders <- genderize(data2$submitting_author_firstname, country_id = data2$submitting_author_country_code, simplify = FALSE)
-  write.csv(genders, here("data", "gender_dat.csv"))
+  #genders <- genderize(data2$submitting_author_firstname, country_id = data2$submitting_author_country_code, simplify = FALSE)
+ # write.csv(genders, here("data", "gender_dat.csv"))
 
 ```
 
@@ -358,6 +360,8 @@ Understanding gender publishing patterns is challenging. We cannot know the gend
 ## Preprint citations versus published article citations
 
 ```{r, fig-citations} 
+#| label: fig-citations
+#| fig-cap: Number of citations to preprints and published articles that result from those preprints.
 
 # First, we need to extract the published articles, but we probably also need to remove postprints
   pubs <- data2  %>% filter(!is.na(time_between_preprint_and_pub_days) & !time_between_preprint_and_pub_days <30)
@@ -370,7 +374,6 @@ Understanding gender publishing patterns is challenging. We cannot know the gend
   geom_violinhalf(aes(fill = type), flip = 1) + geom_jitter(shape=16, position=position_jitter(0.01), alpha = 0.2) + geom_line(aes(group = preprint_id), alpha = 0.2, colour = "black") +
   labs(x = "Paper Status", y = "Number of citations (sqrt transformed)") +
   theme_bw() + theme(legend.position = "none")
-  cites
 
   hist <- ggplot(data_long_cites, aes(x = sqrt(citations), group = type, fill = type)) + geom_histogram() + theme_bw() + labs(x = "Number of citations (sqrt transformed)", y = "Frequency") + labs(fill = "Paper Status") + theme(legend.position = "inside")
 
@@ -395,19 +398,14 @@ Understanding gender publishing patterns is challenging. We cannot know the gend
 # Summary of frequency of papers in citation categories
 
   sum_cites2 <- data_long_cites  %>% tabyl(type, citations)
-
-
-
 ```
 
 Papers that are preprinted have been shown to receive more citations compared to those that are not preprinted in other research fields. Testing if this is true in Ecology and Evolution is challenging and not possible using observational data from *EcoEvoRxiv*. However, we can compare the number of citations to preprints and the published articles that result from those preprints to give a sense of how many citations preprints are expected to potentially accumulate and whether highly cited preprints go on to also be highly cited published research papers. 
 
 The vast majority of preprints were not cited before they became published (@fig-citations), with a total of `r sum_cites2[1,2]` papers receiving zero citations. The median number of citations to preprints were `r sum_cites[1,"median"]` (mean = `r round(sum_cites[1,"mean"], 1)`; SD = `r round(sum_cites[1,"sd"], 1)`), while the median number of citations to published articles was `r sum_cites[2,"median"]` (mean = `r round(sum_cites[2,"mean"], 1)`; SD = `r round(sum_cites[2,"sd"], 1)`). 
 
-Notably, published articles with zero citations dropped dramatically (`r sum_cites2[2,2]` papers; a `r 1 - (sum_cites2[2,2]/ sum_cites2[1,2])*100`% reduction) compared to preprints with zero citations, suggesting that once published, only `r sum_cites2[2,2]/ sum_cites2[1,2]*100`% had no citations. 
+Notably, published articles with zero citations dropped dramatically (`r sum_cites2[2,2]` papers; a `r (1 - (sum_cites2[2,2]/ sum_cites2[1,2]))*100`% reduction) compared to preprints with zero citations, suggesting that once published, only `r sum_cites2[2,2]/ sum_cites2[1,2]*100`% had no citations. 
 
-Interestingly, highly a cited preprint did not necessarily become a highly cited published article over time, although some of this descrepency is related to whether and how preprints and articles are merged (Spearman Rank Correlation: `r spear$estimate`, S = `r spear$statistic`, *p* = `r spear$p.value`; @fig-citations).
+Interestingly, a highly cited preprint did not necessarily become a highly cited published article over time, although some of this descrepency is related to whether and how preprints and articles are linked through crossref (Spearman Rank Correlation: `r spear$estimate`, S = `r spear$statistic`, *p* = `r spear$p.value`; @fig-citations).
 
-```{r}
-
-## References
+# References
