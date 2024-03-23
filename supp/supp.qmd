@@ -43,7 +43,7 @@ crossref:
 
 # Load packages
 #install.packages("pacman")
-pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, ggthemes, mapproj, DemografixeR, countrycode)
+pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, ggthemes, mapproj, DemografixeR, countrycode, see)
 
 # Set rounding options
 options(scipen = 1, digits = 2)
@@ -350,8 +350,26 @@ data2 %>% filter(is.na(submitting_author_country_code))  %>% data.frame()
 
 # Now we can use the first name and the country (that's important) to get an idea of the persons gender. 
 genders <- genderize(data2$submitting_author_firstname, country_id = data2$submitting_author_country_code, simplify = FALSE)
+write.csv(genders, here("data", "gender_dat.csv"))
+
+```
 
 
+## Preprint citations versus published article citations
+
+```{r, fig-citations} 
+
+# First, we need to extract the published articles
+pubs <- data2  %>% filter(!is.na(time_between_preprint_and_pub_days))
+
+# We will need to re-oragnise the dataframe in long format for analysis.
+data_long_cites <- pubs  %>% dplyr::select(preprint_id, preprint_doi, publication_date, time_between_preprint_and_pub_days, number_of_citations_preprint, number_of_citations_article)  %>% pivot_longer(cols = c(number_of_citations_preprint, number_of_citations_article), names_to = "type", values_to = "citations")  %>% mutate(type = ifelse(type == "number_of_citations_preprint", "Preprint", "Published Article"))
+
+# Now we can plot the data
+ggplot(data_long_cites, aes(x = type, y = sqrt(citations))) +
+  geom_violinhalf(aes(fill = type), flip = 1) + geom_jitter(shape=16, position=position_jitter(0.01), alpha = 0.2) + geom_line(aes(group = preprint_id), alpha = 0.2, colour = "black") +
+  labs(x = "Paper Status", y = "Number of citations (sqrt transformed)") +
+  theme_bw() + theme(legend.position = "none")
 ```
 
 ## References
