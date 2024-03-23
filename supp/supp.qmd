@@ -43,7 +43,7 @@ crossref:
 
 # Load packages
 #install.packages("pacman")
-pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, ggthemes, mapproj, DemografixeR, countrycode, see)
+pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot)
 
 # Set rounding options
 options(scipen = 1, digits = 2)
@@ -335,22 +335,22 @@ Understanding gender publishing patterns is challenging. We cannot know the gend
 ```{r, fig-gender}
 #| label: fig-gender
 #| fig-cap: Number of preprints published by male and female submitting authors. 
-#| 
+ 
 # First need to get the authors first name
-data2 <- data2 %>% mutate(submitting_author_firstname = str_split(submitting_author, " ") %>% map_chr(1))
+  data2 <- data2 %>% mutate(submitting_author_firstname = str_split(submitting_author, " ") %>% map_chr(1))
 
 # In order to localise by country we need to get the country code
-data2 <- data2 %>% mutate(submitting_author_country_code = countrycode(data2$submitting_author_country, origin = "country.name", destination = "iso2c"))
+  data2 <- data2 %>% mutate(submitting_author_country_code = countrycode(data2$submitting_author_country, origin = "country.name", destination = "iso2c"))
 
 # Lets have a quick look at whether these are 'correct'
-data2 %>% dplyr::select(submitting_author_country_code, submitting_author_country)  %>% distinct()
+  data2 %>% dplyr::select(submitting_author_country_code, submitting_author_country)  %>% distinct()
 
 # This looks good, but lets see which two are NA. These are in fact NA, even though they shouldn't really be as affliations are not listed on preprint. Even the published paper isn't clear. 
-data2 %>% filter(is.na(submitting_author_country_code))  %>% data.frame()
+  data2 %>% filter(is.na(submitting_author_country_code))  %>% data.frame()
 
 # Now we can use the first name and the country (that's important) to get an idea of the persons gender. 
-genders <- genderize(data2$submitting_author_firstname, country_id = data2$submitting_author_country_code, simplify = FALSE)
-write.csv(genders, here("data", "gender_dat.csv"))
+  genders <- genderize(data2$submitting_author_firstname, country_id = data2$submitting_author_country_code, simplify = FALSE)
+  write.csv(genders, here("data", "gender_dat.csv"))
 
 ```
 
@@ -359,17 +359,55 @@ write.csv(genders, here("data", "gender_dat.csv"))
 
 ```{r, fig-citations} 
 
-# First, we need to extract the published articles
-pubs <- data2  %>% filter(!is.na(time_between_preprint_and_pub_days))
+# First, we need to extract the published articles, but we probably also need to remove postprints
+  pubs <- data2  %>% filter(!is.na(time_between_preprint_and_pub_days) & !time_between_preprint_and_pub_days <30)
 
 # We will need to re-oragnise the dataframe in long format for analysis.
-data_long_cites <- pubs  %>% dplyr::select(preprint_id, preprint_doi, publication_date, time_between_preprint_and_pub_days, number_of_citations_preprint, number_of_citations_article)  %>% pivot_longer(cols = c(number_of_citations_preprint, number_of_citations_article), names_to = "type", values_to = "citations")  %>% mutate(type = ifelse(type == "number_of_citations_preprint", "Preprint", "Published Article"))
+  data_long_cites <- pubs  %>% dplyr::select(preprint_id, preprint_doi, publication_date, time_between_preprint_and_pub_days, number_of_citations_preprint, number_of_citations_article)  %>% pivot_longer(cols = c(number_of_citations_preprint, number_of_citations_article), names_to = "type", values_to = "citations")  %>% mutate(type = ifelse(type == "number_of_citations_preprint", "Preprint", "Published Article"))
 
 # Now we can plot the data
-ggplot(data_long_cites, aes(x = type, y = sqrt(citations))) +
+  cites <- ggplot(data_long_cites, aes(x = type, y = sqrt(citations))) +
   geom_violinhalf(aes(fill = type), flip = 1) + geom_jitter(shape=16, position=position_jitter(0.01), alpha = 0.2) + geom_line(aes(group = preprint_id), alpha = 0.2, colour = "black") +
   labs(x = "Paper Status", y = "Number of citations (sqrt transformed)") +
   theme_bw() + theme(legend.position = "none")
+  cites
+
+  hist <- ggplot(data_long_cites, aes(x = sqrt(citations), group = type, fill = type)) + geom_histogram() + theme_bw() + labs(x = "Number of citations (sqrt transformed)", y = "Frequency") + labs(fill = "Paper Status") + theme(legend.position = "inside")
+
+  plot.with.inset <-
+    ggdraw() +
+    draw_plot(cites) +
+    draw_plot(hist, x = 0.07, y = .55, width = .45, height = .4)
+  plot.with.inset
+
+  # Have a look at relationship between preprint citations and publication citations
+  complete_pub_data <- pubs  %>% filter(!is.na(number_of_citations_preprint))  %>% filter(!is.na(number_of_citations_article))
+  spear <- cor.test(complete_pub_data$number_of_citations_preprint, complete_pub_data$number_of_citations_article, method = "spearman")
+
+# Model with ZI NBinom. NOt really sure this is worth properly analysing because we can't really discern much. Yes, they are cited more, but that's not surprising. We really want to know if those that peprinted are more likely to be cited. We could try comparing to 'postprints' papers that were posted after being published, but this could be a very small biased sample of already high ipact papers or biased towards certain research groups. Probably just a descriptive anlaysis is all we really need. 
+ # model2 = glmmTMB(citations ~ type + time_between_preprint_and_pub_days + (1 | preprint_id), data = data_long_cites, 
+  #          family = nbinom2, zi = ~ 1)
+  #summary(model2)
+
+# Summary of the citation data. 
+  sum_cites <- data_long_cites  %>% group_by(type)  %>% summarise(mean = mean(citations, na.rm = TRUE), median = median(citations, na.rm = TRUE), sd = sd(citations, na.rm = TRUE), min = min(citations, na.rm = TRUE), max = max(citations, na.rm = TRUE))
+
+# Summary of frequency of papers in citation categories
+
+  sum_cites2 <- data_long_cites  %>% tabyl(type, citations)
+
+
+
 ```
+
+Papers that are preprinted have been shown to receive more citations compared to those that are not preprinted in other research fields. Testing if this is true in Ecology and Evolution is challenging and not possible using observational data from *EcoEvoRxiv*. However, we can compare the number of citations to preprints and the published articles that result from those preprints to give a sense of how many citations preprints are expected to potentially accumulate and whether highly cited preprints go on to also be highly cited published research papers. 
+
+The vast majority of preprints were not cited before they became published (@fig-citations), with a total of `r sum_cites2[1,2]` papers receiving zero citations. The median number of citations to preprints were `r sum_cites[1,"median"]` (mean = `r round(sum_cites[1,"mean"], 1)`; SD = `r round(sum_cites[1,"sd"], 1)`), while the median number of citations to published articles was `r sum_cites[2,"median"]` (mean = `r round(sum_cites[2,"mean"], 1)`; SD = `r round(sum_cites[2,"sd"], 1)`). 
+
+Notably, published articles with zero citations dropped dramatically (`r sum_cites2[2,2]` papers; a `r 1 - (sum_cites2[2,2]/ sum_cites2[1,2])*100`% reduction) compared to preprints with zero citations, suggesting that once published, only `r sum_cites2[2,2]/ sum_cites2[1,2]*100`% had no citations. 
+
+Interestingly, highly a cited preprint did not necessarily become a highly cited published article over time, although some of this descrepency is related to whether and how preprints and articles are merged (Spearman Rank Correlation: `r spear$estimate`, S = `r spear$statistic`, *p* = `r spear$p.value`; @fig-citations).
+
+```{r}
 
 ## References
