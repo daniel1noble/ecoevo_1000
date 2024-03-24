@@ -40,6 +40,8 @@ crossref:
 
 ```{r, setup}
 #| label: setup
+#| echo: false
+#| include: false
 
 # Load packages
 #install.packages("pacman")
