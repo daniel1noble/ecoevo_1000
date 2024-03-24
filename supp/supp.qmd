@@ -408,4 +408,47 @@ Notably, published articles with zero citations dropped dramatically (`r sum_cit
 
 Interestingly, a highly cited preprint did not necessarily become a highly cited published article over time, although some of this descrepency is related to whether and how preprints and articles are linked through crossref (Spearman Rank Correlation: `r spear$estimate`, S = `r spear$statistic`, *p* = `r spear$p.value`; @fig-citations).
 
+## Data and code sharing in preprints
+  
+```{r, fig-data}
+#| label: fig-data
+#| fig-cap: Percentage of preprints on *EcoEvoRxiv* that have data and code available.
+
+# Summary of the data
+  preprint_data <- data2  %>% tabyl(data_link_preprint_cleaned) 
+  preprint_code <- data2  %>% tabyl(code_link_preprint_cleaned) 
+  article_data <- data2  %>% tabyl(data_link_article_cleaned) 
+  article_code <- data2  %>% tabyl(code_link_article_cleaned) 
+
+# Check if it was shared not in preprint but then in article
+  pre_article_data <- data2   %>%  filter(!data_link_preprint_cleaned == "not applicable") %>% mutate(data_shared = ifelse(data_link_preprint_cleaned == "no" & data_link_article_cleaned == "yes", "yes", ifelse(code_link_preprint_cleaned == "yes" & code_link_article_cleaned == "yes", "always", "no")))  %>% tabyl(data_shared)
+  pre_article_code <- data2  %>%  filter(!data_link_preprint_cleaned == "not applicable") %>% mutate(code_shared = ifelse(code_link_preprint_cleaned == "no" & code_link_article_cleaned == "yes", "yes", ifelse(code_link_preprint_cleaned == "yes" & code_link_article_cleaned == "yes", "always", "no")))  %>% tabyl(code_shared)
+
+```
+
+Data and code sharing is a key component of open science. Despite this, we found that `r preprint_data[1,2]` (`r preprint_data[1,"percent"]*100`%) of relevant preprints on *EcoEvoRxiv* (i.e., only where data was generated) did not share data, while `r preprint_code[1,2]` (`r preprint_code[1,"percent"]*100`%) did not share code. 
+
+Authors may be reluctant to share data in code for preprints because of the perceived concern that others may acquire and use such data and code without authors' consent. However, while we found that `r pre_article_data[3,2]` (`r pre_article_data[3,"percent"]*100`%) of preprints that did not share data at the preprint stage did in the published article, there were still `r pre_article_data[2,2]` (`r pre_article_data[2,"percent"]*100`%) that never ended up sharing data. The same was true for code. Overall, while `r pre_article_code[3,2]` (`r pre_article_code[3,"percent"]*100`%) of preprints that did not share code at the preprint stage did in the published article, there were still `r pre_article_code[2,2]` (`r pre_article_code[2,"percent"]*100`%) that never ended up sharing code.
+
+## Peer Community In recommendations
+
+
+```{r, fig-pci}
+#| label: fig-pci
+#| fig-cap: Number of preprints on *EcoEvoRxiv* that have been recommended by Peer Community In.
+
+# How many articles were PCI recomended
+  pci <- data2  %>% tabyl(pci_recommendation_preprint)  
+```
+
+Out of the `r nrow(data2)` preprints, only `r pci[2,2]` (`r pci[2,3]*100`%) used Peer Community In as a preprint peer-review service. 
+
+## Title changes between preprint and published article
+
+```{r, fig-title} 
+titles <- data2 %>%  filter(!is.na(publication_doi)) %>% tabyl(publication_title_changed)
+```
+
+It was reasonably common for titles of preprints to change between the preprint and the published article (`r titles[2,2]` or `r titles[2,3]*100`%). This was a major contributer to preprints and published articles not being matched in Google Scholar as they were not picked up by crossref linking services. As such, we would recomend that authors make sure that, when preprints end up getting pusblished, that they update preprints with the publication DOI when it's available. This is quite easy for authors to do in *EcoEvoRxiv* and it will ensure that the preprint is linked to the published article and the citations are merged and the published paper is ultimately open access, allowing authors to save open access fees. 
+
 # References
