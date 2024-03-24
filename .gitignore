@@ -72,3 +72,15 @@ supp/supp_files/libs/quarto-html/quarto-syntax-highlighting.css
 supp/supp_files/libs/quarto-html/quarto.js
 supp/supp_files/libs/quarto-html/tippy.css
 supp/supp_files/libs/quarto-html/tippy.umd.min.js
+README.html
+README_files/libs/bootstrap/bootstrap-icons.css
+README_files/libs/bootstrap/bootstrap-icons.woff
+README_files/libs/bootstrap/bootstrap.min.css
+README_files/libs/bootstrap/bootstrap.min.js
+README_files/libs/clipboard/clipboard.min.js
+README_files/libs/quarto-html/anchor.min.js
+README_files/libs/quarto-html/popper.min.js
+README_files/libs/quarto-html/quarto-syntax-highlighting.css
+README_files/libs/quarto-html/quarto.js
+README_files/libs/quarto-html/tippy.css
+README_files/libs/quarto-html/tippy.umd.min.js
