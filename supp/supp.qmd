@@ -45,7 +45,7 @@ crossref:
 
 # Load packages
 #install.packages("pacman")
-pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot)
+pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, genderdata, gender, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot)
 
 # Set rounding options
 options(scipen = 1, digits = 2)
@@ -358,11 +358,7 @@ Understanding gender publishing patterns is challenging. We cannot know the gend
  # write.csv(genders, here("data", "gender_dat.csv"))
 
  ##### ADDED BY ML"  
-install.packages("gender")
-install.packages("genderdata")
-library(gender)
-
-## testing - delete thi later
+## testing - delhi later
 #gender(c("Madison", "Hillary"), years = 2000, method = "ssa")
 #gender(c("Madison", "Hillary"), method = "genderize") #works ok until limit of 100 is reached
 #gender(data3$submitting_author_firstname, method = "genderize") #works ok until limit of 100 is reached
@@ -400,9 +396,9 @@ table(data3$proportion_male > 0.05 & data3$proportion_male < 0.95) #84 names bit
 #transliterate the non-ASCII characters using stringi package, e.g.: #stri_trans_general("Zażółć gęślą jaźń", "Latin-ASCII")
 data3$submitting_author_ASCII <- stringi::stri_trans_general(data3$submitting_author, "Latin-ASCII")
 
-data3 %>% 
-  filter(is.na(data3$proportion_male) == TRUE | (proportion_male > 0.05 & proportion_male < 0.95)) %>% dplyr::select(submitting_author_ASCII, submitting_author, submitting_author_country, preprint_title, gender) %>% 
-  write.csv(file = here("data", "final_data3_fillin.csv")) #used to manually check and fill in gender data - then saved as final_data3_fillin_ML.csv
+#data3 %>% 
+  #filter(is.na(data3$proportion_male) == TRUE | (proportion_male > 0.05 & proportion_male < 0.95)) %>% dplyr::select(submitting_author_ASCII, submitting_author, submitting_author_country, preprint_title, gender) %>% 
+ # write.csv(file = here("data", "final_data3_fillin.csv")) #used to manually check and fill in gender data - then saved as final_data3_fillin_ML.csv
 
 # Load updated data	subset
 data3_update <- read_csv(here("data", "final_data3_fillin_ML.csv"))
