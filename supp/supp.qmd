@@ -331,10 +331,6 @@ We were interested in getting an understanding of whether career stage is relate
 
 Interestingly, there was strong evidence that the number of preprints posted decreases with later career stages (negative binomial glm: year slope = `r res[2, "Estimate"]`, SE: `r res[2, "Std. Error"]`, *p* < 0.001, N = `r nrow(count_dat[complete.cases(count_dat),])`). The majority of preprints were submitted by authors who published their first paper in the last 10 years (@fig-career), with the median year of first publication of submitting authors being `r median(data2$submitting_author_first_publication_year, na.rm = TRUE)` (mean = `r round(mean(data2$submitting_author_first_publication_year, na.rm = TRUE),0)`; SD = `r sd(data2$submitting_author_first_publication_year, na.rm = TRUE)`).
 
-Gender differences in preprint use have been established in a number of other research fields. It is hypothsised that such differences are driven by the larger childcare burden of female researchers, which limit their abilities to publish as frequently as their male counterparts [@ucar2022mind; @wehner2020comparison]. Recent work has shown that COVID-19 exacerbated gender disparities in preprint publishing given the increased childcare burden during the pandemic associated with lockdowns and home schooling [@wehner2020comparison]. 
-
-Understanding gender publishing patterns is challenging. We cannot know the gender of authors for certainty but we can use a data driven approach to suggest the probability that a particular name is of a given gender (male or female). We used the R package *DemografixeR* (vers. `r utils::packageVersion("DemografixeR")`; @RJ-2016-002) to predict the most likely gender of the submitting author of a preprint. We incorperated information about the submitting authors country of affiliation to better account for differences across countries in naming. 
-
 ```{r, fig-gender}
 #| label: fig-gender
 #| fig-cap: Number of preprints published by male and female submitting authors. 
@@ -375,7 +371,7 @@ dim(data_genders) #514 assigned
 
 # Merge with main data frame
 #unique(data_genders$name)
-data_genders <- rename(data_genders, submitting_author_firstname = name)
+#data_genders <- rename(data_genders, submitting_author_firstname = name)
 data3 <- left_join(data2, data_genders, by = c("submitting_author_firstname"))
 #names(data3)
 table(is.na(data3$proportion_male)) #157 missing
@@ -412,8 +408,16 @@ data4$gender.x[is.na(data4$gender.x)] <- data4$gender.y[is.na(data4$gender.x)] #
 data4 <- rename(data4, gender = gender.x)
 table(data4$gender, useNA = "always") #more males than females, two NA ue to missing first name / collective authorship
 
+# Plot the data
+data4 %>% filter(!is.na(gender))  %>% ggplot2::ggplot(aes(x = gender)) + geom_bar()
+
 ```
 
+Gender differences in preprint use have been established in a number of other research fields. It is hypothsised that such differences are driven by the larger childcare burden of female researchers, which limit their abilities to publish as frequently as their male counterparts [@ucar2022mind; @wehner2020comparison]. Recent work has shown that COVID-19 exacerbated gender disparities in preprint publishing given the increased childcare burden during the pandemic associated with lockdowns and home schooling [@wehner2020comparison]. 
+
+Understanding gender publishing patterns is challenging. We cannot know the gender of authors for certainty but we can use a data driven approach to suggest the probability that a particular name is of a given gender (male or female). We used the R package *DemografixeR* (vers. `r utils::packageVersion("DemografixeR")`; @RJ-2016-002) to predict the most likely gender of the submitting author of a preprint. We incorperated information about the submitting authors country of affiliation to better account for differences across countries in naming. 
+
+Overall, females were less likely to publish preprints on *EcoEvoRxiv* compared to males (females: `r (table(data4$gender)[1] / sum(table(data4$gender))*100)`% compared to males: `r (table(data4$gender)[2] / sum(table(data4$gender))*100)`%), which is likely a reflection of the broader publishing disparities between male and feamle scientists. 
 
 ## Preprint citations versus published article citations
 
