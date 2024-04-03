@@ -30,7 +30,7 @@ crossref:
 
 # Load packages
 #install.packages("pacman")
-pacman::p_load(tidyverse, here, patchwork, readxl)
+pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, genderdata, gender, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot)
 
 # Load in the data
   data <- read_xlsx(here("data", "20231003_EER_preprints_metadata.xlsx"))
@@ -62,6 +62,28 @@ pacman::p_load(tidyverse, here, patchwork, readxl)
 # Dates preprints were published, range and graph
   dates <- range(data$`Published Date`)
 
+# Delegate details
+  delegates <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Delegate Details") 
+
+  del_details <- delegates  %>% rename("attend" = "Attended hackathon (yes/no)") %>%
+			mutate(attend = str_to_title(attend))  %>% tabyl(attend)
+
+# Master preprint list
+  master_list <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Master List of Preprints") %>% clean_names()
+
+# Check allocation of papers
+		contr_extract <- master_list  %>%  tabyl(extractor_full_name)
+
+	# Check how many each person has done relative to their total
+		contr_extract2 <- master_list %>% group_by(extractor_full_name) %>% summarise(n = n(), yes = sum(completed_yes_no_extractor == "Yes"), no = sum(completed_yes_no_extractor == "No"), prop = yes/n)  %>% data.frame()  %>% arrange(n)
+
+# raw data. For analysis
+	data_coll <- read_sheet("https://docs.google.com/spreadsheets/d/1032gLryvtCNJ7eJjKBjrn7txxDRUGql9SoIG18QnFrQ/edit?resourcekey#gid=1062856014")
+
+# Final Processed data
+  data2 <- read_csv(here("data", "final_data2.csv"))
+
+
 ```
 
 Authors: Daniel W.A. Noble, Malgorzata Lagisz, Hackathon Participants, Shinichi Nakagawa
@@ -74,12 +96,12 @@ Preprints attempt to break down barriers to scientific publishing by: 1) increas
 
 Preprint servers, such as *EcoEvoRxiv*, can empower researchers to make their findings more accessible, open and transparent but only if they are used well. Significant barriers to preprint use still exist globally – from lack of clarity around preprint policies at journals [@Klebel2020] to a stigma that preprints are viewed by a research community to be of poor quality [@Chiarelli2019] (but see [@Faser2022]). Nonetheless, we lack a systematic understanding of the factors that influence preprint use in ecology and evolution which can help inform future initiatives and allow us to begin to break down barriers to their use in our field. 
 
-Here, we explore the first preprints uploaded to *EcoEvoRxiv* to understand preprint practices and use in our field, focusing our attention on understanding: 1) how long it takes for a preprint to become published, and how many preprints remain unpublished; 2) what countries make use of preprints; 3) how career stage and gender impact preprint use; 4) whether data and code are more likely to be shared in preprints; and 5) the extent to which authors make use of preprint servers for registered reports and community driven peer review. 
+Here, we explore the first preprints uploaded to *EcoEvoRxiv*, one of the few community run preprint servers, to understand preprint practices and use in our field, focusing our attention on understanding: 1) how long it takes for a preprint to become published, and how many preprints remain unpublished; 2) what countries make use of preprints; 3) how career stage and gender impact preprint use; 4) whether data and code are more likely to be shared in preprints; and 5) the extent to which authors make use of preprint servers for registered reports and community driven peer review. 
 
-We downloaded metadata on the preprints available on *EcoEvoRxiv* (as of the `r gsub("UTC", "", dates[2])`). After removing `r dim(dupl)[1]` duplicate titles – suggesting a few authors created multiple submissons for the same preprint rather than updating an existing submission – we had data for a total of `r pr` preprints with ~55-60 preprints published each month in the last two years (@fig-figdates).
+We downloaded metadata on the preprints available on *EcoEvoRxiv* (as of the `r gsub("UTC", "", dates[2])`). After removing `r dim(dupl)[1]` duplicate titles – suggesting a few authors created multiple submissons for the same preprint rather than updating an existing submission – we had data for a total of `r pr` preprints with ~55-60 preprints published each month in the last two years (@fig-summary).
 
-```{r, figdates}
-#| label: fig-figdates
+```{r, fig-summary}
+#| label: fig-summary
 #| fig-cap: Number of preprints published monthly to *EcoEvoRxiv* between 2018 and 2023.
 
 ggplot(data, aes(x = `Published Date`)) +
