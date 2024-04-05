@@ -171,7 +171,7 @@ In many cases, identifying a postprint is straightforward. These are papers that
 unpub <- data2  %>% filter(is.na(publication_doi))  %>% nrow()
 
 # How many days between submission and publication
-preprints <- data2  %>% filter(time_between_preprint_and_pub_days >= 30)
+preprints <- data2  %>% filter(time_between_preprint_and_pub_days >= 60)
 preprints %>% ggplot(aes(x = time_between_preprint_and_pub_days)) + geom_histogram(binwidth = 30) + labs(x = "Days", y = "Frequency") + theme_classic()
 
 # Summary of the data

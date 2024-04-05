@@ -28,6 +28,9 @@ crossref:
 ```{r, setup}
 #| label: setup
 
+# Set rounding options
+options(scipen = 1, digits = 2)
+
 # Load packages
 #install.packages("pacman")
 pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, genderdata, gender, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot)
@@ -83,7 +86,6 @@ pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor,
 # Final Processed data
   data2 <- read_csv(here("data", "final_data2.csv"))
 
-
 ```
 
 Authors: Daniel W.A. Noble, Malgorzata Lagisz, Hackathon Participants, Shinichi Nakagawa
@@ -98,19 +100,50 @@ Preprint servers, such as *EcoEvoRxiv*, can empower researchers to make their fi
 
 Here, we explore the first preprints uploaded to *EcoEvoRxiv*, one of the few community run preprint servers, to understand preprint practices and use in our field, focusing our attention on understanding: 1) how long it takes for a preprint to become published, and how many preprints remain unpublished; 2) what countries make use of preprints; 3) how career stage and gender impact preprint use; 4) whether data and code are more likely to be shared in preprints; and 5) the extent to which authors make use of preprint servers for registered reports and community driven peer review. 
 
-We downloaded metadata on the preprints available on *EcoEvoRxiv* (as of the `r gsub("UTC", "", dates[2])`). After removing `r dim(dupl)[1]` duplicate titles – suggesting a few authors created multiple submissons for the same preprint rather than updating an existing submission – we had data for a total of `r pr` preprints with ~55-60 preprints published each month in the last two years (@fig-summary).
 
 ```{r, fig-summary}
 #| label: fig-summary
-#| fig-cap: Number of preprints published monthly to *EcoEvoRxiv* between 2018 and 2023.
+#| fig-cap: Summary of preprints on *EcoEvoRxiv*. A) Number of preprints published monthly to *EcoEvoRxiv* between 2018 and 2023; 
 
-ggplot(data, aes(x = `Published Date`)) +
+##---------------------##
+# Preprints over time
+##---------------------##
+
+p1 <- ggplot(data, aes(x = `Published Date`)) +
   geom_histogram(fill = "grey", color = "black") +
   labs(x = "Published Date", y = "Number of preprints") +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+
 ```
+
+We downloaded metadata on the preprints available on *EcoEvoRxiv* (as of the `r gsub("UTC", "", dates[2])`). After removing `r dim(dupl)[1]` duplicate titles – suggesting a few authors created multiple submissons for the same preprint rather than updating an existing submission – we had data for a total of `r pr` preprints with ~55-60 preprints published each month in the last two years ([@fig-summary]A). 
+
+
+```{r, fig-pubsummary}
+#| label: fig-pubsummary
+#| fig-cap: Summary of the publication status of preprints on *EcoEvoRxiv*.  B) Time between submission and publication of preprints on *EcoEvoRxiv*. 'Preprints' that were published within 2 months (60 days) of being submitted are considered postprints.
+
+##---------------------##
+# Publication times
+##---------------------##
+
+# How many remain unpublished?
+unpub <- data2  %>% filter(is.na(publication_doi))  %>% nrow()
+
+# How many days between submission and publication
+preprints <- data2  %>% filter(time_between_preprint_and_pub_days >= 60)
+
+p2 <- preprints %>% ggplot(aes(x = time_between_preprint_and_pub_days)) + geom_histogram(binwidth = 30) + labs(x = "Days", y = "Frequency") + theme_classic()
+
+# Summary of the data
+# what is the range
+sum_preprints <- preprints  %>% summarise(min = min(time_between_preprint_and_pub_days), max = max(time_between_preprint_and_pub_days), mean = mean(time_between_preprint_and_pub_days), median = median(time_between_preprint_and_pub_days), sd = sd(time_between_preprint_and_pub_days))
+
+```
+
+In total, `r unpub` papers were unpublished out of the `r nrow(data2)` (`r (unpub / nrow(data2))*100`%). The maximum time between submission and publication was `r sum_preprints$max` days (@fig-pubsummary A). The median time to publication was `r sum_preprints$median` days (mean = `r sum_preprints$mean`; SD = `r sum_preprints$sd` days).
 
 - figure timeline of EcoEvoRxiv, aims and future and current developments infographics mixed with the data.
 - think about your preprint as workflow, continually evolving paper with support of the community. 
