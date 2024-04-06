@@ -88,7 +88,7 @@ pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor,
 
 ```
 
-Authors: Daniel W.A. Noble, Malgorzata Lagisz, Hackathon Participants, Shinichi Nakagawa
+Authors: Daniel W.A. Noble, Shinichi Nakagawa, Hackathon Participants, Malgorzata Lagisz
 
 # Introduction
 
@@ -96,14 +96,14 @@ Publishing preprints -- papers communicating non-peer-reviewed research findings
 
 Preprints attempt to break down barriers to scientific publishing by: 1) increasing the speed, visibility and output of research findings; 2) encouraging constructive and critical feedback from a research community; 3) helping establish precedence of research findings; and 4) removing financial barriers to publication [e.g., @Proulx2013]. *EcoEvoRxiv* is a community driven preprint server that has paved the way for new initiatives, including accepting multilingual preprints, recognising and accepting registered reports and non-traditional research reports, and promoting peer review and community discussion to improve the quality of preprints and speed up their peer-reviewed publication (e.g., Peer Community In -- PCI). 
 
-Preprint servers, such as *EcoEvoRxiv*, can empower researchers to make their findings more accessible, open and transparent but only if they are used well. Significant barriers to preprint use still exist globally – from lack of clarity around preprint policies at journals [@Klebel2020] to a stigma that preprints are viewed by a research community to be of poor quality [@Chiarelli2019] (but see [@Faser2022]). Nonetheless, we lack a systematic understanding of the factors that influence preprint use in ecology and evolution which can help inform future initiatives and allow us to begin to break down barriers to their use in our field. 
+Preprint servers, such as *EcoEvoRxiv*, can empower researchers to make their findings more accessible, open and transparent but only if they are used well and initiatives are widely known. Significant barriers to preprint use still exist globally – from lack of clarity around preprint policies at journals [@Klebel2020] to a stigma that preprints are viewed by a research community to be of poor quality [@Chiarelli2019] (but see [@Faser2022]). Nonetheless, we lack a systematic understanding of the factors that influence preprint use in ecology and evolution which can help inform future initiatives and allow us to begin to break down barriers to their use in our field. 
 
-Here, we explore the first preprints uploaded to *EcoEvoRxiv*, one of the few community run preprint servers, to understand preprint practices and use in our field, focusing our attention on understanding: 1) how long it takes for a preprint to become published, and how many preprints remain unpublished; 2) what countries make use of preprints; 3) how career stage and gender impact preprint use; 4) whether data and code are more likely to be shared in preprints; and 5) the extent to which authors make use of preprint servers for registered reports and community driven peer review. 
+Here, we explore the first preprints uploaded to *EcoEvoRxiv*, one of the few community run preprint servers, to understand preprint practices and use in our field, focusing our attention on understanding: 1) how long it takes for a preprint to become published, and how many preprints remain unpublished; 2) what countries make use of preprints; 3) how career stage and gender impact preprint use; 4) whether data and code are more likely to be shared in preprints; and 5) the extent to which authors make use of preprint servers for registered reports and community driven peer review. In the process, we also provide a summary of what makes *EcoEvoRxiv* distinct from other servers which we think will help further educate researchers globally of the benefits of using community driven preprint servers to post their research findings.
 
 
 ```{r, fig-summary}
 #| label: fig-summary
-#| fig-cap: Summary of preprints on *EcoEvoRxiv*. A) Number of preprints published monthly to *EcoEvoRxiv* between 2018 and 2023; 
+#| fig-cap: Summary of articles posted to *EcoEvoRxiv*. A) Number of preprints published monthly to *EcoEvoRxiv* between 2018 and 2023; B) Countries that are posting artciles (preprpints and postprints) to *EcoEvoRxiv*; C) Taxa used / covered in the articles posted to *EcoEvoRxiv*; D) *EcoEvoRxiv* is a community-based preprint/postprint server and accepts a greater diversity of article types. The impetus behind greater inclusion is to help ensure non-typical publication types (e.g., government reports) are openly accessible. 
 
   # Subset the preprints
   preprints <- data2  %>% filter(time_between_preprint_and_pub_days >= 60)
@@ -113,10 +113,10 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv*, one of the few co
 ##---------------------##
 
   p1 <- ggplot(data2, aes(x = preprint_published_date)) +
-    geom_histogram(fill = "grey", color = "black") +
+    geom_histogram(fill = "black", color = "black") +
     labs(x = "Published Date", y = "Number of Papers") +
     theme_bw() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin")
 
 ##---------------------##
 # Countries using EcoEvoRxiv
@@ -142,7 +142,7 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv*, one of the few co
     geom_map(aes(map_id = country, fill = valid_percent_dis), map = world_map) +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'black', fill = NA) +
     expand_limits(x = world_map$long, y = world_map$lat) +
-    theme_void() + expand_limits(x = world_map$long, y = world_map$lat) + scale_fill_viridis(discrete = TRUE) + coord_fixed() + labs(fill="%") +  coord_map("moll")
+    theme_void() + expand_limits(x = world_map$long, y = world_map$lat) + scale_fill_viridis(discrete = TRUE) + coord_fixed() + labs(fill="Precentage (%) of Total") +  coord_map("moll") + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin")
 
   # Find the countries with 90% of the preprints
 
@@ -165,7 +165,7 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv*, one of the few co
             show.legend = FALSE) +
     scale_fill_viridis_d() +
     coord_polar(theta = "y") + 
-    theme_void() + labs(fill = "Taxa")
+    theme_void() + labs(fill = "Taxa") + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin")
 
 ##---------------------##
 # Types pf preprints
@@ -180,7 +180,7 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv*, one of the few co
             show.legend = FALSE) +
     scale_fill_viridis_d() +
     coord_polar(theta = "y") + 
-    theme_void() + labs(fill = "Article Type")
+    theme_void() + labs(fill = "Article Type") + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin")
 
 
 ## Final plot. World map in the middle with others around
@@ -194,13 +194,17 @@ CCCDDD
 CCCDDD 
 "
 
-p_summary <- p1+p2+p3+p4 + plot_layout(design = layout)+ plot_annotation(tag_levels = 'A', tag_suffix=")", theme = theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin"))
+p_summary <- p1+p2+p3+p4 + plot_layout(design = layout)+ plot_annotation(tag_levels = 'A', tag_suffix=")")
+ggsave(p_summary, filename = here("output", "figs", "summary.png"), width = 10.6, height = 9.7) 
 
+p_summary
 ```
 
-We downloaded metadata on the preprints available on *EcoEvoRxiv* (as of the `r gsub("UTC", "", dates[2])`). After removing `r dim(dupl)[1]` duplicate titles – suggesting a few authors created multiple submissons for the same preprint rather than updating an existing submission – we had data for a total of `r pr` preprints with ~55-60 preprints published each month in the last two years ([@fig-summary]A). Preprints were published on all major taxomic groups, with the most common being plants (`r sum_taxa$perc[1]`%), vertebrates (`r sum_taxa$perc[6]`%), and invertebrates (`r sum_taxa$perc[5]`%) ([@fig-summary]). A total of `r length(unique(countries$country))-1` countries have used *EcoEvoRxiv* as a preprint server. Unsurprisingly, countries in North America and Europe use preprints more exstensively. Countries in Africa, Central America and parts of Asia are still slow to use *EcoEvoRxiv* for their preprints ([@fig-summary]). Overall, 90% of the preprints come from just `r nrow(most_use)-1` countries ([@fig-summary]). 
+We downloaded metadata on the articles available on *EcoEvoRxiv* (as of the `r gsub("UTC", "", dates[2])`).  *EcoEvoRxiv* accepts both preprints and postprints. Postprints are articles that are already published but are the final version of the published paper before typesetting for the research journal. Postprints are a useful way to ensure published articles are openly accessible and can be posted anytime after publication. For the purpose of summarising articles on *EcoEvoRxiv* we include these in our analysis. 
 
-Given that *EcoEvoRxiv* is a community driven preprint server it has managed to diversify the types of artciles accepted, including reports and books that are not easily accessible but may contain important data of relevance to research syntheses. Preprints on *EcoEvoRxiv* were diverse in nature, with research articles (`r sum_types[sum_types$type == "research article",]$perc`%) being the most common, followed by reviews and meta-analyses (`r sum_types[sum_types$type == "reviews and meta-analyses",]$perc`%) and opinion papers (`r sum_types[sum_types$type == "opinion",]$perc`%) ([@fig-summary]).
+After removing `r dim(dupl)[1]` duplicate titles – suggesting a few authors created multiple submissons for the same preprint rather than updating an existing submission – we had data for a total of `r pr` articles with ~55-60 preprints published each month in the last two years ([@fig-summary]A). Articles covered all major taxomic groups, with the most common being plants (`r sum_taxa$perc[1]`%), vertebrates (`r sum_taxa$perc[6]`%), and invertebrates (`r sum_taxa$perc[5]`%) ([@fig-summary]). A total of `r length(unique(countries$country))-1` countries have used *EcoEvoRxiv* as a preprint server. Unsurprisingly, countries in North America and Europe use articles more exstensively. Countries in Africa, Central America and parts of Asia are still slow to use *EcoEvoRxiv* ([@fig-summary]). Overall, 90% of the articles come from just `r nrow(most_use)-1` countries ([@fig-summary]). 
+
+Given that *EcoEvoRxiv* is a community driven preprint server it has managed to diversify the types of articles accepted, including reports and books that are not easily accessible but may contain important data of relevance to research syntheses. Accepting a greater diversity of artciles types allows *EcoEvoRxiv* to begin dealing with the challenges of including 'grey literature'. As a result, articles on *EcoEvoRxiv* were diverse in nature, with research articles (`r sum_types[sum_types$type == "research article",]$perc`%) being the most common, followed by reviews and meta-analyses (`r sum_types[sum_types$type == "reviews and meta-analyses",]$perc`%) and opinion papers (`r sum_types[sum_types$type == "opinion",]$perc`%) ([@fig-summary]). Reports, parcticularly from government and industry research areas, are not yet common on *EcoEvoRxiv*, and we would encourage authors to consider posting these types of articles to ensure they are openly accessible. *EcoEvoRxiv* has already formed fruitful connections with the International Union for Conservation of Nature (IUCN) to be a place where their reports can be lodged to make them more easily accessible to the broader research community. For example, IUCN Red Ecosystem Reports will be lodged on *EcoEvoRxiv* .
 
 
 ```{r, fig-pubsummary}
