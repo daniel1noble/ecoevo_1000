@@ -105,20 +105,102 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv*, one of the few co
 #| label: fig-summary
 #| fig-cap: Summary of preprints on *EcoEvoRxiv*. A) Number of preprints published monthly to *EcoEvoRxiv* between 2018 and 2023; 
 
+  # Subset the preprints
+  preprints <- data2  %>% filter(time_between_preprint_and_pub_days >= 60)
+
 ##---------------------##
-# Preprints over time
+# Articles on EcoEvoRxiv over time
 ##---------------------##
 
-p1 <- ggplot(data, aes(x = `Published Date`)) +
-  geom_histogram(fill = "grey", color = "black") +
-  labs(x = "Published Date", y = "Number of preprints") +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  p1 <- ggplot(data2, aes(x = preprint_published_date)) +
+    geom_histogram(fill = "grey", color = "black") +
+    labs(x = "Published Date", y = "Number of Papers") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+##---------------------##
+# Countries using EcoEvoRxiv
+##---------------------##
+  # Create a global map with countried highlighted and shaded according to the frequency of preprints from that country
+  # First, we need to get the country names and the number of preprints from each country
+    countries <- data2  %>% tabyl(submitting_author_country)  %>% rename("country" = submitting_author_country, "n" = n)  %>% mutate(country = ifelse(country == "NA", "Unknown", country))  %>% arrange(desc(n))  %>% mutate(country=str_to_title(country))
+
+  # Now we can plot the map, but before we do we need to make sure the names in the countries file match those in the region of the world map
+    world_map <- map_data(map = "world") %>% 
+    filter(! long > 180)
+
+  # List unique countries
+    maps_country_name <- unique(world_map$region) # Names of regions in maps
+    #countries[!countries$country %in% maps_country_name,] # Names of countries in our data that are not in the maps data, we need to fix these in countries
+
+  # Fix names in countries
+      replace <- c("United States Of America" = "USA",  "United Kingdom" = "UK",  "Czechia" = "Czech Republic") 
+    countries <- countries  %>% mutate(country = str_replace_all(country, replace))  %>% filter(!is.na(valid_percent ))  %>% mutate(valid_percent_dis = factor(round(valid_percent, 3)*100, ordered = TRUE))  
+
+   
+  p2 <- ggplot(countries) +
+    geom_map(aes(map_id = country, fill = valid_percent_dis), map = world_map) +
+    geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'black', fill = NA) +
+    expand_limits(x = world_map$long, y = world_map$lat) +
+    theme_void() + expand_limits(x = world_map$long, y = world_map$lat) + scale_fill_viridis(discrete = TRUE) + coord_fixed() + labs(fill="%") +  coord_map("moll")
+
+  # Find the countries with 90% of the preprints
+
+  most_use <- countries[cumsum(countries$valid_percent) <= 0.90, ]
+
+##---------------------##
+# Taxa
+##---------------------##
+  cols <- c("plants", "algi", "fungi", "microorganisms", "invertebrates", "vertebrates")
+
+  # Summary of the data
+  sum_taxa <- data2  %>% dplyr::select(all_of(cols))  %>% apply(., 2, sum, na.rm = TRUE)  %>% data.frame()   %>% rownames_to_column(var = "taxa")  %>% rename("n" = ".")  %>% mutate(perc = n/sum(n)*100, labels = paste0(round(perc, 1), "%"))
+
+  # Use data to create a pir chart and clean up colour palette
+
+  p3 <- ggplot(sum_taxa, aes(x = "", y = perc, fill = taxa)) +
+    geom_col(color = "black") +
+    geom_label_repel(aes(label = labels),
+              position = position_stack(vjust = 0.6),
+            show.legend = FALSE) +
+    scale_fill_viridis_d() +
+    coord_polar(theta = "y") + 
+    theme_void() + labs(fill = "Taxa")
+
+##---------------------##
+# Types pf preprints
+##---------------------##
+# Summary of the data
+  sum_types <- preprints  %>% tabyl(type_of_preprint)  %>% rename("type" = type_of_preprint, "n" = n)  %>% mutate(perc = n/sum(n)*100, labels = paste0(round(perc, 1), "%"))
+
+  p4 <- ggplot(sum_types, aes(x = "", y = perc, fill = type)) +
+    geom_col(color = "black") +
+    geom_label_repel(aes(label = labels),
+              position = position_stack(vjust = 0.6),
+            show.legend = FALSE) +
+    scale_fill_viridis_d() +
+    coord_polar(theta = "y") + 
+    theme_void() + labs(fill = "Article Type")
+
+
+## Final plot. World map in the middle with others around
+
+layout <- "
+##AA##
+BBBBBB
+BBBBBB
+BBBBBB
+CCCDDD
+CCCDDD 
+"
+
+p_summary <- p1+p2+p3+p4 + plot_layout(design = layout)+ plot_annotation(tag_levels = 'A', tag_suffix=")", theme = theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin"))
 
 ```
 
-We downloaded metadata on the preprints available on *EcoEvoRxiv* (as of the `r gsub("UTC", "", dates[2])`). After removing `r dim(dupl)[1]` duplicate titles – suggesting a few authors created multiple submissons for the same preprint rather than updating an existing submission – we had data for a total of `r pr` preprints with ~55-60 preprints published each month in the last two years ([@fig-summary]A). 
+We downloaded metadata on the preprints available on *EcoEvoRxiv* (as of the `r gsub("UTC", "", dates[2])`). After removing `r dim(dupl)[1]` duplicate titles – suggesting a few authors created multiple submissons for the same preprint rather than updating an existing submission – we had data for a total of `r pr` preprints with ~55-60 preprints published each month in the last two years ([@fig-summary]A). Preprints were published on all major taxomic groups, with the most common being plants (`r sum_taxa$perc[1]`%), vertebrates (`r sum_taxa$perc[6]`%), and invertebrates (`r sum_taxa$perc[5]`%) ([@fig-summary]). A total of `r length(unique(countries$country))-1` countries have used *EcoEvoRxiv* as a preprint server. Unsurprisingly, countries in North America and Europe use preprints more exstensively. Countries in Africa, Central America and parts of Asia are still slow to use *EcoEvoRxiv* for their preprints ([@fig-summary]). Overall, 90% of the preprints come from just `r nrow(most_use)-1` countries ([@fig-summary]). 
+
+Given that *EcoEvoRxiv* is a community driven preprint server it has managed to diversify the types of artciles accepted, including reports and books that are not easily accessible but may contain important data of relevance to research syntheses. Preprints on *EcoEvoRxiv* were diverse in nature, with research articles (`r sum_types[sum_types$type == "research article",]$perc`%) being the most common, followed by reviews and meta-analyses (`r sum_types[sum_types$type == "reviews and meta-analyses",]$perc`%) and opinion papers (`r sum_types[sum_types$type == "opinion",]$perc`%) ([@fig-summary]).
 
 
 ```{r, fig-pubsummary}
@@ -132,22 +214,137 @@ We downloaded metadata on the preprints available on *EcoEvoRxiv* (as of the `r 
 # How many remain unpublished?
 unpub <- data2  %>% filter(is.na(publication_doi))  %>% nrow()
 
-# How many days between submission and publication
-preprints <- data2  %>% filter(time_between_preprint_and_pub_days >= 60)
-
-p2 <- preprints %>% ggplot(aes(x = time_between_preprint_and_pub_days)) + geom_histogram(binwidth = 30) + labs(x = "Days", y = "Frequency") + theme_classic()
+p1 <- preprints %>% ggplot(aes(x = time_between_preprint_and_pub_days)) + geom_histogram(binwidth = 30) + labs(x = "Days", y = "Frequency") + theme_classic()
 
 # Summary of the data
 # what is the range
 sum_preprints <- preprints  %>% summarise(min = min(time_between_preprint_and_pub_days), max = max(time_between_preprint_and_pub_days), mean = mean(time_between_preprint_and_pub_days), median = median(time_between_preprint_and_pub_days), sd = sd(time_between_preprint_and_pub_days))
 
+
+##-------------------##
+# Open access
+##-------------------##
+
+# Summary of the data
+sum_is_oa <- tabyl(preprints$is_oa)
+sum_oa_status <- tabyl(preprints$oa_status)
+
+p2 <- preprints  %>% ggplot(aes(x = is_oa)) + geom_bar() + labs(x = "Open Access", y = "Frequency") + theme_classic()
+
+p3 <- preprints  %>% ggplot(aes(x = oa_status)) + geom_bar() + labs(x = "Open Access Status", y = "Frequency") + theme_classic()
+
+
+p_pubsummary <- (p1 + p2) + plot_annotation(tag_levels = 'A', tag_suffix=")")
+
+##-------------------##
+# Career Stage & Gender
+##-------------------##
+
+p3 <- ggplot(preprints, aes(x = submitting_author_first_publication_year)) +
+  geom_histogram(binwidth = 1, fill = "grey", color = "black") +
+  labs(x = "Year of submitting authors first publication", y = "Number of preprints") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+count_dat  <- preprints  %>% group_by(submitting_author_first_publication_year)  %>% summarise(n = n())
+
+model <- glm.nb(n ~ submitting_author_first_publication_year, data = count_dat)
+res <- summary(model)$coefficients
+
+# First need to get the authors first name
+  data2 <- data2 %>% mutate(submitting_author_firstname = str_split(submitting_author, " ") %>% map_chr(1))
+
+# In order to localise by country we need to get the country code
+  data2 <- data2 %>% mutate(submitting_author_country_code = countrycode(data2$submitting_author_country, origin = "country.name", destination = "iso2c"))
+
+# Lets have a quick look at whether these are 'correct'
+  data2 %>% dplyr::select(submitting_author_country_code, submitting_author_country)  %>% distinct()
+
+# This looks good, but lets see which two are NA. These are in fact NA, even though they shouldn't really be as affliations are not listed on preprint. Even the published paper isn't clear. 
+  data2 %>% filter(is.na(submitting_author_country_code))  %>% data.frame()
+
+# Get gender using all unique first names from the data set
+data_genders <- data.frame(gender(unique(preprints$submitting_author_firstname)))
+dim(data_genders) #514 assigned
+#names(data_genders)
+
+# Merge with main data frame
+#unique(data_genders$name)
+#data_genders <- rename(data_genders, submitting_author_firstname = name)
+data3 <- left_join(preprints, data_genders, by = c("submitting_author_firstname"))
+#names(data3)
+table(is.na(data3$proportion_male)) #157 missing
+
+# Pull out records missing names
+#data3[is.na(data3$proportion_male), c("submitting_author", "submitting_author_country") ] #157 missing
+#data3[is.na(data3$proportion_male) == FALSE & data3$proportion_male > 0.05 & data3$proportion_male < 0.95, c("submitting_author", "submitting_author_country") ] # 84 missing a bit unsure
+
+#transliterate the non-ASCII characters using stringi package, e.g.: #stri_trans_general("Zażółć gęślą jaźń", "Latin-ASCII")
+data3$submitting_author_ASCII <- stringi::stri_trans_general(data3$submitting_author, "Latin-ASCII")
+
+#data3 %>% 
+  #filter(is.na(data3$proportion_male) == TRUE | (proportion_male > 0.05 & proportion_male < 0.95)) %>% dplyr::select(submitting_author_ASCII, submitting_author, submitting_author_country, preprint_title, gender) %>% 
+ # write.csv(file = here("data", "final_data3_fillin.csv")) #used to manually check and fill in gender data - then saved as final_data3_fillin_ML.csv
+
+# Load updated data	subset
+data3_update <- read_csv(here("data", "final_data3_fillin_ML.csv"))
+dim(data3_update)
+names(data3_update)
+
+data4 <- left_join(data3, data3_update, by = c("submitting_author_ASCII", "submitting_author", "submitting_author_country", "preprint_title"))
+#table(data4$gender.x, useNA = "always")
+#table(data4$gender.y, useNA = "always")
+data4$gender.x[is.na(data4$gender.x)] <- data4$gender.y[is.na(data4$gender.x)] #replace with correct values
+data4 <- rename(data4, gender = gender.x)
+table(data4$gender, useNA = "always") #more males than females, two NA ue to missing first name / collective authorship
+
+# Plot the data
+data4 %>% filter(!is.na(gender))  %>% ggplot2::ggplot(aes(x = gender)) + geom_bar()
+
+##-------------------##
+# Data and Code Sharing
+##-------------------##
+
+# Summary of the data
+  preprint_data <- preprints  %>% tabyl(data_link_preprint_cleaned) 
+  preprint_code <- preprints  %>% tabyl(code_link_preprint_cleaned) 
+  article_data <- preprints  %>% tabyl(data_link_article_cleaned) 
+  article_code <- preprints  %>% tabyl(code_link_article_cleaned) 
+
+# Check if it was shared not in preprint but then in article
+  pre_article_data <- preprints   %>%  filter(!data_link_preprint_cleaned == "not applicable") %>% mutate(data_shared = ifelse(data_link_preprint_cleaned == "no" & data_link_article_cleaned == "yes", "yes", ifelse(code_link_preprint_cleaned == "yes" & code_link_article_cleaned == "yes", "always", "no")))  %>% tabyl(data_shared)
+  pre_article_code <- preprints  %>%  filter(!data_link_preprint_cleaned == "not applicable") %>% mutate(code_shared = ifelse(code_link_preprint_cleaned == "no" & code_link_article_cleaned == "yes", "yes", ifelse(code_link_preprint_cleaned == "yes" & code_link_article_cleaned == "yes", "always", "no")))  %>% tabyl(code_shared)
+
+##-------------------##
+# PCI Recommendations
+##-------------------##
+  # How many articles were PCI recomended
+  pci <- preprints  %>% tabyl(pci_recommendation_preprint)  
+
+##-------------------##
+# Titel changes
+##-------------------##
+titles <- preprints %>%  filter(!is.na(publication_doi)) %>% tabyl(publication_title_changed)
 ```
 
 In total, `r unpub` papers were unpublished out of the `r nrow(data2)` (`r (unpub / nrow(data2))*100`%). The maximum time between submission and publication was `r sum_preprints$max` days (@fig-pubsummary A). The median time to publication was `r sum_preprints$median` days (mean = `r sum_preprints$mean`; SD = `r sum_preprints$sd` days).
 
-- figure timeline of EcoEvoRxiv, aims and future and current developments infographics mixed with the data.
-- think about your preprint as workflow, continually evolving paper with support of the community. 
-- community driven peer review, can't update things with other preprints. 
-- our terms, we are not a journal, we are a preprint server. Cannot be company driven. 
+Preprints can be a useful way to ensure that research remains open and accessible to the research community as the paper is available online no matter what the published status of the preprint ends up being. Most of the published preprints ended up being open access(@fig-pubsummary A), however, the status of many (i.e., `r sum_is_oa$n[3]` or `r sum_is_oa$percent[3]*100`%) were unknown, and `r sum_is_oa$n[1]` or `r sum_is_oa$percent[1]*100`% were not published in open access reserach journals. The open access status of the papers that were published in open access journals also varied widely (@fig-pubsummary B).
+
+We were interested in getting an understanding of whether career stage is related to preprint use. We used the first publication year of the submitting author as a proxy for career stage. We predicted that early career researchers would be more open to using preprints in Ecology and Evolution. Interestingly, there was strong evidence that the number of preprints posted decreases with later career stages (negative binomial glm: year slope = `r res[2, "Estimate"]`, SE: `r res[2, "Std. Error"]`, *p* < 0.001, N = `r nrow(count_dat[complete.cases(count_dat),])`). The majority of preprints were submitted by authors who published their first paper in the last 10 years (@fig-career), with the median year of first publication of submitting authors being `r median(data2$submitting_author_first_publication_year, na.rm = TRUE)` (mean = `r round(mean(data2$submitting_author_first_publication_year, na.rm = TRUE),0)`; SD = `r sd(data2$submitting_author_first_publication_year, na.rm = TRUE)`).
+
+Gender differences in preprint use have been established in a number of other research fields. It is hypothsised that such differences are driven by the larger childcare burden of female researchers, which limit their abilities to publish as frequently as their male counterparts [@ucar2022mind; @wehner2020comparison]. Recent work has shown that COVID-19 exacerbated gender disparities in preprint publishing given the increased childcare burden during the pandemic associated with lockdowns and home schooling [@wehner2020comparison]. 
+
+Understanding gender publishing patterns is challenging. We cannot know the gender of authors for certainty but we can use a data driven approach to suggest the probability that a particular name is of a given gender (male or female). We used the R package *DemografixeR* (vers. `r utils::packageVersion("DemografixeR")`; @RJ-2016-002) to predict the most likely gender of the submitting author of a preprint. We incorperated information about the submitting authors country of affiliation to better account for differences across countries in naming. 
+
+Overall, females were less likely to publish preprints on *EcoEvoRxiv* compared to males (females: `r (table(data4$gender)[1] / sum(table(data4$gender))*100)`% compared to males: `r (table(data4$gender)[2] / sum(table(data4$gender))*100)`%), which is likely a reflection of the broader publishing disparities between male and feamle scientists. 
+
+Data and code sharing is a key component of open science. Despite this, we found that `r preprint_data[1,2]` (`r preprint_data[1,"percent"]*100`%) of relevant preprints on *EcoEvoRxiv* (i.e., only where data was generated) did not share data, while `r preprint_code[1,2]` (`r preprint_code[1,"percent"]*100`%) did not share code. 
+
+Authors may be reluctant to share data in code for preprints because of the perceived concern that others may acquire and use such data and code without authors' consent. However, while we found that `r pre_article_data[3,2]` (`r pre_article_data[3,"percent"]*100`%) of preprints that did not share data at the preprint stage did in the published article, there were still `r pre_article_data[2,2]` (`r pre_article_data[2,"percent"]*100`%) that never ended up sharing data. The same was true for code. Overall, while `r pre_article_code[3,2]` (`r pre_article_code[3,"percent"]*100`%) of preprints that did not share code at the preprint stage did in the published article, there were still `r pre_article_code[2,2]` (`r pre_article_code[2,"percent"]*100`%) that never ended up sharing code.
+
+Out of the `r nrow(data2)` preprints, only `r pci[2,2]` (`r pci[2,3]*100`%) used Peer Community In as a preprint peer-review service. 
+
+It was reasonably common for titles of preprints to change between the preprint and the published article (`r titles[2,2]` or `r titles[2,3]*100`%). This was a major contributer to preprints and published articles not being matched in Google Scholar as they were not picked up by crossref linking services. As such, we would recomend that authors make sure that, when preprints end up getting pusblished, that they update preprints with the publication DOI when it's available. This is quite easy for authors to do in *EcoEvoRxiv* and it will ensure that the preprint is linked to the published article and the citations are merged and the published paper is ultimately open access, allowing authors to save open access fees. 
 
 # References
