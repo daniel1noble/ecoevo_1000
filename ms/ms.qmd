@@ -211,7 +211,7 @@ Reports, parcticularly from government and industry research areas, are not yet 
 
 Multilingual initiatives have also been slow to take off on *EcoEvoRxiv*, with only a few Spanish preprints posted to date, and none in our other accepted langauges (e.g., French, and Portuguese). Part of the challenge in getting authors to submit multilingual preprints is the lack of awareness of *EcoEvoRxiv* in non-English speaking countries; however, cultural differences in the perception of preprints and a strong reliance on traditional publishing models, which typically favour publishing in English, may also be contributing to the slow uptake.
 
-# Generational gaps of preprinting in ecology and evolution
+# Generational gaps in preprinting practices 
 
 We were interested in getting an understanding of whether career stage is related to preprint use. We used the first publication year of the submitting author as a proxy for career stage. We predicted that early career researchers would be more open to using preprints in Ecology and Evolution. Interestingly, there was strong evidence that the number of preprints posted decreases with later career stages (negative binomial glm: year slope = `r res[2, "Estimate"]`, SE: `r res[2, "Std. Error"]`, *p* < 0.001, N = `r nrow(count_dat[complete.cases(count_dat),])`). The majority of preprints were submitted by authors who published their first paper in the last 10 years (@fig-career), with the median year of first publication of submitting authors being `r median(data2$submitting_author_first_publication_year, na.rm = TRUE)` (mean = `r round(mean(data2$submitting_author_first_publication_year, na.rm = TRUE),0)`; SD = `r sd(data2$submitting_author_first_publication_year, na.rm = TRUE)`).
 
