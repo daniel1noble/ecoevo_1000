@@ -183,6 +183,76 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv*, one of the few co
     coord_polar(theta = "y") + 
     theme_void() + labs(fill = "Article Type") + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin")
 
+##-------------------##
+# Career Stage & Gender
+##-------------------##
+
+p5 <- ggplot(preprints, aes(x = submitting_author_first_publication_year)) +
+  geom_histogram(binwidth = 1, fill = "grey", color = "black") +
+  labs(x = "Year of submitting authors first publication", y = "Number of preprints") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+count_dat  <- preprints  %>% group_by(submitting_author_first_publication_year)  %>% summarise(n = n())
+
+model <- glm.nb(n ~ submitting_author_first_publication_year, data = count_dat)
+res <- summary(model)$coefficients
+
+# First need to get the authors first name
+  data2 <- data2 %>% mutate(submitting_author_firstname = str_split(submitting_author, " ") %>% map_chr(1))
+
+# In order to localise by country we need to get the country code
+  data2 <- data2 %>% mutate(submitting_author_country_code = countrycode(data2$submitting_author_country, origin = "country.name", destination = "iso2c"))
+
+# Lets have a quick look at whether these are 'correct'
+  data2 %>% dplyr::select(submitting_author_country_code, submitting_author_country)  %>% distinct()
+
+# This looks good, but lets see which two are NA. These are in fact NA, even though they shouldn't really be as affliations are not listed on preprint. Even the published paper isn't clear. 
+  data2 %>% filter(is.na(submitting_author_country_code))  %>% data.frame()
+
+# Get gender using all unique first names from the data set
+data_genders <- data.frame(gender(unique(data2$submitting_author_firstname)))
+dim(data_genders) #514 assigned
+#names(data_genders)
+colnames(data_genders)[1]  <- c("submitting_author_firstname")
+
+# Merge with main data frame
+data3 <- left_join(data2, data_genders, by = c("submitting_author_firstname"))
+#names(data3)
+table(is.na(data3$proportion_male)) #157 missing
+
+# Pull out records missing names
+#data3[is.na(data3$proportion_male), c("submitting_author", "submitting_author_country") ] #157 missing
+#data3[is.na(data3$proportion_male) == FALSE & data3$proportion_male > 0.05 & data3$proportion_male < 0.95, c("submitting_author", "submitting_author_country") ] # 84 missing a bit unsure
+
+#transliterate the non-ASCII characters using stringi package, e.g.: #stri_trans_general("Zażółć gęślą jaźń", "Latin-ASCII")
+data3$submitting_author_ASCII <- stringi::stri_trans_general(data3$submitting_author, "Latin-ASCII")
+
+#data3 %>% 
+  #filter(is.na(data3$proportion_male) == TRUE | (proportion_male > 0.05 & proportion_male < 0.95)) %>% dplyr::select(submitting_author_ASCII, submitting_author, submitting_author_country, preprint_title, gender) %>% 
+ # write.csv(file = here("data", "final_data3_fillin.csv")) #used to manually check and fill in gender data - then saved as final_data3_fillin_ML.csv
+
+# Load updated data	subset
+data3_update <- read_csv(here("data", "final_data3_fillin_ML.csv"))
+dim(data3_update)
+names(data3_update)
+
+data4 <- left_join(data3, data3_update, by = c("submitting_author_ASCII", "submitting_author", "submitting_author_country", "preprint_title"))
+#table(data4$gender.x, useNA = "always")
+#table(data4$gender.y, useNA = "always")
+data4$gender.x[is.na(data4$gender.x)] <- data4$gender.y[is.na(data4$gender.x)] #replace with correct values
+data4 <- rename(data4, gender = gender.x)
+table(data4$gender, useNA = "always") #more males than females, two NA ue to missing first name / collective authorship
+
+# Plot the data
+p6 <- data4 %>% filter(!is.na(gender))  %>% tabyl(gender)  %>% mutate(perc = n/sum(n)*100, labels = paste0(round(perc, 1), "%"))  %>%  ggplot(aes(x = "", y = percent, fill = gender)) +
+    geom_col(color = "black") +
+    geom_label_repel(aes(label = labels),
+              position = position_stack(vjust = 0.6),
+            show.legend = FALSE) +
+    scale_fill_viridis_d() +
+    coord_polar(theta = "y") + 
+    theme_void() + labs(fill = "Article Type") + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin")
 
 ## Final plot. World map in the middle with others around
 
@@ -256,70 +326,6 @@ p3 <- preprints  %>% ggplot(aes(x = oa_status)) + geom_bar() + labs(x = "Open Ac
 
 p_pubsummary <- (p1 + p2) + plot_annotation(tag_levels = 'A', tag_suffix=")")
 
-##-------------------##
-# Career Stage & Gender
-##-------------------##
-
-p3 <- ggplot(preprints, aes(x = submitting_author_first_publication_year)) +
-  geom_histogram(binwidth = 1, fill = "grey", color = "black") +
-  labs(x = "Year of submitting authors first publication", y = "Number of preprints") +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-count_dat  <- preprints  %>% group_by(submitting_author_first_publication_year)  %>% summarise(n = n())
-
-model <- glm.nb(n ~ submitting_author_first_publication_year, data = count_dat)
-res <- summary(model)$coefficients
-
-# First need to get the authors first name
-  data2 <- data2 %>% mutate(submitting_author_firstname = str_split(submitting_author, " ") %>% map_chr(1))
-
-# In order to localise by country we need to get the country code
-  data2 <- data2 %>% mutate(submitting_author_country_code = countrycode(data2$submitting_author_country, origin = "country.name", destination = "iso2c"))
-
-# Lets have a quick look at whether these are 'correct'
-  data2 %>% dplyr::select(submitting_author_country_code, submitting_author_country)  %>% distinct()
-
-# This looks good, but lets see which two are NA. These are in fact NA, even though they shouldn't really be as affliations are not listed on preprint. Even the published paper isn't clear. 
-  data2 %>% filter(is.na(submitting_author_country_code))  %>% data.frame()
-
-# Get gender using all unique first names from the data set
-data_genders <- data.frame(gender(unique(preprints$submitting_author_firstname)))
-dim(data_genders) #514 assigned
-#names(data_genders)
-
-# Merge with main data frame
-#unique(data_genders$name)
-#data_genders <- rename(data_genders, submitting_author_firstname = name)
-data3 <- left_join(preprints, data_genders, by = c("submitting_author_firstname"))
-#names(data3)
-table(is.na(data3$proportion_male)) #157 missing
-
-# Pull out records missing names
-#data3[is.na(data3$proportion_male), c("submitting_author", "submitting_author_country") ] #157 missing
-#data3[is.na(data3$proportion_male) == FALSE & data3$proportion_male > 0.05 & data3$proportion_male < 0.95, c("submitting_author", "submitting_author_country") ] # 84 missing a bit unsure
-
-#transliterate the non-ASCII characters using stringi package, e.g.: #stri_trans_general("Zażółć gęślą jaźń", "Latin-ASCII")
-data3$submitting_author_ASCII <- stringi::stri_trans_general(data3$submitting_author, "Latin-ASCII")
-
-#data3 %>% 
-  #filter(is.na(data3$proportion_male) == TRUE | (proportion_male > 0.05 & proportion_male < 0.95)) %>% dplyr::select(submitting_author_ASCII, submitting_author, submitting_author_country, preprint_title, gender) %>% 
- # write.csv(file = here("data", "final_data3_fillin.csv")) #used to manually check and fill in gender data - then saved as final_data3_fillin_ML.csv
-
-# Load updated data	subset
-data3_update <- read_csv(here("data", "final_data3_fillin_ML.csv"))
-dim(data3_update)
-names(data3_update)
-
-data4 <- left_join(data3, data3_update, by = c("submitting_author_ASCII", "submitting_author", "submitting_author_country", "preprint_title"))
-#table(data4$gender.x, useNA = "always")
-#table(data4$gender.y, useNA = "always")
-data4$gender.x[is.na(data4$gender.x)] <- data4$gender.y[is.na(data4$gender.x)] #replace with correct values
-data4 <- rename(data4, gender = gender.x)
-table(data4$gender, useNA = "always") #more males than females, two NA ue to missing first name / collective authorship
-
-# Plot the data
-data4 %>% filter(!is.na(gender))  %>% ggplot2::ggplot(aes(x = gender)) + geom_bar()
 
 ##-------------------##
 # Data and Code Sharing
@@ -355,13 +361,10 @@ Preprints can be a useful way to ensure that research remains open and accessibl
 
 Authors may be reluctant to share data in code for preprints because of the perceived concern that others may acquire and use such data and code without authors' consent. However, while we found that `r pre_article_data[3,2]` (`r pre_article_data[3,"percent"]*100`%) of preprints that did not share data at the preprint stage did in the published article, there were still `r pre_article_data[2,2]` (`r pre_article_data[2,"percent"]*100`%) that never ended up sharing data. The same was true for code. Overall, while `r pre_article_code[3,2]` (`r pre_article_code[3,"percent"]*100`%) of preprints that did not share code at the preprint stage did in the published article, there were still `r pre_article_code[2,2]` (`r pre_article_code[2,"percent"]*100`%) that never ended up sharing code.
 
-
-# Paving *our* own future of open, transparent and community driven science
+# Paving *our* future of open, transparent and community driven science
 
 Despite the early successes of new initiatives taken by *EcoEvoRxiv* it is still clear that much work needs to be done to improve authors' understanding of preprints (and postprints). Our community needs to work harder to help educate our colleagues in this space. We view this perspective piece as one small step in achieving that goal. Our data driven approach has allowed us to better understand some of the key elements of uncertainty surrounding preprints which provides us with opportunties to clarify our perspective and recommendations. First, authors need not be afraid of sharing data and code early in the publication process. Sharing data and code early can help improve the quality of research, establish precedence, and improve the transparency and computational reproducibility of scientific findings. If authors are worried about data being used unintentially, clear information surrounding its re-use and withholding some data or meta-data needed to understand the dataset may be options. Second, authors need to be aware of the benefits of posting preprints and postprints. Posting preprints can help establish precedence of research findings, ensure that research is open access, and help authors receive feedback on their research before it is published. Third, authors need to be aware of the benefits of using community driven preprint servers. Community driven preprint servers can help ensure that research is open access, that research is reviewed by experts in the field, and that research is disseminated quickly.
 
 Out of the `r nrow(data2)` preprints, only `r pci[2,2]` (`r pci[2,3]*100`%) used Peer Community In as a preprint peer-review service. 
-
-
 
 # References
