@@ -33,7 +33,7 @@ options(scipen = 1, digits = 2)
 
 # Load packages
 #install.packages("pacman")
-pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, genderdata, gender, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot, viridis)
+pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, genderdata, gender, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot, viridis, cowplot)
 
 # Load in the data
   data <- read_xlsx(here("data", "20231003_EER_preprints_metadata.xlsx"))
@@ -250,23 +250,26 @@ p6 <- data4 %>% filter(!is.na(gender))  %>% tabyl(gender)  %>% mutate(perc = n/s
     geom_label_repel(aes(label = labels),
               position = position_stack(vjust = 0.6),
             show.legend = FALSE) +
-    scale_fill_viridis_d() +
     coord_polar(theta = "y") + 
-    theme_void() + labs(fill = "Article Type") + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin")
+    theme_void() + labs(fill = "Gender") + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin")
 
+
+p7  <- ggdraw() + draw_plot(p5) + draw_plot(p6, x = 0.05, y = 0.40, width = 0.6, height = 0.6)
 ## Final plot. World map in the middle with others around
 
 layout <- "
-##AA##
-BBBBBB
-BBBBBB
-BBBBBB
-CCCDDD
-CCCDDD 
+##AAAA##
+BBBBBBBB
+BBBBBBBB
+BBBBBBBB
+CCCCDDDD
+CCCCDDDD
+##EEEE##
+##EEEE##
 "
 
-p_summary <- p1+p2+p3+p4 + plot_layout(design = layout)+ plot_annotation(tag_levels = 'A', tag_suffix=")")
-ggsave(p_summary, filename = here("output", "figs", "summary.png"), width = 10.6, height = 9.7) 
+p_summary <- p1+p2+p3+p4+p7 + plot_layout(design = layout)+ plot_annotation(tag_levels = 'A', tag_suffix=")") + theme(plot.tag = element_text(size = 16, face = "bold"))
+ggsave(p_summary, filename = here("output", "figs", "summary.png"), width = 11, height = 12) 
 
 p_summary
 ```
