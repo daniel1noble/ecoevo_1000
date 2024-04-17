@@ -66,25 +66,34 @@ pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor,
   dates <- range(data$`Published Date`)
 
 # Delegate details
-  delegates <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Delegate Details") 
+  #delegates <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Delegate Details") 
 
-  del_details <- delegates  %>% rename("attend" = "Attended hackathon (yes/no)") %>%
+  #del_details <- delegates  %>% rename("attend" = "Attended hackathon (yes/no)") %>%
 			mutate(attend = str_to_title(attend))  %>% tabyl(attend)
 
 # Master preprint list
-  master_list <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Master List of Preprints") %>% clean_names()
+  #master_list <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Master List of Preprints") %>% clean_names()
 
 # Check allocation of papers
-		contr_extract <- master_list  %>%  tabyl(extractor_full_name)
+		#contr_extract <- master_list  %>%  tabyl(extractor_full_name)
 
 	# Check how many each person has done relative to their total
-		contr_extract2 <- master_list %>% group_by(extractor_full_name) %>% summarise(n = n(), yes = sum(completed_yes_no_extractor == "Yes"), no = sum(completed_yes_no_extractor == "No"), prop = yes/n)  %>% data.frame()  %>% arrange(n)
+		#contr_extract2 <- master_list %>% group_by(extractor_full_name) %>% summarise(n = n(), yes = sum(completed_yes_no_extractor == "Yes"), no = sum(completed_yes_no_extractor == "No"), prop = yes/n)  %>% data.frame()  %>% arrange(n)
 
 # raw data. For analysis
-	data_coll <- read_sheet("https://docs.google.com/spreadsheets/d/1032gLryvtCNJ7eJjKBjrn7txxDRUGql9SoIG18QnFrQ/edit?resourcekey#gid=1062856014")
+	#data_coll <- read_sheet("https://docs.google.com/spreadsheets/d/1032gLryvtCNJ7eJjKBjrn7txxDRUGql9SoIG18QnFrQ/edit?resourcekey#gid=1062856014")
 
 # Final Processed data
   data2 <- read_csv(here("data", "final_data2.csv"))
+
+# Seem to be missing the publication date for preprints and this should ne known for all
+    data3 <- read_excel(here("data", "20231003_EER_preprints_metadata.xlsx"))  %>% clean_names()
+
+	# Subset the relevant rows
+		data3  <- data3  %>%  dplyr::select(preprint_id, preprint_doi, publisher_doi, published_date)  %>% rename("preprint_published_date" = "published_date" ) 
+
+  # Merge with the main data to make sure that the published data of the preprint is known for ALL papers
+    data2  <- left_join(data2, data3, by = c("preprint_id" = "preprint_id")) 
 
 ```
 
@@ -113,7 +122,7 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv*, one of the few co
 # Articles on EcoEvoRxiv over time
 ##---------------------##
 
-  p1 <- ggplot(data2, aes(x = preprint_published_date)) +
+  p1 <- ggplot(data2, aes(x = preprint_published_date.y)) +
     geom_histogram(fill = "black", color = "black") +
     labs(x = "Published Date", y = "Number of Papers") +
     theme_bw() +
@@ -274,7 +283,7 @@ ggsave(p_summary, filename = here("output", "figs", "summary.png"), width = 11, 
 p_summary
 ```
 
-To better understand preprint (and postprint) use on *EcoEvoRxiv*, we downloaded metadata on the articles available on *EcoEvoRxiv* as of `r gsub("UTC", "", dates[2])`.  *EcoEvoRxiv* accepts both preprints and postprints. Postprints are articles that are already published but are the final version of the published paper before typesetting for the research journal. Postprints are a useful way to ensure published articles are openly accessible and can be posted anytime after publication. For the purpose of summarising articles on *EcoEvoRxiv* we include these in our analysis. 
+To better understand preprint (and postprint) use on *EcoEvoRxiv*, we downloaded metadata on the articles available on *EcoEvoRxiv* as of `r gsub("UTC", "", dates[2])`.  *EcoEvoRxiv* accepts both preprints and postprints. Postprints are articles that are already published but are the final version of the published paper before typesetting for the research journal. Postprints are a useful way to ensure published articles are openly accessible and can be posted anytime after publication (assuming the journal has a preprint policy). For the purpose of summarising articles on *EcoEvoRxiv* we include these in our analysis. 
 
 After removing `r dim(dupl)[1]` duplicate titles – suggesting a few authors created multiple submissons for the same preprint rather than updating an existing submission – we had data for a total of `r pr` articles with ~55-60 preprints published each month in the last two years ([@fig-summary]A). Articles covered all major taxomic groups, with the most common being plants (`r sum_taxa$perc[1]`%), vertebrates (`r sum_taxa$perc[6]`%), and invertebrates (`r sum_taxa$perc[5]`%) ([@fig-summary]). A total of `r length(unique(countries$country))-1` countries have used *EcoEvoRxiv* as a preprint server. Unsurprisingly, countries in North America and Europe preprint more exstensively. Countries in Africa, Central America and parts of Asia are still slow to use *EcoEvoRxiv* ([@fig-summary]). Overall, 90% of the articles come from just `r nrow(most_use)-1` countries ([@fig-summary]). 
 
@@ -288,7 +297,7 @@ Multilingual initiatives have also been slow to take off on *EcoEvoRxiv*, with o
 
 We were interested in getting an understanding of whether career stage is related to preprint use. We used the first publication year of the submitting author as a proxy for career stage. We predicted that early career researchers would be more open to using preprints in Ecology and Evolution. Interestingly, there was strong evidence that the number of preprints posted decreases with later career stages (negative binomial glm: year slope = `r res[2, "Estimate"]`, SE: `r res[2, "Std. Error"]`, *p* < 0.001, N = `r nrow(count_dat[complete.cases(count_dat),])`). The majority of preprints were submitted by authors who published their first paper in the last 10 years ([@fig-summary]E), with the median year of first publication of submitting authors being `r median(data2$submitting_author_first_publication_year, na.rm = TRUE)` (mean = `r round(mean(data2$submitting_author_first_publication_year, na.rm = TRUE),0)`; SD = `r sd(data2$submitting_author_first_publication_year, na.rm = TRUE)`).
 
-Gender differences in preprint use have been established in a number of other research fields. It is hypothsised that such differences are driven by the larger childcare burden of female researchers, which limit their abilities to publish as frequently as their male counterparts [@ucar2022mind; @wehner2020comparison]. Understanding gender publishing patterns is challenging. We cannot know the gender of authors for certainty but we can use a data driven approach to suggest the probability that a particular name is of a given gender (male or female). We used the R package *DemografixeR* (vers. `r utils::packageVersion("DemografixeR")`; @RJ-2016-002) to predict the most likely gender of the submitting author of a preprint. We incorperated information about the submitting authors country of affiliation to better account for differences across countries in naming. 
+Gender differences in preprint use have been established in a number of other research fields. It is hypothsised that such differences are driven by the larger childcare burden of female researchers, which limit their abilities to publish as frequently as their male counterparts [@ucar2022mind; @wehner2020comparison]. Understanding gender publishing patterns is challenging with observational data. We cannot know the gender of authors for certainty but we can use a data driven approach to ascertain the probability that a particular name is of a given gender (male or female). We used the R package *DemografixeR* (vers. `r utils::packageVersion("DemografixeR")`; @RJ-2016-002) to predict the most likely gender of the submitting author of a preprint. We incorperated information about the submitting authors country of affiliation to better account for differences across countries in naming. We only used names where the gender was identified with 95% certainty. 
 
 Overall, females were less likely to publish preprints on *EcoEvoRxiv* compared to males (females: `r (table(data4$gender)[1] / sum(table(data4$gender))*100)`% compared to males: `r (table(data4$gender)[2] / sum(table(data4$gender))*100)`%), which is likely a reflection of the broader publishing disparities between male and feamle scientists. 
 
