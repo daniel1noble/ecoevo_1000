@@ -103,7 +103,7 @@ data2 <- data2  %>% select(extractors_first_name, extractors_last_name, preprint
 		data3  <- data3  %>%  select(preprint_doi, publisher_doi, published_date, current_version, total_authors)  %>% rename("preprint_published_date" = "published_date" )
 
 # Join together and create time between preprint and pub
-	data2 <- left_join(data2, data3, by = c("preprint_doi" = "preprint_doi")) 
+	data2 <- left_join(data2, data3, by = c("preprint_id" = "preprint_id")) 
 
 # Fix one typo un the publication date
      data2$publication_date <- gsub("202-03-09", "2020-03-09", data2$publication_date) 
