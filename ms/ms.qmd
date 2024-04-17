@@ -33,7 +33,8 @@ options(scipen = 1, digits = 2)
 
 # Load packages
 #install.packages("pacman")
-pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, genderdata, gender, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot, viridis, cowplot)
+remotes::install_github("lmullen/genderdata")
+pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, gender,genderdata, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot, viridis, cowplot)
 
 # Load in the data
   data <- read_xlsx(here("data", "20231003_EER_preprints_metadata.xlsx"))
@@ -69,7 +70,7 @@ pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor,
   #delegates <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Delegate Details") 
 
   #del_details <- delegates  %>% rename("attend" = "Attended hackathon (yes/no)") %>%
-			mutate(attend = str_to_title(attend))  %>% tabyl(attend)
+			#mutate(attend = str_to_title(attend))  %>% tabyl(attend)
 
 # Master preprint list
   #master_list <- read_sheet("https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319", sheet = "Master List of Preprints") %>% clean_names()
@@ -86,13 +87,11 @@ pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor,
 # Final Processed data
   data2 <- read_csv(here("data", "final_data2.csv"))
 
-# Seem to be missing the publication date for preprints and this should ne known for all
-    data3 <- read_excel(here("data", "20231003_EER_preprints_metadata.xlsx"))  %>% clean_names()
+# Subset the relevant rows
+		data3  <- data  %>%  dplyr::select(`Preprint ID`, `Preprint DOI`, `Published Date`)  %>% rename("preprint_pub_date" = "Published Date",
+                                                                                                      "preprint_id"  = "Preprint ID") 
 
-	# Subset the relevant rows
-		data3  <- data3  %>%  dplyr::select(preprint_id, preprint_doi, publisher_doi, published_date)  %>% rename("preprint_published_date" = "published_date" ) 
-
-  # Merge with the main data to make sure that the published data of the preprint is known for ALL papers
+# Merge with the main data to make sure that the published data of the preprint is known for ALL papers
     data2  <- left_join(data2, data3, by = c("preprint_id" = "preprint_id")) 
 
 ```
@@ -122,7 +121,7 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv*, one of the few co
 # Articles on EcoEvoRxiv over time
 ##---------------------##
 
-  p1 <- ggplot(data2, aes(x = preprint_published_date.y)) +
+  p1 <- ggplot(data2, aes(x = preprint_pub_date)) +
     geom_histogram(fill = "black", color = "black") +
     labs(x = "Published Date", y = "Number of Papers") +
     theme_bw() +
@@ -314,12 +313,11 @@ Overall, females were less likely to publish preprints on *EcoEvoRxiv* compared 
 # How many remain unpublished?
 unpub <- data2  %>% filter(is.na(publication_doi))  %>% nrow()
 
-p1 <- preprints %>% ggplot(aes(x = time_between_preprint_and_pub_days)) + geom_histogram(binwidth = 30) + labs(x = "Days", y = "Frequency") + theme_classic()
-
 # Summary of the data
 # what is the range
 sum_preprints <- preprints  %>% summarise(min = min(time_between_preprint_and_pub_days), max = max(time_between_preprint_and_pub_days), mean = mean(time_between_preprint_and_pub_days), median = median(time_between_preprint_and_pub_days), sd = sd(time_between_preprint_and_pub_days))
 
+p1_pub <- preprints %>% ggplot(aes(x = time_between_preprint_and_pub_days)) + geom_histogram(binwidth = 30) + geom_vline(aes(xintercept = sum_preprints$median), colour = "red", linetype = "dashed", linewidth = 1) + annotate("text", x = sum_preprints$median + 650, y = 60, label = paste0(sum_preprints$median, " days", "(~ ", sum_preprints$median/30, " months)"), size = 10, colour = "red") + labs(x = "Time to Publication (days)", y = "Number of Papers") + theme_classic() + theme(axis.title = element_text(size = 14))
 
 ##-------------------##
 # Open access
@@ -329,13 +327,12 @@ sum_preprints <- preprints  %>% summarise(min = min(time_between_preprint_and_pu
 sum_is_oa <- tabyl(preprints$is_oa)
 sum_oa_status <- tabyl(preprints$oa_status)
 
-p2 <- preprints  %>% ggplot(aes(x = is_oa)) + geom_bar() + labs(x = "Open Access", y = "Frequency") + theme_classic()
+p2_pub <- preprints  %>% ggplot(aes(x = is_oa)) + geom_bar() + labs(x = "Open Access", y = "Number of Papers") + theme_classic() + theme(axis.title = element_text(size = 14))
 
-p3 <- preprints  %>% ggplot(aes(x = oa_status)) + geom_bar() + labs(x = "Open Access Status", y = "Frequency") + theme_classic()
+p3_pub <- preprints  %>% ggplot(aes(x = oa_status)) + geom_bar() + labs(x = "Open Access Status", y = "Number of Papers") + theme_classic() + theme(axis.title = element_text(size = 14))
 
-
-p_pubsummary <- (p1 + p2) + plot_annotation(tag_levels = 'A', tag_suffix=")")
-
+p_pubsummary <- (p1_pub + p2_pub + p3_pub) + plot_annotation(tag_levels = 'A', tag_suffix=")")
+ggsave(p_pubsummary, filename = here("output", "figs", "pubsummary.png"), width = 20, height = 7)
 
 ##-------------------##
 # Data and Code Sharing
@@ -358,7 +355,7 @@ p_pubsummary <- (p1 + p2) + plot_annotation(tag_levels = 'A', tag_suffix=")")
   pci <- preprints  %>% tabyl(pci_recommendation_preprint)  
 
 ##-------------------##
-# Titel changes
+# Title changes
 ##-------------------##
 titles <- preprints %>%  filter(!is.na(publication_doi)) %>% tabyl(publication_title_changed)
 ```
