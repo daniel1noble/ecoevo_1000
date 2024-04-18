@@ -96,7 +96,13 @@ pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor,
 
 ```
 
-Authors: Daniel W.A. Noble, Shinichi Nakagawa, Hackathon Participants, Malgorzata Lagisz
+Authors: Daniel W.A. Noble ^1^ $\ddagger$, Shinichi Nakagawa^2^, Hackathon Participants, Malgorzata Lagisz^2^
+
+Affiliations:
+^1^ Division of Ecology and Evolution, Research School of Biology, The Australian National University, Canberra, ACT 2600, Australia &NewLine;  
+^2^ Ecology and Evolution Research Centre, School of Biological, Earth and Environmental Sciences, University of New South Wales, Sydney, NSW, Australia &NewLine;  
+
+$\ddagger$ corresponding author, daniel.noble@anu.edu.au &NewLine;
 
 # Introduction
 
@@ -393,5 +399,9 @@ Our data driven approach has allowed us to better understand some of the key ele
 While most preprints seemlessly get connected with their published version and merged together often they can remain disconnected making it unclear how to associate the preprint and published version, creating confusion in the findings and leading to frustration from authors. Cross-refererencing problems do occur and are the major reason for why preprints are not always connected automatically. Thanksfully, the reasons are fairly well understood and easily rectified. They often result from a mismatch between titles or authors in preprint and published metadata. In fact, it was reasonably common for titles of preprints to change between the preprint and the published article (`r titles[2,2]` or `r titles[2,3]*100`%) and this was the major contributer to preprints and published articles not being matched automatically in Google Scholar during our data collection. As such, we would recommend that authors make sure that, when preprints end up getting published, that they update their preprint with the publication DOI when it's available. Particularly if their title has changed. This is quite easy for authors to do in *EcoEvoRxiv* and it will ensure that the preprint is linked to the published article and the citations are merged and the published paper is ultimately open access, allowing authors to save open access fees. 
 
 Despite the early successes of the new initiatives taken by *EcoEvoRxiv* it is still clear that much work needs to be done to improve our communities understanding of preprints (and postprints). We view this perspective piece as one small step in achieving that goal. We believe that the future of preprints is bright and community driven initiatives, such as *EcoEvoRxiv*, are set to play a key role in the future of scientific publishing.
+
+# Awknowledgements
+We would like to thank the California Digitial Library (CDL) and the CDL team (particularly Alainna Wrigley) for their support in hosting and maintaining *EcoEvoRxiv* for the Society for Open, Reliable, and Transparent Ecology and Evolution (SORTEE). We would also like to thank Gabriela Hidalgo, Daisy Larios
+for helping connect us with the IUCN and facilitating discussions to make *EcoEvoRxiv* a place where IUCN reports can be posted. Finally, we would also like to thank the endless number of SORTEE volunteers, and those especially on the *EcoEvoRxiv* Commitee, who have helped to make *EcoEvoRxiv* a success. This paper emerged from a hackathon at the 2022 SORTEE conference, and we thank delegates who attended the session but could not be part of this paper. DWAN would also like to thank the Australian Research Council Future Fellowship support (FT220100276).
 
 # References
