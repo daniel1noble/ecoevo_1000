@@ -33,7 +33,7 @@ options(scipen = 1, digits = 2)
 
 # Load packages
 #install.packages("pacman")
-remotes::install_github("lmullen/genderdata")
+#remotes::install_github("lmullen/genderdata")
 pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, gender,genderdata, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot, viridis, cowplot, magick)
 
 # Load in the data
@@ -131,6 +131,7 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv* to understand prep
   # Subset the preprints
   preprints <- data2  %>% filter(time_between_preprint_and_pub_days >= 60)
 
+  dates_preprints <- range(preprints$preprint_published_date)
 ##---------------------##
 # Articles on EcoEvoRxiv over time
 ##---------------------##
@@ -351,7 +352,7 @@ sum_oa_status <- tabyl(preprints$oa_status)
 
 p2_pub <- preprints  %>% ggplot(aes(x = is_oa)) + geom_bar() + labs(x = "Open Access", y = "Number of Papers") + theme_classic() + theme(axis.title = element_text(size = 14))
 
-p3_pub <- preprints  %>% ggplot(aes(x = oa_status)) + geom_bar() + labs(x = "Open Access Status", y = "Number of Papers") + theme_classic() + theme(axis.title = element_text(size = 14))
+p3_pub <- preprints  %>% ggplot(aes(x = oa_status, fill = oa_status)) + geom_bar() + labs(x = "Open Access Status", y = "Number of Papers") + theme_classic() + theme(axis.title = element_text(size = 14)) + scale_fill_manual(values = c("bronze" = "#9b6023", "gold" = "#ffd700", "green" = "#008000", "hybrid" = "#6fa8dc", "NA" = "grey", "closed" = "black"))
 
 p_pubsummary <- (p1_pub + p2_pub + p3_pub) + plot_annotation(tag_levels = 'A', tag_suffix=")")
 ggsave(p_pubsummary, filename = here("output", "figs", "pubsummary.png"), width = 20, height = 7)
