@@ -34,7 +34,7 @@ options(scipen = 1, digits = 2)
 # Load packages
 #install.packages("pacman")
 #remotes::install_github("lmullen/genderdata")
-pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, gender,genderdata, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot, viridis, cowplot, magick)
+pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, gender,genderdata, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot, viridis, cowplot, magick, lme4, lmerTest)
 
 # Load in the data
   data <- read_xlsx(here("data", "20231003_EER_preprints_metadata.xlsx"))
