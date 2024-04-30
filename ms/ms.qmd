@@ -119,11 +119,11 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv* to understand prep
 
 # Getting to know your *EcoEvoRxiv* preprint server
 
-*EcoEvoRxiv* is run by the Society for Open, Reliable, and Transparent Ecology and Evolution (SORTEE). Originally launched in 2018 on the Center for Open Science preprint platforms, *EcoEvoRxiv* has grown to become a popular preprint server for researchers in ecology and evolution. It has since been adopted by the California Digital Library (CDL) to be hosted in perpetuity without fees. Editors are researchers across the globe in the fields of ecology and evolution who volunteer their time to screen papers and push new initiatives in the preprint space. *EcoEvoRxiv* accepts both preprints and postprints. Postprints are articles that are already published but are the final version of the published paper before typesetting for the research journal. Postprints are a useful way to ensure published articles are openly accessible and can be posted anytime after publication (assuming the journal has a preprint policy that recognises preprints - though most do). To better understand preprint (and postprint) use on *EcoEvoRxiv*, we downloaded metadata on the articles available on *EcoEvoRxiv* as of `r gsub("UTC", "", dates[2])`. For the purpose of summarising articles on *EcoEvoRxiv* we include both preprints and postprints as 'articles' in our overview analysis.
+*EcoEvoRxiv* is run by the Society for Open, Reliable, and Transparent Ecology and Evolution (SORTEE). Originally launched in 2018 on the Center for Open Science preprint platform, *EcoEvoRxiv* has grown to become a popular preprint server for researchers in ecology and evolution. It has since been adopted by the California Digital Library (CDL) to be hosted in perpetuity without fees. Editors are researchers across the globe in the fields of ecology and evolution who volunteer their time to screen papers and push new initiatives in the preprint space. *EcoEvoRxiv* accepts both preprints and postprints. Postprints are articles that are already published but are the final version of the published paper before typesetting for the research journal. Postprints are a useful way to ensure published articles are openly accessible and can be posted anytime after publication (assuming the journal has a preprint policy that recognises preprints - though most do). To better understand preprint (and postprint) use on *EcoEvoRxiv*, we downloaded metadata on the articles available on *EcoEvoRxiv* as of `r gsub("UTC", "", dates[2])`. For the purpose of summarising articles on *EcoEvoRxiv* we include both preprints and postprints as 'articles' in our overview analysis.
 
 ```{r, fig-summary}
 #| label: fig-summary
-#| fig-cap: Summary of articles posted to *EcoEvoRxiv*. A) Number of articles (preprints and postprints) published monthly to *EcoEvoRxiv* between 2018 and 2023; B) Countries that are posting articles (preprints and postprints) to *EcoEvoRxiv* as inferred from the country of affiliation of the submitting author; C) Taxa used / covered in the articles posted to *EcoEvoRxiv*; D) Types of articles accepted on *EcoEvoRxiv*. E) Career stage of authors posting to *EcoEvoRxiv* along with the gender of the submitting author.
+#| fig-cap: Summary of articles posted to *EcoEvoRxiv*. A) Number of articles (preprints and postprints) published monthly to *EcoEvoRxiv* between 2018 and 2023. *EcoEvoRxiv* was established in June 2018 before the soft launch in November 2018; B) Countries that are posting articles (preprints and postprints) to *EcoEvoRxiv* as inferred from the country of affiliation of the submitting author; C) Taxa used / covered in the articles posted to *EcoEvoRxiv*; D) Types of articles accepted on *EcoEvoRxiv*. E) Career stage of authors posting to *EcoEvoRxiv* along with the gender of the submitting author.
 #| echo: false
 #| warning: false
 #| message: false
@@ -135,13 +135,28 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv* to understand prep
 ##---------------------##
 # Articles on EcoEvoRxiv over time
 ##---------------------##
-
+  angle = 45
   p1 <- ggplot(data2, aes(x = preprint_pub_date)) +
     geom_histogram(fill = "black", color = "black") +
     labs(x = "Published Date", y = "Number of Papers") +
     theme_bw() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1)) + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin")
-
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin") + ylim(0, 130) + 
+      # Soft Launch of EcoEvoRxiv
+    annotate( "segment", x = as.POSIXct("2018-07-01"),  xend = as.POSIXct("2018-07-01"), y = 0, yend = 82, color = "#ffd966", linetype = "dashed", size = 1.5) + 
+    annotate("text", x = as.POSIXct("2018-07-01"), y = 85, label = "Soft Launch", color = "#ffd966", size = 4, angle = angle, hjust = 0) +
+    # Launch of EcoEvoRxiv
+    annotate( "segment", x = as.POSIXct("2018-11-11"),  xend = as.POSIXct("2018-11-11"), y = 0, yend = 82, color = "#2986cc", linetype = "dashed", size = 1.5) + 
+    annotate("text", x = as.POSIXct("2018-11-11"), y = 85, label = "Launch", color = "#2986cc", size = 4, angle = angle, hjust = 0) +
+    # Spanish and Port
+    annotate( "segment", x = as.POSIXct("2023-02-14"),  xend = as.POSIXct("2023-02-14"), y = 0, yend = 82, color = "#3d85c6", linetype = "dashed", size = 1.5) + 
+    annotate("text", x = as.POSIXct("2022-11-14"), y = 85, label = "Spanish and Portug.", color = "#3d85c6", size = 4, angle = angle, hjust = 0) +
+    # Transition to CDL
+    annotate( "segment", x = as.POSIXct("2022-09-14"),  xend = as.POSIXct("2022-09-14"), y = 0, yend = 82, color = "#008000", linetype = "dashed", size = 1.5) + 
+    annotate("text", x = as.POSIXct("2022-07-14"), y = 85, label = "CDL", color = "#008000", size = 4, angle = angle, hjust = 0) +
+   # IUCN Red Eco submission 29 August 2023
+   # 1000 preprints
+    annotate( "segment", x = as.POSIXct("2023-08-29"),  xend = as.POSIXct("2023-08-29"), y = 0, yend = 82, color = "#cc0000", linetype = "dashed", size = 1.5) + 
+    annotate("text", x = as.POSIXct("2023-04-29"), y = 85, label = "IUCN Report", color = "#cc0000", size = 4, angle = angle, hjust = 0) 
 ##---------------------##
 # Countries using EcoEvoRxiv
 ##---------------------##
@@ -284,7 +299,9 @@ p7  <- ggdraw() + draw_plot(p5) + draw_plot(p6, x = 0.05, y = 0.40, width = 0.6,
 ## Final plot. World map in the middle with others around
 
 layout <- "
-##AAAA##
+#AAAAAA#
+#AAAAAA#
+#AAAAAA#
 BBBBBBBB
 BBBBBBBB
 BBBBBBBB
@@ -352,7 +369,7 @@ sum_oa_status <- tabyl(preprints$oa_status)
 
 p2_pub <- preprints  %>% ggplot(aes(x = is_oa)) + geom_bar() + labs(x = "Open Access", y = "Number of Papers") + theme_classic() + theme(axis.title = element_text(size = 14))
 
-p3_pub <- preprints  %>% ggplot(aes(x = oa_status, fill = oa_status)) + geom_bar() + labs(x = "Open Access Status", y = "Number of Papers") + theme_classic() + theme(axis.title = element_text(size = 14)) + scale_fill_manual(values = c("bronze" = "#9b6023", "gold" = "#ffd700", "green" = "#008000", "hybrid" = "#6fa8dc", "NA" = "grey", "closed" = "black"))
+p3_pub <- preprints  %>% ggplot(aes(x = oa_status, fill = oa_status)) + geom_bar() + labs(x = "Open Access Status", y = "Number of Papers") + theme_classic() + theme(axis.title = element_text(size = 14), legend.position = "none") + scale_fill_manual(values = c("bronze" = "#9b6023", "gold" = "#ffd700", "green" = "#008000", "hybrid" = "#6fa8dc", "NA" = "grey", "closed" = "black"))
 
 p_pubsummary <- (p1_pub + p2_pub + p3_pub) + plot_annotation(tag_levels = 'A', tag_suffix=")")
 ggsave(p_pubsummary, filename = here("output", "figs", "pubsummary.png"), width = 20, height = 7)
