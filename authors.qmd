@@ -1,0 +1,135 @@
+---
+title: ""
+format:
+  docx:
+    reference-doc: ./bib/template.docx
+--- 
+
+Rafaela Almeida^1^, Kevin Bairos-Novak^2^, Heikel Balti^3^, Michael Bertram^4^, Louis Bliard^5^, Jack Brand^6^, Ilha Byrne^7^, Ying-Chi Chan^8^, Dena Clink^9^, Quentin Corbel^10^, Ricardo Correia^11^, Jordann Crawford-Ash^12^, Antica Culina^13^, Elvira D'Bastiani^14^, Gideon Gywa Deme^15^, Félicie Dhellemmes^16^, Shreya Dimri^17^, Szymek Drobniak^18^, Alexander Elsy^19^, Susan Everingham^20^, Samuel J. L. Gascoigne^21^, Matt Grainger^22^, Gavin Hossack^23^, Knut Anders Hovstad^24^, Ed Ivimey-Cook^25^, Matt Jones^26^, Ineta Kačergytė^27^, Georg Küstner^28^, Dalton Leibold^29^, Magdalena M. Mair^30^, Jake Martin^31^, April Robin Martinig^32^, Ayumi Mizuno^33^, Iain Moodie^34^, David Moreau^35^, Rose O'Dea^36^, James Orr^37^, Matthieu Paquet^38^, Rabindra Parajuli^39^, Joel Pick^40^, Patrice Pottier^41^, Marija Purgar^42^, Pablo Recio^43^, Dominique Roche^44^, Raphaël Royauté^45^, Saeed Shafiei Sabet^46^, Inês Silva^47^, Bruno E. Soares^48^, Birgit Szabo^49^, Alfredo Sánchez-Tójar^50^, Elina Takola^51^, Eli Thoré^52^, Bishnu Timilsina^53^, Wilco Verberk^54^, Stefan J.G. Vriend^55^, Kristoffer Wild^56^, Coralie Williams^57^, Nicholas Wu^58^, Zoe Xirocostas^59^, Yefeng Yang^60^, Melina de Souza Leite^61^, Natalie E. van Dis^62^, NA NA^63^
+
+^1^KU Leuven, Belgium
+
+^2^School of the Environment, University of Queensland, Australia
+
+^3^UMR 6249 Chrono-Environnement, University of Bourgogne Franche-Comté, France
+
+^4^Swedish University of Agricultural Sciences
+
+^5^Department of Evolutionary Biology and Environmental Studies, University of Zurich
+
+^6^Department of Wildlife, Fish, and Environmental Studies, Swedish University of Agricultural Sciences
+
+^7^Scholf of the Environment, The University of Queensland
+
+^8^Swiss Ornithological Institute, Switzerland
+
+^9^K. Lisa Yang Center for Conservation Bioacoustics, Cornell University
+
+^10^Station d'Ecologie Théorique et Experimentale, CNRS, France
+
+^11^Biodiversity Unit, University of Turku, Finland
+
+^12^Fenner School of Environment and Society, Australian National University, Canberra ACT
+
+^13^Institute Ruder Boskovic, Zagreb. Croatia
+
+^14^Department of Ecology and Evolutionary Biology, University of California, Los Angeles
+
+^15^Case Western Reserve University
+
+^16^Science of Intellingence, Berlin, Germany; Max Planck Institute for Human Development, Berlin, Germany
+
+^17^Department of Evolutionary Biology, Bielefeld Univeristy, Germany
+
+^18^UNSW/Jgaiellonian University
+
+^19^ETH Zürich, Switzerland
+
+^20^Institute of Plant Sciences and Oeschger Centre for Climate Change Research, University of Bern
+
+^21^Department of Biology, University of Oxford, United Kingdom
+
+^22^Norwegian Institute for Nature Research, Trondheim, Norway
+
+^23^n/a
+
+^24^Norwegian Biodiversity Information Centre, Trondheim, Norway
+
+^25^University of Glasgow
+
+^26^University of Exeter
+
+^27^Ecology department, Swedish University of Agricultural sciences, Sweden
+
+^28^Department of Animal Ecology and Tropical Biology, University of Würzburg, Germany
+
+^29^Division of Ecology and Evolution, Research School of Biology, Australian National University
+
+^30^Statistical Ecotoxicology, Bayreuth Center of Ecology and Environmental Research (BayCEER), University of Bayreuth, Germany
+
+^31^Swedish university of agricultural sciences, Umeå, Sweden
+
+^32^School of Biological, Earth and Environmental Sciences, UNSW, Sydney
+
+^33^Department of Biology, Faculty of Science, Hokkaido University, Japan
+
+^34^Department of Biology, Lund University, Sweden
+
+^35^Centre for Brain Research, University of Auckland, New Zealand
+
+^36^School of Agriculture, Food and Ecosystem Sciences, University of Melbourne
+
+^37^Department of Biology, University of Oxford
+
+^38^Station d'Ecologie Théorique et Experimentale, CNRS, France
+
+^39^Department of Geosciences, Florida Atlantic University, Boca Raton, FL
+
+^40^Institute of Ecology and Evolution, University of Edinburgh, UK
+
+^41^School of Biological, Earth and Environmental Sciences, UNSW, Sydney
+
+^42^Ruđer Bošković Institute, Zagreb, Croatia
+
+^43^Department of Ecology and Evolution, RSB, Australian National University
+
+^44^Department of Biology, Carleton University, Canada
+
+^45^Université ParisSaclay, INRAE, AgroParisTech, UMR EcoSys, Palaiseau, France
+
+^46^Fisheries Department, Faculty of Natural Sciences, University of Guilan
+
+^47^Center for Advanced Systems Understanding, Görlitz, Germany
+
+^48^University of Regina
+
+^49^Division of Behavioural Ecology, University of Bern, Switzerland
+
+^50^Department of Evolutionary Biology, Bielefeld University, Germany
+
+^51^Helmholtz Center for Environmental Research (UFZ), Leipzig, Germany
+
+^52^Department of Wildlife, Fish, and Environmental Studies, Swedish University of Agricultural Sciences
+
+^53^Faculty of Biosciences, Fisheries and Economics, The Arctic University of Norway, Norway
+
+^54^Radboud University Nijmegen
+
+^55^Netherlands Institute of Ecology (NIOO-KNAW), Wageningen, Netherlands
+
+^56^The University of Melbourne, School of BioSciences, Melbourne, VIC
+
+^57^School of Biological, Earth and Environmental Sciences, UNSW, Sydney
+
+^58^Hawkesbury Institute for the Environment, Western Sydney University
+
+^59^School of Life Sciences, University of Technology Sydney
+
+^60^School of Biological, Earth and Environmental Sciences, UNSW, Sydney
+
+^61^Department of Ecology, University of São Paulo, Brazil
+
+^62^Helsinki Institute of Life Sciences, Helsinki University, Finland
+
+^63^NA
+
