@@ -123,7 +123,7 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv* to understand prep
 
 ```{r, fig-summary}
 #| label: fig-summary
-#| fig-cap: Summary of articles posted to *EcoEvoRxiv*. A) Number of articles (preprints and postprints) published monthly to *EcoEvoRxiv* between 2018 and 2023. *EcoEvoRxiv* was established in June 2018 before the soft launch in November 2018; B) Countries that are posting articles (preprints and postprints) to *EcoEvoRxiv* as inferred from the country of affiliation of the submitting author; C) Taxa used / covered in the articles posted to *EcoEvoRxiv*; D) Types of articles accepted on *EcoEvoRxiv*. E) Career stage of authors posting to *EcoEvoRxiv* along with the gender of the submitting author.
+#| fig-cap: Summary of articles posted to *EcoEvoRxiv*. A) Number of articles (preprints and postprints) published monthly to *EcoEvoRxiv* between 2018 and 2023. *EcoEvoRxiv* was established in June 2018 before the soft launch in November 2018. Notable milestones include when *EcoEvoRxiv* transitioned to the California Digitial Library (CDL), the acceptance of Spanish and Portuguese preprints and postprints and when the first IUCN Redlist Ecosystem report was accepted; B) Countries that are posting articles (preprints and postprints) to *EcoEvoRxiv* as inferred from the country of affiliation of the submitting author; C) Taxa used / covered in the articles posted to *EcoEvoRxiv* (*n* = 1080); D) Types of preprints accepted on *EcoEvoRxiv* (*n* = 620). E) Career stage of authors posting to *EcoEvoRxiv* along with the gender of the submitting author.
 #| echo: false
 #| warning: false
 #| message: false
@@ -194,7 +194,7 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv* to understand prep
 
   # Summary of the data
   sum_taxa <- data2  %>% dplyr::select(all_of(cols))  %>% apply(., 2, sum, na.rm = TRUE)  %>% data.frame()   %>% rownames_to_column(var = "taxa")  %>% rename("n" = ".")  %>% mutate(perc = n/sum(n)*100, labels = paste0(round(perc, 1), "%"))
-
+  #sum(sum_taxa$n) #1080
   # Use data to create a pir chart and clean up colour palette
 
   p3 <- ggplot(sum_taxa, aes(x = "", y = perc, fill = taxa)) +
@@ -211,7 +211,7 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv* to understand prep
 ##---------------------##
 # Summary of the data
   sum_types <- preprints  %>% tabyl(type_of_preprint)  %>% rename("type" = type_of_preprint, "n" = n)  %>% mutate(perc = n/sum(n)*100, labels = paste0(round(perc, 1), "%"))
-
+  sum(sum_types$n) #620
   p4 <- ggplot(sum_types, aes(x = "", y = perc, fill = type)) +
     geom_col(color = "black") +
     geom_label_repel(aes(label = labels),
