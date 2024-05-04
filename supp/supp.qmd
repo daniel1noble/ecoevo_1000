@@ -141,8 +141,10 @@ Additional variables of interest (i.e., journal impact factor, preprint and revi
 ## Data Checking and Validation
 Data from each preprint was cross checked by two authors to ensure accuracy and consistency of the data collected. Any discrepencies were either discussed or fixed prior to analysis. 
 
-# Supplementary Results
+## Data Analysis
 
+
+# Supplementary Results
 
 ## Preprint citations versus published article citations
 
