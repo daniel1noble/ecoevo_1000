@@ -34,7 +34,7 @@ options(scipen = 1, digits = 2)
 # Load packages
 #install.packages("pacman")
 #remotes::install_github("lmullen/genderdata")
-pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, gender,genderdata, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot, viridis, cowplot, magick, lme4, lmerTest)
+pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor, maps, forcats,RColorBrewer, flextable, ggrepel, ggimage, gt, performance, gender,genderdata, ggthemes, mapproj, DemografixeR, countrycode, see, glmmTMB, cowplot, viridis, cowplot, magick, lme4, lmerTest, data.table)
 
 # Load in the data
   data <- read_xlsx(here("data", "20231003_EER_preprints_metadata.xlsx"))
@@ -137,30 +137,37 @@ Here, we explore the first 1000+ preprints uploaded to *EcoEvoRxiv* to understan
 ##---------------------##
   angle = 45
   p1 <- ggplot(data2, aes(x = preprint_pub_date)) +
-    geom_histogram(fill = "black", color = "black") +
-    labs(x = "Published Date", y = "Number of Papers") +
-    theme_bw() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1)) + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin") + ylim(0, 130) + 
+    geom_histogram(fill = "white", color = "black") +
+    scale_y_continuous(limits = c(0, 130), expand = c(0, 0)) +
+    labs(x = "Published date", y = "Number of papers") +
+    theme_classic() +
+    #theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+    theme(plot.tag = element_text(size = 16, face = "bold")) + 
       # Soft Launch of EcoEvoRxiv
-    annotate( "segment", x = as.POSIXct("2018-06-01"),  xend = as.POSIXct("2018-07-01"), y = 0, yend = 82, color = "#ffd966", linetype = "dashed", size = 1.5) + 
-    annotate("text", x = as.POSIXct("2018-06-01"), y = 85, label = "Soft Launch", color = "#ffd966", size = 4, angle = angle, hjust = 0) +
+    annotate( "segment", x = as.POSIXct("2018-06-01"),  xend = as.POSIXct("2018-06-01"), y = 0, yend = 82, color = "black", linetype = "dashed", size = 0.5) + 
+    annotate("text", x = as.POSIXct("2018-06-01"), y = 85, label = "Soft Launch", size = 4, angle = angle, hjust = 0) +
     # Launch of EcoEvoRxiv
-    annotate( "segment", x = as.POSIXct("2018-11-11"),  xend = as.POSIXct("2018-11-11"), y = 0, yend = 82, color = "#2986cc", linetype = "dashed", size = 1.5) + 
-    annotate("text", x = as.POSIXct("2018-11-11"), y = 85, label = "Launch", color = "#2986cc", size = 4, angle = angle, hjust = 0) +
+    annotate( "segment", x = as.POSIXct("2018-11-11"),  xend = as.POSIXct("2018-11-11"), y = 0, yend = 82, color = "black", linetype = "dashed", size = 0.5) + 
+    annotate("text", x = as.POSIXct("2018-11-11"), y = 85, label = "Launch", size = 4, angle = angle, hjust = 0) +
     # Spanish and Port
-    annotate( "segment", x = as.POSIXct("2023-02-14"),  xend = as.POSIXct("2023-02-14"), y = 0, yend = 82, color = "#3d85c6", linetype = "dashed", size = 1.5) + 
-    annotate("text", x = as.POSIXct("2022-11-14"), y = 85, label = "Spanish and Portug.", color = "#3d85c6", size = 4, angle = angle, hjust = 0) +
+    annotate( "segment", x = as.POSIXct("2023-02-14"),  xend = as.POSIXct("2023-02-14"), y = 0, yend = 82, color = "black", linetype = "dashed", size = 0.5) + 
+    annotate("text", x = as.POSIXct("2022-11-14"), y = 85, label = "Spanish and Portug.", size = 4, angle = angle, hjust = 0) +
     # Transition to CDL
-    annotate( "segment", x = as.POSIXct("2022-09-14"),  xend = as.POSIXct("2022-09-14"), y = 0, yend = 82, color = "#008000", linetype = "dashed", size = 1.5) + 
-    annotate("text", x = as.POSIXct("2022-07-14"), y = 85, label = "CDL", color = "#008000", size = 4, angle = angle, hjust = 0) +
+    annotate( "segment", x = as.POSIXct("2022-09-14"),  xend = as.POSIXct("2022-09-14"), y = 0, yend = 82, color = "black", linetype = "dashed", size = 0.5) + 
+    annotate("text", x = as.POSIXct("2022-07-14"), y = 85, label = "CDL", size = 4, angle = angle, hjust = 0) +
    # IUCN Red Eco submission 29 August 2023
    # 1000 preprints
-    annotate( "segment", x = as.POSIXct("2023-08-29"),  xend = as.POSIXct("2023-08-29"), y = 0, yend = 82, color = "#cc0000", linetype = "dashed", size = 1.5) + 
-    annotate("text", x = as.POSIXct("2023-04-29"), y = 85, label = "IUCN Report", color = "#cc0000", size = 4, angle = angle, hjust = 0) 
+    annotate( "segment", x = as.POSIXct("2023-08-29"),  xend = as.POSIXct("2023-08-29"), y = 0, yend = 82, color = "black", linetype = "dashed", size = 0.5) + 
+    annotate("text", x = as.POSIXct("2023-04-29"), y = 85, label = "IUCN Report", size = 4, angle = angle, hjust = 0)
+  
+  
+  ggsave(here("output", "figs", "published_date.svg"), p1, width = 7.5, height = 2)
+  
+  #Plot was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 1. - Zoe X
 ##---------------------##
 # Countries using EcoEvoRxiv
 ##---------------------##
-  # Create a global map with countried highlighted and shaded according to the frequency of preprints from that country
+   # Create a global map with countried highlighted and shaded according to the frequency of preprints from that country
   # First, we need to get the country names and the number of preprints from each country
     countries <- data2  %>% tabyl(submitting_author_country)  %>% rename("country" = submitting_author_country, "n" = n)  %>% mutate(country = ifelse(country == "NA", "Unknown", country))  %>% arrange(desc(n))  %>% mutate(country=str_to_title(country))
 
@@ -177,11 +184,15 @@ Here, we explore the first 1000+ preprints uploaded to *EcoEvoRxiv* to understan
     countries <- countries  %>% mutate(country = str_replace_all(country, replace))  %>% filter(!is.na(valid_percent ))  %>% mutate(valid_percent_dis = factor(round(valid_percent, 3)*100, ordered = TRUE))  
 
    
-  p2 <- ggplot(countries) +
+    map_fig <- ggplot(countries) +
     geom_map(aes(map_id = country, fill = valid_percent_dis), map = world_map) +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group), colour = 'black', fill = NA) +
     expand_limits(x = world_map$long, y = world_map$lat) +
-    theme_void() + expand_limits(x = world_map$long, y = world_map$lat) + scale_fill_viridis(discrete = TRUE) + coord_fixed() + labs(fill="Precentage (%) of Total") +  coord_map("moll") + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin")
+    theme_void() + expand_limits(x = world_map$long, y = world_map$lat) + scale_fill_viridis(option = "G", discrete = TRUE, direction = -1) +
+    coord_fixed() + labs(fill="Percentage (%) of Total") + theme(plot.tag = element_text(size = 16, face = "bold"))
+  
+  ggsave(here("output", "figs", "worldmap.svg"), map_fig, width = 15, height = 20)
+  #removed Antarctica and sub-antarctic islands in Illustrator and combined with other plots to create Figure 1. -Zoe X
 
   # Find the countries with 90% of the preprints
 
@@ -197,14 +208,16 @@ Here, we explore the first 1000+ preprints uploaded to *EcoEvoRxiv* to understan
   #sum(sum_taxa$n) #1080
   # Use data to create a pir chart and clean up colour palette
 
-  p3 <- ggplot(sum_taxa, aes(x = "", y = perc, fill = taxa)) +
-    geom_col(color = "black") +
-    geom_label_repel(aes(label = labels),
-              position = position_stack(vjust = 0.6),
-            show.legend = FALSE) +
-    scale_fill_viridis_d() +
-    coord_polar(theta = "y") + 
-    theme_void() + labs(fill = "Taxa") + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin")
+  # Use data to create a pie chart and clean up colour palette
+  taxa_fig <- ggplot(sum_taxa, aes(x = fct_reorder(taxa, perc), y = perc)) +
+    geom_col(color = "black", fill = "white") +
+    scale_y_continuous(expand = c(0, 0)) +
+    #scale_fill_viridis_d() +
+    #coord_polar(theta = "y") + 
+    theme_classic() + labs(y = "Percentage (%) of preprints", x = "Studied taxa") + 
+    theme(plot.tag = element_text(size = 16, face = "bold")) + coord_flip() +
+    scale_fill_colorhex_d(palette = 1042984, discrete = TRUE)
+  
 
 ##---------------------##
 # Types pf preprints
@@ -212,14 +225,24 @@ Here, we explore the first 1000+ preprints uploaded to *EcoEvoRxiv* to understan
 # Summary of the data
   sum_types <- preprints  %>% tabyl(type_of_preprint)  %>% rename("type" = type_of_preprint, "n" = n)  %>% mutate(perc = n/sum(n)*100, labels = paste0(round(perc, 1), "%"))
   #sum(sum_types$n) #620
-  p4 <- ggplot(sum_types, aes(x = "", y = perc, fill = type)) +
-    geom_col(color = "black") +
-    geom_label_repel(aes(label = labels),
-              position = position_stack(vjust = 0.6),
-            show.legend = FALSE) +
-    scale_fill_viridis_d() +
-    coord_polar(theta = "y") + 
-    theme_void() + labs(fill = "Article Type") + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin")
+  
+  type_fig <- ggplot(sum_types, aes(x = fct_reorder(type, perc), y = perc)) +
+    geom_col(color = "black", fill = "white") +
+    scale_y_continuous(expand = c(0, 0)) +
+    #scale_fill_viridis_d() +
+    #coord_polar(theta = "y") + 
+    theme_classic() + labs(y = "Percentage (%) of preprints", x = "Article type") + 
+    theme(plot.tag = element_text(size = 16, face = "bold")) + coord_flip() +
+    scale_fill_colorhex_d(palette = 1042984, discrete = TRUE) + theme(legend.position = "none")
+
+  
+type_taxa <- cowplot::plot_grid(taxa_fig, 
+                   type_fig, 
+                   align = "v", ncol = 2, labels = c('c', 'd')) 
+  
+  ggsave(here("output", "figs", "taxa_type.svg"), type_taxa)
+  
+  #Plot was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 1. - Zoe X
 
 nt <- sum_types  %>% filter(type %in% c("book", "report", "book chapter", "other"))  %>% summarise(perc = sum(perc))
 
@@ -227,15 +250,32 @@ nt <- sum_types  %>% filter(type %in% c("book", "report", "book chapter", "other
 # Career Stage & Gender
 ##-------------------##
 
-p5 <- ggplot(preprints, aes(x = submitting_author_first_publication_year)) +
-  geom_histogram(binwidth = 1, fill = "grey", color = "black") +
-  labs(x = "Year of submitting authors first publication", y = "Number of preprints") +
-  theme_bw() +
+#compute academic age! (Zoe X)
+preprints <- preprints %>% 
+  mutate(preprint_published_year_z = year(preprint_published_date)) %>% 
+  mutate(academic_age = (preprint_published_year_z-submitting_author_first_publication_year))
+
+
+academic_age <- ggplot(preprints, aes(x = academic_age)) +
+  geom_histogram(binwidth = 1, fill = "white", color = "black") +
+  scale_y_continuous(expand = c(0, 0)) +
+  labs(x = "Years since submitting author's first publication (academic age)", y = "Number of preprints") +
+  geom_vline(aes(xintercept = median(academic_age)), color = "black", linetype = "dashed", size = 0.5) +
+  theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-count_dat  <- preprints  %>% group_by(submitting_author_first_publication_year)  %>% summarise(n = n())
+#mean(age$academic_age)
 
-model <- glm.nb(n ~ submitting_author_first_publication_year, data = count_dat)
+ggsave(here("output", "figs", "academic_age.svg"), academic_age, width = 7.5, height = 2)
+  
+  #Plot was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 1. - Zoe X
+
+count_dat  <- preprints  %>% 
+              distinct(submitting_author, academic_age) %>% 
+              group_by(academic_age) %>% 
+              summarise(n = n())
+
+model <- glm.nb(n ~ academic_age, data = count_dat)
 res <- summary(model)$coefficients
 
 # First need to get the authors first name
@@ -285,43 +325,34 @@ data4 <- rename(data4, gender = gender.x)
 #table(data4$gender, useNA = "always") #more males than females, two NA ue to missing first name / collective authorship
 
 # Plot the data
-p6 <- data4 %>% filter(!is.na(gender))  %>% tabyl(gender)  %>% mutate(perc = n/sum(n)*100, labels = paste0(round(perc, 1), "%"))  %>%  ggplot(aes(x = "", y = percent, fill = gender)) +
-    geom_col(color = "black") +
-    geom_label_repel(aes(label = labels),
-              position = position_stack(vjust = 0.6),
-            show.legend = FALSE) +
+###Zoe's gender pie###
+#female - 37.8, male - 62.2
+
+gender <- c("female", "male")
+percentage <- c(37.8, 62.2)
+sex_ratio<- data.frame(gender, percentage)
+
+sex_ratio <- sex_ratio %>% ggplot(aes(x = "", y = percentage, fill = gender)) +
+    geom_col(color = "black")+
+  scale_fill_manual(values = c("white", "black")) +
     coord_polar(theta = "y") + 
-    theme_void() + labs(fill = "Gender") + theme(plot.tag = element_text(size = 16, face = "bold"), plot.tag.location = "margin")
+    theme_void()
 
 
-p7  <- ggdraw() + draw_plot(p5) + draw_plot(p6, x = 0.05, y = 0.40, width = 0.6, height = 0.6)
+ggsave(here("output", "figs", "sex_ratio.svg"), sex_ratio)
 
-## Final plot. World map in the middle with others around
+##Pie was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 1. - Zoe X
 
-layout <- "
-#AAAAAA#
-#AAAAAA#
-#AAAAAA#
-BBBBBBBB
-BBBBBBBB
-BBBBBBBB
-CCCCDDDD
-CCCCDDDD
-##EEEE##
-##EEEE##
-"
+# Load in and plot the final figure
+  fig <- image_read(here("output", "figs", "Figure 1_FINAL.png")) 
+  fig
 
-p_summary <- p1+p2+p3+p4+p7 + plot_layout(design = layout)+ plot_annotation(tag_levels = 'A', tag_suffix=")") + theme(plot.tag = element_text(size = 16, face = "bold"))
-ggsave(p_summary, filename = here("output", "figs", "summary.png"), width = 11, height = 12) 
-
-fig1 <- image_read(here("output", "figs", "summary.png"))
-fig1
 ```
 
  
 ### *Overview of **EcoEvoRxiv** preprints (and postprints)*
 
-After removing five duplicate titles – suggesting a few authors created multiple submissions for the same preprint rather than updating an existing submission – we had data for a total of `r pr` articles with ~55--60 preprints published each month in the last two years ([@fig-summary]A).  *EcoEvoRxiv* hosts papers from authors based in `r length(unique(countries$country))-1` countries, with 90% of the articles coming from just `r nrow(most_use)-1` countries. North America, Australia, and European countries upload the most preprints with much fewer coming from countries in Africa, Central America, and parts of Asia ([@fig-summary]B).  Articles covered all major taxonomic groups, with the most common being vertebrates (`r sum_taxa$perc[6]`%), plants (`r sum_taxa$perc[1]`%), and invertebrates (`r sum_taxa$perc[5]`%) ([@fig-summary]C). 
+After removing five duplicate titles – suggesting a few authors created multiple submissions for the same preprint rather than updating an existing submission – we had data for a total of `r pr` articles with ~55--60 preprints published bi-monthly in the last two years ([@fig-summary]A).  *EcoEvoRxiv* hosts papers from authors based in `r length(unique(countries$country))-1` countries, with 90% of the articles coming from just `r nrow(most_use)-1` countries. North America, Australia, and European countries upload the most preprints with much fewer coming from countries in Africa, Central America, and parts of Asia ([@fig-summary]B).  Articles covered all major taxonomic groups, with the most common being vertebrates (`r sum_taxa$perc[6]`%), plants (`r sum_taxa$perc[1]`%), and invertebrates (`r sum_taxa$perc[5]`%) ([@fig-summary]C). 
 
 ### *Diversifying article types on **EcoEvoRxiv**: overcoming the 'grey literature' problem*
 
@@ -360,7 +391,14 @@ unpub <- data2  %>% filter(is.na(publication_doi))  %>% nrow()
 # what is the range
 sum_preprints <- preprints  %>% summarise(min = min(time_between_preprint_and_pub_days), max = max(time_between_preprint_and_pub_days), mean = mean(time_between_preprint_and_pub_days), median = median(time_between_preprint_and_pub_days), sd = sd(time_between_preprint_and_pub_days))
 
-p1_pub <- preprints %>% ggplot(aes(x = time_between_preprint_and_pub_days)) + geom_histogram(binwidth = 30) + geom_vline(aes(xintercept = sum_preprints$median), colour = "red", linetype = "dashed", linewidth = 1) + annotate("text", x = sum_preprints$median + 650, y = 60, label = paste0(sum_preprints$median, " days", "(~ ", sum_preprints$median/30, " months)"), size = 10, colour = "red") + labs(x = "Time to Publication (days)", y = "Number of Papers") + theme_classic() + theme(axis.title = element_text(size = 14))
+p1_pub_zoe <- preprints %>% ggplot(aes(x = time_between_preprint_and_pub_days)) +
+  geom_histogram(binwidth = 30, fill = "white", color = "black") +
+  theme_classic() +  geom_vline(aes(xintercept = sum_preprints$median), colour = "black", linetype = "dashed", linewidth = 0.5) + annotate("text", x = sum_preprints$median + 650, y = 60, label = paste0(sum_preprints$median, " days", "(~ ", sum_preprints$median/30, " months)"), colour = "black") + labs(x = "Time to publication (days)", y = "Number of preprints") + theme_classic() + theme(axis.title = element_text(size = 10)) +
+  scale_y_continuous(limits = c(0, 80), expand = c(0, 0))
+
+ggsave(here("output", "figs", "time_to_publication.svg"), p1_pub_zoe)
+
+#Plot was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 2. - Zoe X
 
 ##-------------------##
 # Open access
@@ -370,12 +408,17 @@ p1_pub <- preprints %>% ggplot(aes(x = time_between_preprint_and_pub_days)) + ge
 sum_is_oa <- tabyl(preprints$is_oa)
 sum_oa_status <- tabyl(preprints$oa_status)
 
-p2_pub <- preprints  %>% ggplot(aes(x = is_oa)) + geom_bar() + labs(x = "Open Access", y = "Number of Papers") + theme_classic() + theme(axis.title = element_text(size = 14))
+p2_pub <- preprints  %>% ggplot(aes(x = is_oa)) + geom_bar() + labs(x = "Open Access", y = "Number of papers") + theme_classic()  + scale_y_continuous(expand = c(0, 0))
 
-p3_pub <- preprints  %>% ggplot(aes(x = oa_status, fill = oa_status)) + geom_bar() + labs(x = "Open Access Status", y = "Number of Papers") + theme_classic() + theme(axis.title = element_text(size = 14), legend.position = "none") + scale_fill_manual(values = c("bronze" = "#9b6023", "gold" = "#ffd700", "green" = "#008000", "hybrid" = "#6fa8dc", "NA" = "grey", "closed" = "black"))
+ggsave(here("output", "figs", "Open_access_TRUE_FALSE.svg"), p2_pub)
 
-p_pubsummary <- (p1_pub + p2_pub + p3_pub) + plot_annotation(tag_levels = 'A', tag_suffix=")")
-ggsave(p_pubsummary, filename = here("output", "figs", "pubsummary.png"), width = 20, height = 7)
+#Plot was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 2. - Zoe X
+
+p3_pub <- preprints %>% mutate(oa_status = (fct_relevel(oa_status, c("gold","hybrid", "bronze", "green", "closed", "NA"))))  %>% ggplot(aes(x = oa_status, fill = oa_status)) + geom_bar() + labs(x = "Open Access type", y = "Number of papers") + theme_classic() + theme(axis.title = element_text(size = 14), legend.position = "none") + scale_fill_manual(values = c("bronze" = "#9b6023", "gold" = "#ffd700", "green" = "#008000", "hybrid" = "#6fa8dc", "NA" = "grey", "closed" = "black"))+ scale_y_continuous(expand = c(0, 0))
+
+ggsave(here("output", "figs", "Open_Access_type.svg"), p3_pub)
+
+#Plot was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 2. - Zoe X
 
 ##-------------------##
 # Data and Code Sharing
@@ -403,7 +446,7 @@ ggsave(p_pubsummary, filename = here("output", "figs", "pubsummary.png"), width 
 titles <- preprints %>%  filter(!is.na(publication_doi)) %>% tabyl(publication_title_changed)
 
 
-fig2 <- image_read(here("output", "figs", "pubsummary.png"))
+fig2 <- image_read(here("output", "figs", "Figure 2_final.png"))
 fig2
 ```
 
