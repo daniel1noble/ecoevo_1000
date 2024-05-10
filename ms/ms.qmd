@@ -96,7 +96,7 @@ pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor,
 
 ```
 
-Authors: Daniel W.A. Noble ^1^, $\ddagger$, Hackathon Participants, Shinichi Nakagawa^2,\*^,Malgorzata Lagisz^2,\*^
+Authors: Daniel W.A. Noble ^1^, $\ddagger$, Zoe A. Xirocostas, Nicholas C. Wu, April R. Martinig, Shinichi Nakagawa^2,\*^,Malgorzata Lagisz^2,\*^
 
 Affiliations: 
 
@@ -115,7 +115,7 @@ Preprint servers can empower researchers to make their research findings more ac
 
 *EcoEvoRxiv* is one of the few community-driven preprint servers that has paved the way for new initiatives, by accepting multilingual preprints, recognising registered reports and non-traditional research reports, and promoting peer review and community discussion which we hope will improve the quality of preprints and speed up their peer-reviewed publication (e.g., Peer Community In -- PCI [@guillemaud2019peer]). Peer Community In allows for fast constructive peer review around a preprint. Peer reviews are transparent and published online and the community makes a recommendation on where the reasearch findings should be published [@guillemaud2019peer]. 
 
-Here, we explore the first 1000+ preprints uploaded to *EcoEvoRxiv* to understand preprint practices and uses in ecology and evolution. We focus our attention on better understanding: 1) in what countries authors who use *EcoEvoRxiv* are located; 2) how career stage and gender impact preprint server use; 3) the extent to which authors make use of preprint servers for registered reports and community-driven peer review; 4) the extent to which data and code are shared in preprints; and 5) how many preprints remain unpublished, and for those that are published, how long it took them to become published. In the process, we also provide a summary of what makes *EcoEvoRxiv* distinct from other preprint servers to help further educate researchers about the benefits of using community-driven preprint servers to post their research findings.
+Here, we explore the first 1000+ preprints uploaded to *EcoEvoRxiv* to understand preprint practices and uses in ecology and evolution. We focus our attention on better understanding: 1) in what countries authors who use *EcoEvoRxiv* are located; 2) how career stage and gender are associated with preprint server use; 3) the extent to which authors make use of preprint servers for registered reports and community-driven peer review; 4) the extent to which data and code are shared in preprints; and 5) how many preprints remain unpublished, and for those that are published, how long it took them to become published. In the process, we also provide a summary of what makes *EcoEvoRxiv* distinct from other preprint servers to help further educate researchers about the benefits of using community-driven preprint servers to post their research findings.
 
 # Getting to know your *EcoEvoRxiv* preprint server
 
