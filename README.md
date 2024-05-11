@@ -1,6 +1,6 @@
-# Evaluating the First 1000 preprints on EcoEvoRxiv
+# Evaluating the First preprints on EcoEvoRxiv
 
-The goal of this Hackathon is to quantify various attributes of first 1000 preprints to better understand preprint practices and publication pathways in Ecology and Evolution. There are currently well >1100 preprints on the new *EcoEvoRxiv*, which was established in 2018. 
+The goal of this Hackathon is to quantify various attributes of first preprints to better understand preprint practices and publication pathways in Ecology and Evolution. There are currently well >1100 preprints on the new *EcoEvoRxiv*, which was established in 2018. 
 
 The aims of this project are to determine:
 1) how long it takes for a preprint to become published, and how many preprints remain unpublished; (complete)
