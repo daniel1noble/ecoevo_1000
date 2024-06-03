@@ -143,6 +143,8 @@ Data from each preprint was cross checked by two authors to ensure accuracy and 
 
 ## Data Analysis
 
+#### Generational Analysis
+To test whether a greater number of preprints were submitted by authors of earlier 'academic age', as quantified by the submitting authors first year of publication, we used a generalised linear model (GLM) with a negative binomial error distribution. We included the number of preprints submitted in a given year as the response variable and the first year of publication as the predictor variable. A negative, and significant, slope coefficient indicates support for researchers of earlier career stages submitting more preprints. 
 
 # Supplementary Results
 
