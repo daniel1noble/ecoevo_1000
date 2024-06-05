@@ -464,7 +464,7 @@ Data and code sharing are also key components of open science [@roche2015public]
 
 # Paving our future to open, transparent and community-driven science
 
-Our analysis has allowed us to better understand preprinting/postprinting practices in *EcoEvoRxiv*. Based on the insights from our analysis, we provide recommendations to authors on ways they can further promote open and transparent research: 
+Our analysis has allowed us to better understand preprinting/postprinting practices in *EcoEvoRxiv*. In summary, *EcoEvoRxiv* articles are diverse but with primary research articles on vertebrates comprising most of the articles posted. North America, Europe and Australia use *EcoEvoRxiv* the most with very few non-English language articles to date. Earlier career researchers and submitting authors with 'male-associated names' tended to use *EcoEvoRxiv* the most. Articles posted to *EcoEvoRxiv* tend to take up to 8 months to become published with many articles not be open access. Code and data sharing was also relatively uncommon at the preprint stage. Based on the insights from our analysis, we provide recommendations to authors on ways they can further promote open and transparent research: 
 
 - First, share your data and code at the preprint stage. Sharing data and code early can help improve the quality of research, establish precedence, and improve the transparency and computational reproducibility of scientific findings [@sarabipour2019value]. Reassuringly, sharing data and code is rarely associated with 'scooping' of research findings [@soeharjono2021reported]. If authors are worried about data being used unintentionally, clear information surrounding its reuse can be included in a license (see https://choosealicense.com). Data can also be achived with an embargo on its reuse [@roche2014troubleshooting]. 
 - Second, take advantage of peer-reviewing services such as Peer Community In (PCI). It is clear that the time between posting a preprint and publication is still quite long (~8 months). One possible explanation is that preprints are not being sent to suitable journals or are struggling to get into review slowing down constructive feedback that can improve a papers quality. Using PCI circumvents editorial decisions without review, yet only `r pci[2,3]*100`% (*n* = `r pci[2,2]`) used PCI. Using such services will ensure that authors receive faster feedback on a paper. Ninety-three journals currently accept PCI reviews and recommendations when considering a paper for publication (https://peercommunityin.org/pci-friendly-journals/).
@@ -479,7 +479,7 @@ We would like to thank the California Digital Library (CDL) and the CDL team (pa
 # Data and Code Availability
 All data and code can be found on GitHub at: https://github.com/daniel1noble/ecoevo_1000
 
-# Conflicts of Interest
+# Conflict of Interest
 The authors would like to awknowledge competing interests on the perspectives presented in this paper given that many are founding members of *EcoEvoRxiv* (DWAN, SN, ML) and/or are part of the *EcoEvoRxiv* committee.
 
 # References
