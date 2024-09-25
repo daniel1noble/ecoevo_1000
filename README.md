@@ -21,9 +21,9 @@ The `ms.qmd` file makes use of files within a number of folders that are identif
 * :open_file_folder: `data` 
 * :open_file_folder: `output/figs/` Folder contains all the figures for the paper that are read and included in the paper. See more details below (**3. Figures**).
 * :open_file_folder: `R` The R folder contains three :page_facing_up: files that are used to clean and process data to prepare it for use in the `ms.qmd` file. These include: 
- 	1) :page_facing_up: `1_data_processing.R`, which is used to first download the Google Sheets used during our hackathon, process and merge with meta-data from the California Digital Library (CDL); 
-	2) :page_facing_up: `2_data_cleaning.R`
-	3) :page_facing_up: `3_author_affli.R`, which is code to grab and process author affiliations because the lead author is a little lazy when it comes to cumbersome tasks such as these.
+ 	1. :page_facing_up: `1_data_processing.R`, which is used to first download the Google Sheets used during our hackathon, process and merge with meta-data from the California Digital Library (CDL); 
+	2. :page_facing_up: `2_data_cleaning.R`
+	3. :page_facing_up: `3_author_affli.R`, which is code to grab and process author affiliations because the lead author is a little lazy when it comes to cumbersome tasks such as these.
 
 ## 3. Figures
 `ms.qmd` will rely on figures generated and stored in the :open_file_folder: `output/figs/` folder. The final list of  figures are as follows:
