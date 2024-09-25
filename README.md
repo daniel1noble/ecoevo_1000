@@ -11,14 +11,23 @@ This paper emerged from a SORTEE hackathon. The details outlined in this README 
 
 Users can download a zip file of the entire repository by clicking on the green `code` tab at the top of the page and then clicking `Download ZIP`. Alternatively, the repo can be downloaded from [Zenodo]() or even the latest [release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0). Users who already have a GitHub account can `fork` the repository.
 
-The main file for users to click on when they are first navigating is the `ecoevo_1000.Rproj` file which will open the folder and set the working directory to the root of the downloaded folder. This will provide access to the code and data through R. Note that we use `Quarto` to provide a 100% reproducible paper where our text, code and figures are integrated together. This allows users to identify what specific objects are being used to render the quantitative information provided in the manuscript.
+The main file for users to click on when they are first navigating is the `ecoevo_1000.Rproj` file (:page_facing_up:) which will open the folder and set the working directory to the root of the downloaded folder. This will provide access to the code and data through R. Note that we use `Quarto` to provide a 100% reproducible paper where our text, code and figures are integrated together. This allows users to identify what specific objects are being used to render the quantitative information provided in the manuscript (more details below).
 
 ## 2. Project Organization and Workflow
 
-The key file is the `ms.qmd` file within the :open_file_folder: `ms` folder. This file can be rendered in `R` with `Quarto` to reproduce the entire paper. Code chunks within the file provide the code used to reproduce figures and analyses. Note that, some figures were modified outside of R for aesthetic reasons. These are provided as Adobe illustrator files. Nonetheless, the code to reproduce figures is still listed. 
+The key file in this repository is the `ms.qmd` file (:page_facing_up:) within the :open_file_folder: `ms` folder. This file can be rendered in `R` with `Quarto` to reproduce the entire paper. Code chunks within the file provide the code used to reproduce figures and analyses. 
 
 The `ms.qmd` file makes use of files within a number of folders that are identified in the code chunks. There are a number of important folders in the repository. 
  * :open_file_folder: `data` 
+
+
+## 3. Figures
+`ms.qmd` will rely on figures generated and stored in the :open_file_folder: `output/figs/` folder. The final list of  figures are as follows:
+
+ - :page_facing_up: `Figure 1_FINAL.png` 
+ - :page_facing_up: `Figure 2_FINAL.png` 
+
+Note that these figures are a composite of figures patched together and the final files were  modified outside of `R` for aesthetic reasons. These files also have associated Adobe illustrator files. Nonetheless, the code to reproduce the individual figures is still listed in `ms.qmd`. 
 
 
 ### Data to be manually collected on preprints
