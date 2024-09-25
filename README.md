@@ -1,11 +1,11 @@
 # Data and Code for: The promise of community-driven preprints in ecology and evolution
 
-## Study
+## Research Paper
 This repository contains the final code, data and figures used in the following manuscript:
 
 Noble et al. 2024. The promise of community-driven preprints in ecology and evolution. Proceedings of the Royal Society B: Biological Sciences, under review 
 
-This paper emerged from a SORTEE hackathon. The details outlined in this README have been pre-registered on [OSF](https://doi.org/10.17605/OSF.IO/D7ZWS). We have also captured this pre-study research plan as a [release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0).
+This paper emerged from a SORTEE hackathon. Our initial study plan was pre-registered on [OSF](https://doi.org/10.17605/OSF.IO/D7ZWS). We have also captured our pre-study research plan as a [release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0) to ensure content is all contained within this repository.
 
 ## 1. How to use this repository?
 
@@ -41,7 +41,7 @@ The original meta-data files from the CDL are located in the :open_file_folder: 
 - :page_facing_up: `20231003_EER _allversions.xlsx`
 - :page_facing_up: `20231003_EER_preprints_metadata.xlsx`
 
-### Column Names and Information for [`20231003_EER_preprints_metadata.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER_preprints_metadata.xlsx). **Note**: These columns are the same descriptors as that found in the [Preprint Meta-data](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319)
+#### Column Names and Information for [`20231003_EER_preprints_metadata.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER_preprints_metadata.xlsx). **Note**: These columns are the same descriptors as that found in the [Preprint Meta-data](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319)
 - **Preprint ID**: Janeway's internal identifier for the preprint 
 - **Preprint Title**: Title of the preprint 
 - **Preprint DOI**: DOI of the preprint
@@ -58,7 +58,7 @@ The original meta-data files from the CDL are located in the :open_file_folder: 
 - **Authors List**: List of all authors
 - **Total authors**: Total number of authors 
 
-### Column Names and Information for [`20231003_EER_allversions.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER%20_allversions.xlsx)
+#### Column Names and Information for [`20231003_EER_allversions.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER%20_allversions.xlsx)
 
 This data contains version history information for each preprint on EcoEvoRxiv. It is meant to supplement the main dataset `20230824_EER_Preprints_metadata.xlsx`.
 
@@ -74,7 +74,8 @@ This data contains version history information for each preprint on EcoEvoRxiv. 
  - **Current Version**	Current version number of preprint
  - **Version date** Date of version 
 
-
+## 5. Reporting Issues or Asking Questions
+If anything is unclear or you require further detail please don't hesitate to lodge an [issue](https://github.com/daniel1noble/ecoevo_1000/issues). 
 
 
 ### Data to be manually collected on preprints
