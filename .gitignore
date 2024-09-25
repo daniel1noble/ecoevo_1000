@@ -4,6 +4,7 @@
 .DS_Store
 *.docx
 ~*.xlsx
+output/figs/individual_figs/
 
 # Session Data files
 .RData
