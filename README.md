@@ -3,10 +3,22 @@
 ## Study
 This repository contains the final code, data and figures used in the following manuscript:
 
-Authors et al. 2024. The promise of community-driven preprints in ecology and evolution (*note, double blind peer-review so authors listed when published)
+Noble et al. 2024. The promise of community-driven preprints in ecology and evolution. Proceedings of the Royal Society B: Biological Sciences, under review 
 
 This paper emerged from a SORTEE hackathon. The details outlined in this README have been pre-registered on [OSF](https://doi.org/10.17605/OSF.IO/D7ZWS). We have also captured this pre-study research plan as a [release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0).
 
+## 1. How to use this repository?
+
+Users can download a zip file of the entire repository by clicking on the green `code` tab at the top of the page and then clicking `Download ZIP`. Alternatively, the repo can be downloaded from [Zenodo]() or even the latest [release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0). Users who already have a GitHub account can `fork` the repository.
+
+The main file for users to click on when they are first navigating is the `ecoevo_1000.Rproj` file which will open the folder and set the working directory to the root of the downloaded folder. This will provide access to the code and data through R. Note that we use `Quarto` to provide a 100% reproducible paper where our text, code and figures are integrated together. This allows users to identify what specific objects are being used to render the quantitative information provided in the manuscript.
+
+## 2. Project Organization and Workflow
+
+The key file is the `ms.qmd` file within the :open_file_folder: `ms` folder. This file can be rendered in `R` with `Quarto` to reproduce the entire paper. Code chunks within the file provide the code used to reproduce figures and analyses. Note that, some figures were modified outside of R for aesthetic reasons. These are provided as Adobe illustrator files. Nonetheless, the code to reproduce figures is still listed. 
+
+The `ms.qmd` file makes use of files within a number of folders that are identified in the code chunks. There are a number of important folders in the repository. 
+ * :open_file_folder: `data` 
 
 
 ### Data to be manually collected on preprints
