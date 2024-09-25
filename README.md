@@ -32,7 +32,49 @@ The `ms.qmd` file makes use of files within a number of folders that are identif
  - :page_facing_up: `Figure 1_FINAL.png` 
  - :page_facing_up: `Figure 2_FINAL.png` 
 
-Note that these figures are a composite of figures patched together and the final files were  modified outside of `R` for aesthetic reasons. These files also have associated Adobe illustrator files. Nonetheless, the code to reproduce the individual figures is still listed in `ms.qmd`. 
+Note that these figures are a composite of figures patched together and the final files were  modified outside of `R` for aesthetic reasons. These files also have associated Adobe illustrator files. The code to reproduce  individual figures is provided in `ms.qmd`. 
+
+## 4. Data
+Given the project has been a major group effort we initially relied on Google Sheets to provide pathways by which all authors could contribute to the data collection process. These Google Sheets were then sourced, processed, checked and then cleaned prior to analysis. The first initial file was provided to us by the California Digital Library (CDL) team, who downloaded the relevant meta-data on the articles posted to **EcoEvoRxiv** as of 30 September 2023. 
+
+The original meta-data files from the CDL are located in the :open_file_folder: `data` folder and named as follows:
+	- :page_facing_up: `20231003_EER _allversions.xlsx`
+	- :page_facing_up: `20231003_EER_preprints_metadata.xlsx`
+
+### Column Names and Information for [`20231003_EER_preprints_metadata.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER_preprints_metadata.xlsx). **Note**: These columns are the same descriptors as that found in the [Preprint Meta-data](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319)
+- **Preprint ID**: Janeway's internal identifier for the preprint 
+- **Preprint Title**: Title of the preprint 
+- **Preprint DOI**: DOI of the preprint
+- **Publisher DOI**: DOI of the postprint/publisher's article, if any
+- **Reuse Licence**: Creative Commons reuse licence
+- **Submission Date**: Date preprint was submitted to EcoEvoRxiv
+- **Accepted Date**: Date preprint was accepted to EER 
+- **Published Date**: Date preprint was published in EER (may differ from accepted date)
+- **Update Date**: Date preprint was last updated by an EER moderator
+- **Current Version**: Current version now 
+- **Version creation date**: Date that version was created/submitted (may differ from update date)
+- **Submitting Author**: Name of submitting author
+- **Submitting Author Email**: Submitting author's email address
+- **Authors List**: List of all authors
+- **Total authors**: Total number of authors 
+
+### Column Names and Information for [`20231003_EER_allversions.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER%20_allversions.xlsx)
+
+This data contains version history information for each preprint on EcoEvoRxiv. It is meant to supplement the main dataset `20230824_EER_Preprints_metadata.xlsx`.
+
+ - **Preprint ID**	Title of the preprint
+ - **Preprint DOI**	DOI of the preprint
+ - **Publisher DOI** DOI of the postprint/publisher's article, if any
+ - **Reuse Licence** License selected by author	
+ - **Submitting Author** Name of submitting author (first, last)
+ - **Submission Date** Date of version submission
+ - **Accepted Date** Date of acceptance for version
+ - **Published Date** Date published on EcoEvoRxiv
+ - **Update Date**	Date published preprint was updated
+ - **Current Version**	Current version number of preprint
+ - **Version date** Date of version 
+
+
 
 
 ### Data to be manually collected on preprints
@@ -86,37 +128,4 @@ During the tutorial by Losia and the following training session of the Hackathon
 # Meta Data for files in `data/` folder
 
 This is the main dataset that contains the most recent version of each preprint submitted to EcoEcoRxiv along with whether the preprint is published (some might be missing) and the dates preprint was published. It should be noted that the date the most recent publication was submitted should be the date of publication of a published DOI listed.
-
-### Column Names and Information for [`20231003_EER_preprints_metadata.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER_preprints_metadata.xlsx). **Note**: These columns are the same descriptors as that found in the [Preprint Meta-data](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319)
-- **Preprint ID**: Janeway's internal identifier for the preprint 
-- **Preprint Title**: Title of the preprint 
-- **Preprint DOI**: DOI of the preprint
-- **Publisher DOI**: DOI of the postprint/publisher's article, if any
-- **Reuse Licence**: Creative Commons reuse licence
-- **Submission Date**: Date preprint was submitted to EcoEvoRxiv
-- **Accepted Date**: Date preprint was accepted to EER 
-- **Published Date**: Date preprint was published in EER (may differ from accepted date)
-- **Update Date**: Date preprint was last updated by an EER moderator
-- **Current Version**: Current version now 
-- **Version creation date**: Date that version was created/submitted (may differ from update date)
-- **Submitting Author**: Name of submitting author
-- **Submitting Author Email**: Submitting author's email address
-- **Authors List**: List of all authors
-- **Total authors**: Total number of authors 
-
-### Column Names and Information for [`20231003_EER_allversions.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER%20_allversions.xlsx)
-
-This data contains version history information for each preprint on EcoEvoRxiv. It is meant to supplement the main dataset `20230824_EER_Preprints_metadata.xlsx`.
-
- - **Preprint ID**	Title of the preprint
- - **Preprint DOI**	DOI of the preprint
- - **Publisher DOI** DOI of the postprint/publisher's article, if any
- - **Reuse Licence** License selected by author	
- - **Submitting Author** Name of submitting author (first, last)
- - **Submission Date** Date of version submission
- - **Accepted Date** Date of acceptance for version
- - **Published Date** Date published on EcoEvoRxiv
- - **Update Date**	Date published preprint was updated
- - **Current Version**	Current version number of preprint
- - **Version date** Date of version 
 
