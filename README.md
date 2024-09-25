@@ -38,8 +38,8 @@ Note that these figures are a composite of figures patched together and the fina
 Given the project has been a major group effort we initially relied on Google Sheets to provide pathways by which all authors could contribute to the data collection process. These Google Sheets were then sourced, processed, checked and then cleaned prior to analysis. The first initial file was provided to us by the California Digital Library (CDL) team, who downloaded the relevant meta-data on the articles posted to **EcoEvoRxiv** as of 30 September 2023. 
 
 The original meta-data files from the CDL are located in the :open_file_folder: `data` folder and named as follows:
-	- :page_facing_up: `20231003_EER _allversions.xlsx`
-	- :page_facing_up: `20231003_EER_preprints_metadata.xlsx`
+- :page_facing_up: `20231003_EER _allversions.xlsx`
+- :page_facing_up: `20231003_EER_preprints_metadata.xlsx`
 
 ### Column Names and Information for [`20231003_EER_preprints_metadata.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER_preprints_metadata.xlsx). **Note**: These columns are the same descriptors as that found in the [Preprint Meta-data](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319)
 - **Preprint ID**: Janeway's internal identifier for the preprint 
