@@ -6,7 +6,7 @@ This repository contains the final code, data and figures used in the following 
 
 Noble et al. 2024. The promise of community-driven preprints in ecology and evolution. Proceedings of the Royal Society B: Biological Sciences, under review 
 
-This paper emerged from a SORTEE hackathon. Our initial study plan was pre-registered on [OSF](https://doi.org/10.17605/OSF.IO/D7ZWS). We have also captured our pre-study research plan as a [release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0) to ensure content is all contained within this repository.
+**Pre-registration**: This paper emerged from a SORTEE hackathon. Our initial study plan was pre-registered on [OSF](https://doi.org/10.17605/OSF.IO/D7ZWS). We have also captured our pre-study research plan as a [release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0) to ensure content is all contained within this repository.
 
 **Supplementary Materials**: Note that the supplementary materials associated with this paper is located in the :open_file_folder: `docs` folder ( :page_facing_up: `supp.qmd`). It can be rendered into html but is also available already rendered [here](https://daniel1noble.github.io/ecoevo_1000/).
 
@@ -20,7 +20,7 @@ The main file for users to click on when they are first navigating is the :page_
 
 The key file in this repository is the :page_facing_up: `ms.qmd` file within the :open_file_folder: `ms` folder. This file can be rendered in `R` with `Quarto` to reproduce the entire paper. Code chunks within the file provide the code used to reproduce figures and analyses along with supporting statements within the text. Note that inline code chunks use specific objects which are then rendered.
 
-The `ms.qmd` file makes use of files within a number of folders that are identified in the code chunks. There are a number of important folders in the repository. 
+The :page_facing_up: `ms.qmd` file makes use of files within a number of folders that are identified in the code chunks. There are a number of important folders in the repository. 
 * :open_file_folder: `data` The `data` folder contains all the raw data used in files. For more details see *4. Data* below.
 * :open_file_folder: `output/figs/` Folder contains all the figures for the paper that are read and included in the paper. See more details below (**3. Figures**).
 * :open_file_folder: `R` The R folder contains three files that are used to clean and process data to prepare it for use in the :page_facing_up: `ms.qmd` file. Note that readers do not need to open and run these files, but they are simply here to document the workflow and code used to clean up data to be used. These include: 
@@ -33,12 +33,12 @@ The `ms.qmd` file makes use of files within a number of folders that are identif
 	3. a template docx file to format the resulting rendered files (i.e., :page_facing_up: `template.docx`).
 
 ## 3. Figures
-`ms.qmd` will rely on figures generated and stored in the :open_file_folder: `output/figs/` folder. The final list of  figures are as follows:
+:page_facing_up: `ms.qmd` will rely on figures generated and stored in the :open_file_folder: `output/figs/` folder. The final list of  figures are as follows:
 
  - :page_facing_up: `Figure 1_FINAL.png` 
  - :page_facing_up: `Figure 2_FINAL.png` 
 
-Note that these figures are a composite of figures patched together and the final files were  modified outside of `R` for aesthetic reasons. These files also have associated Adobe illustrator files. The code to reproduce  individual figures is provided in `ms.qmd`. 
+Note that these figures are a composite of figures patched together and the final files were  modified outside of `R` for aesthetic reasons. These files also have associated Adobe illustrator files. The code to reproduce  individual figures is provided in :page_facing_up: `ms.qmd`. When rendered individual files will be written to the :open_file_folder: `output/figs/` folder.
 
 ## 4. Data
 Given the project has been a major group effort we initially relied on Google Sheets to provide pathways by which all authors could contribute to the data collection process. These Google Sheets were then sourced, processed, checked and then cleaned prior to analysis. The first initial file was provided to us by the California Digital Library (CDL) team, who downloaded the relevant meta-data on the articles posted to **EcoEvoRxiv** as of 30 September 2023. 
