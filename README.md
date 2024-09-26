@@ -66,17 +66,17 @@ The original meta-data files from the CDL are located in the :open_file_folder: 
 
 This data contains version history information for each preprint on EcoEvoRxiv. It is meant to supplement the main dataset `20230824_EER_Preprints_metadata.xlsx`.
 
- - **Preprint ID**	Title of the preprint
- - **Preprint DOI**	DOI of the preprint
- - **Publisher DOI** DOI of the postprint/publisher's article, if any
- - **Reuse Licence** License selected by author	
- - **Submitting Author** Name of submitting author (first, last)
- - **Submission Date** Date of version submission
- - **Accepted Date** Date of acceptance for version
- - **Published Date** Date published on EcoEvoRxiv
- - **Update Date**	Date published preprint was updated
- - **Current Version**	Current version number of preprint
- - **Version date** Date of version 
+ - **Preprint ID**:	Title of the preprint
+ - **Preprint DOI**:	DOI of the preprint
+ - **Publisher DOI**: DOI of the postprint/publisher's article, if any
+ - **Reuse Licence**: License selected by author	
+ - **Submitting Author**: Name of submitting author (first, last)
+ - **Submission Date**: Date of version submission
+ - **Accepted Date**: Date of acceptance for version
+ - **Published Date**: Date published on EcoEvoRxiv
+ - **Update Date**:	Date published preprint was updated
+ - **Current Version**:	Current version number of preprint
+ - **Version date**: Date of version 
 
 ## 5. Reporting Issues or Asking Questions
 If anything is unclear or you require further detail please don't hesitate to lodge an [issue](https://github.com/daniel1noble/ecoevo_1000/issues). 
