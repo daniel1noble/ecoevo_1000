@@ -21,7 +21,7 @@ The main file for users to click on when they are first navigating is the :page_
 The key file in this repository is the :page_facing_up: `ms.qmd` file within the :open_file_folder: `ms` folder. This file can be rendered in `R` with `Quarto` to reproduce the entire paper. Code chunks within the file provide the code used to reproduce figures and analyses along with supporting statements within the text. Note that inline code chunks use specific objects which are then rendered.
 
 The :page_facing_up: `ms.qmd` file makes use of files within a number of folders that are identified in the code chunks. There are a number of important folders in the repository. 
-* :open_file_folder: `data` The `data` folder contains all the raw data used in files. For more details see **4. Data** below.
+* :open_file_folder: `data` The `data` folder contains all the raw data used in files.  Note that there are intermediary data files here that were used throughout the processing. There are really only two main files to worry about. For more details see **4. Data** below.
 * :open_file_folder: `output/figs/` Folder contains all the figures for the paper that are read and included in the paper. See more details below (**3. Figures**).
 * :open_file_folder: `R` The R folder contains three files that are used to clean and process data to prepare it for use in the :page_facing_up: `ms.qmd` file. Note that readers do not need to open and run these files, but they are simply here to document the workflow and code used to clean up data to be used. These include: 
  	1. :page_facing_up: `1_data_processing.R`, which is used to first download the Google Sheets used during our hackathon, process and merge with meta-data from the California Digital Library (CDL); 
@@ -43,42 +43,37 @@ Note that these figures are a composite of figures patched together and the fina
 ## 4. Data
 Given the project has been a major group effort we initially relied on Google Sheets to provide pathways by which all authors could contribute to the data collection process. These Google Sheets were then sourced, processed, checked and then cleaned prior to analysis. The first initial file was provided to us by the California Digital Library (CDL) team, who downloaded the relevant meta-data on the articles posted to **EcoEvoRxiv** as of 30 September 2023. 
 
-The original meta-data files from the CDL are located in the :open_file_folder: `data` folder and named as follows:
-- :page_facing_up: `20231003_EER _allversions.xlsx`
-- :page_facing_up: `20231003_EER_preprints_metadata.xlsx`
+The original meta-data files from the CDL are located in the :open_file_folder: `data` folder, but the main one used is:
 
-#### Column Names and Information for [`20231003_EER_preprints_metadata.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER_preprints_metadata.xlsx). **Note**: These columns are the same descriptors as that found in the [Preprint Meta-data](https://docs.google.com/spreadsheets/d/1UEAUZWpOm7C1kKoVoYy-u_D6cbHoF--EGxoY0Gl0qHw/edit#gid=836736319)
-- **Preprint ID**: Janeway's internal identifier for the preprint 
-- **Preprint Title**: Title of the preprint 
-- **Preprint DOI**: DOI of the preprint
-- **Publisher DOI**: DOI of the postprint/publisher's article, if any
-- **Reuse Licence**: Creative Commons reuse licence
-- **Submission Date**: Date preprint was submitted to EcoEvoRxiv
-- **Accepted Date**: Date preprint was accepted to EER 
-- **Published Date**: Date preprint was published in EER (may differ from accepted date)
-- **Update Date**: Date preprint was last updated by an EER moderator
-- **Current Version**: Current version now 
-- **Version creation date**: Date that version was created/submitted (may differ from update date)
-- **Submitting Author**: Name of submitting author
-- **Submitting Author Email**: Submitting author's email address
-- **Authors List**: List of all authors
-- **Total authors**: Total number of authors 
+* :page_facing_up: `20231003_EER_preprints_metadata.xlsx`
 
-#### Column Names and Information for [`20231003_EER_allversions.xlsx`](https://github.com/daniel1noble/ecoevo_1000/blob/main/data/20231003_EER%20_allversions.xlsx)
+The column names here are:
 
-This data contains version history information for each preprint on EcoEvoRxiv. It is meant to supplement the main dataset `20230824_EER_Preprints_metadata.xlsx`.
+* **Preprint ID**: Janeway's internal identifier for the preprint 
+* **Preprint Title**: Title of the preprint 
+* **Preprint DOI**: DOI of the preprint
+* **Publisher DOI**: DOI of the postprint/publisher's article, if any
+* **Reuse Licence**: Creative Commons reuse licence
+* **Submission Date**: Date preprint was submitted to EcoEvoRxiv
+* **Accepted Date**: Date preprint was accepted to EER 
+* **Published Date**: Date preprint was published in EER (may differ from accepted date)
+* **Update Date**: Date preprint was last updated by an EER moderator
+* **Current Version**: Current version now 
+* **Version creation date**: Date that version was created/submitted (may differ from update date)
+* **Submitting Author**: Name of submitting author
+* **Submitting Author Email**: Submitting author's email address
+* **Authors List**: List of all authors
+* **Total authors**: Total number of authors 
 
- - **Preprint ID**:	Title of the preprint
- - **Preprint DOI**:	DOI of the preprint
- - **Publisher DOI**: DOI of the postprint/publisher's article, if any
- - **Reuse Licence**: License selected by author	
- - **Submitting Author**: Name of submitting author (first, last)
- - **Submission Date**: Date of version submission
- - **Accepted Date**: Date of acceptance for version
- - **Published Date**: Date published on EcoEvoRxiv
- - **Update Date**:	Date published preprint was updated
- - **Current Version**:	Current version number of preprint
- - **Version date**: Date of version 
+The second data file used in the :page_facing_up: `ms.qmd` file is:
+
+* :page_facing_up: `final_data2.csv`
+
+This file is the processed data file which is then merged with the :page_facing_up: `20231003_EER_preprints_metadata.xlsx` data. The descriptions of the data columns are as follows:
+
+*
+*
+*
 
 ## 5. Reporting Issues or Asking Questions
 If anything is unclear or you require further detail please don't hesitate to lodge an [issue](https://github.com/daniel1noble/ecoevo_1000/issues). 
