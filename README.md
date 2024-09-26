@@ -8,7 +8,7 @@ Noble et al. 2024. The promise of community-driven preprints in ecology and evol
 
 This paper emerged from a SORTEE hackathon. Our initial study plan was pre-registered on [OSF](https://doi.org/10.17605/OSF.IO/D7ZWS). We have also captured our pre-study research plan as a [release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0) to ensure content is all contained within this repository.
 
-**Supplementary Materials**: Note that the supplementary materials associated with this paper is located in the :open_file_folder: `supp` folder ( :page_facing_up: `supp.qmd`). It can be rendered into html but is also available already rendered [here](https://daniel1noble.github.io/ecoevo_1000/).
+**Supplementary Materials**: Note that the supplementary materials associated with this paper is located in the :open_file_folder: `docs` folder ( :page_facing_up: `supp.qmd`). It can be rendered into html but is also available already rendered [here](https://daniel1noble.github.io/ecoevo_1000/).
 
 ## 1. How to use this repository?
 
