@@ -494,7 +494,7 @@ We would like to thank the California Digital Library (CDL) and the CDL team (pa
 
 # References
 
-
+# Session Information
 ```{r}
 #| echo: TRUE
 #| warning: FALSE
