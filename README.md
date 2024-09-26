@@ -1,4 +1,5 @@
 # Data and Code for: The promise of community-driven preprints in ecology and evolution
+[![DOI](https://zenodo.org/badge/682784807.svg)](https://zenodo.org/doi/10.5281/zenodo.13841039)
 
 ## Research Paper
 This repository contains the final code, data and figures used in the following manuscript:
@@ -9,7 +10,7 @@ This paper emerged from a SORTEE hackathon. Our initial study plan was pre-regis
 
 ## 1. How to use this repository?
 
-Users can download a zip file of the entire repository by clicking on the green `code` tab at the top of the page and then clicking `Download ZIP`. Alternatively, the repo can be downloaded from [Zenodo]() or even the latest [release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0). Users who already have a GitHub account can `fork` the repository.
+Users can download a zip file of the entire repository by clicking on the green `code` tab at the top of the page and then clicking `Download ZIP`. Alternatively, the repo can be downloaded from [Zenodo](https://zenodo.org/doi/10.5281/zenodo.13841039) or even the latest [release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0). Users who already have a GitHub account can `fork` the repository.
 
 The main file for users to click on when they are first navigating is the :page_facing_up: `ecoevo_1000.Rproj` file which will open the folder and set the working directory to the root of the downloaded folder. This will provide access to the code and data through R. Note that we use `Quarto` to provide a 100% reproducible paper where our text, code and figures are integrated together. This allows users to identify what specific objects are being used to render the quantitative information provided in the manuscript (more details below).
 
