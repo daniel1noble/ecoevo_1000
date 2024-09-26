@@ -5,6 +5,7 @@ csl: ../bib/proceedings-of-the-royal-society-b.csl
 format:
   docx:
     reference-doc: ../bib/template.docx
+    output-file: ms-r1.docx
   pdf:
     include-in-header: 
       text: '\usepackage{lineno}\linenumbers'
@@ -492,3 +493,12 @@ DWAN would also like to thank the Australian Research Council for a Future Fello
 We would like to thank the California Digital Library (CDL) and the CDL team (particularly, Alainna Wrigley, Justin Gonder, Lisa Schiff, Catherine Mitchell, Hardy Pottinger and Amanda Karby) for their support in hosting and maintaining *EcoEvoRxiv* for the Society for Open, Reliable, and Transparent Ecology and Evolutionary Biology (SORTEE). We would like to thank Gabriela Hidalgo and Daisy Larios for helping connect us with the IUCN and facilitating discussions to make *EcoEvoRxiv* a place where IUCN reports can be posted. Finally, we would also like to thank the endless number of SORTEE volunteers, and those especially on the *EcoEvoRxiv* Committee, who have helped to make *EcoEvoRxiv* a success. This paper emerged from a hackathon at the 2023 SORTEE conference, and we thank delegates who attended the session but could not be part of this paper. 
 
 # References
+
+
+```{r}
+#| echo: TRUE
+#| warning: FALSE
+#| message: FALSE
+
+sessionInfo()
+```

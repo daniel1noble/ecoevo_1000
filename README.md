@@ -83,3 +83,71 @@ This data contains version history information for each preprint on EcoEvoRxiv. 
 ## 5. Reporting Issues or Asking Questions
 If anything is unclear or you require further detail please don't hesitate to lodge an [issue](https://github.com/daniel1noble/ecoevo_1000/issues). 
 
+## 6. Session Information
+
+```
+sessionInfo()
+R version 4.2.1 (2022-06-23)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur ... 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] data.table_1.15.4   lmerTest_3.1-3      lme4_1.1-32        
+ [4] Matrix_1.5-3        magick_2.7.4        viridis_0.6.2      
+ [7] viridisLite_0.4.2   cowplot_1.1.1       glmmTMB_1.1.6      
+[10] see_0.8.2           countrycode_1.5.0   DemografixeR_0.1.1 
+[13] mapproj_1.2.11      ggthemes_4.2.4      genderdata_0.6.0   
+[16] gender_0.6.0        performance_0.11.0  gt_0.9.0           
+[19] ggimage_0.3.1       ggrepel_0.9.3       flextable_0.9.0    
+[22] RColorBrewer_1.1-3  maps_3.4.1          janitor_2.2.0      
+[25] googlesheets4_1.1.1 MASS_7.3-58.3       readxl_1.4.3       
+[28] patchwork_1.2.0     here_1.0.1          lubridate_1.9.3    
+[31] forcats_1.0.0       stringr_1.5.1       dplyr_1.1.4        
+[34] purrr_1.0.2         readr_2.1.5         tidyr_1.3.1        
+[37] tibble_3.2.1        ggplot2_3.5.0       tidyverse_2.0.0    
+
+loaded via a namespace (and not attached):
+ [1] uuid_1.2-0              systemfonts_1.0.5       TMB_1.9.3              
+ [4] splines_4.2.1           TH.data_1.1-1           digest_0.6.35          
+ [7] yulab.utils_0.0.6       htmltools_0.5.8.1       fansi_1.0.6            
+[10] magrittr_2.0.3          tzdb_0.4.0              officer_0.6.2          
+[13] vroom_1.6.5             sandwich_3.0-2          svglite_2.1.1          
+[16] askpass_1.2.0           timechange_0.3.0        gfonts_0.2.0           
+[19] colorspace_2.1-0        textshaping_0.3.7       xfun_0.43              
+[22] crayon_1.5.2            jsonlite_1.8.8          survival_3.5-5         
+[25] zoo_1.8-12              glue_1.7.0              gtable_0.3.4           
+[28] gargle_1.5.2            emmeans_1.10.0          scales_1.3.0           
+[31] fontquiver_0.2.1        mvtnorm_1.2-4           Rcpp_1.0.11            
+[34] xtable_1.8-4            gridGraphics_0.5-1      bit_4.0.5              
+[37] fontLiberation_0.1.0    ellipsis_0.3.2          farver_2.1.1           
+[40] pkgconfig_2.0.3         utf8_1.2.4              crul_1.3               
+[43] ggplotify_0.1.0         tidyselect_1.2.1        labeling_0.4.3         
+[46] rlang_1.1.3             later_1.3.1             munsell_0.5.1          
+[49] cellranger_1.1.0        tools_4.2.1             cli_3.6.2              
+[52] generics_0.1.3          pacman_0.5.1            evaluate_0.23          
+[55] fastmap_1.1.1           yaml_2.3.8              ragg_1.2.6             
+[58] knitr_1.45              bit64_4.0.5             fs_1.6.3               
+[61] zip_2.2.2               nlme_3.1-162            mime_0.12              
+[64] xml2_1.3.6              compiler_4.2.1          png_0.1-8              
+[67] curl_5.2.1              stringi_1.8.3           gdtools_0.3.3          
+[70] lattice_0.20-45         fontBitstreamVera_0.1.1 nloptr_2.0.3           
+[73] vctrs_0.6.5             pillar_1.9.0            lifecycle_1.0.4        
+[76] estimability_1.4.1      insight_0.19.10         httpuv_1.6.11          
+[79] R6_2.5.1                promises_1.2.0.1        gridExtra_2.3          
+[82] codetools_0.2-19        boot_1.3-28.1           openssl_2.1.1          
+[85] rprojroot_2.0.3         withr_3.0.0             httpcode_0.3.0         
+[88] multcomp_1.4-23         parallel_4.2.1          hms_1.1.3              
+[91] grid_4.2.1              ggfun_0.0.9             coda_0.19-4            
+[94] minqa_1.2.5             rmarkdown_2.26          snakecase_0.11.0       
+[97] googledrive_2.1.1       numDeriv_2016.8-1.1     shiny_1.7.4.1          
+```
