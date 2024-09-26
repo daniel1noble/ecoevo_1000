@@ -28,9 +28,9 @@ The :page_facing_up: `ms.qmd` file makes use of files within a number of folders
 	2. :page_facing_up: `2_data_cleaning.R` File does some additional cleaning and checking of the data and merges disparate datasets together.
 	3. :page_facing_up: `3_author_affli.R`, which is code to grab and process author affiliations because the lead author is a little lazy when it comes to cumbersome tasks such as these.
 * :open_file_folder: `bib` The bib folder contains:
-	1. the references (i.e., :page_facing_up:  `refs.bib`), 
-	2. style file (i.e., :page_facing_up: `proceedings-of-the-royal-society-b.csl`),
-	3. a template docx file to format the resulting rendered files (i.e., :page_facing_up: `template.docx`).
+	1. :page_facing_up:  `refs.bib` the references;  
+	2. :page_facing_up: `proceedings-of-the-royal-society-b.csl` the journal formatting style file; 
+	3. :page_facing_up: `template.docx` a template docx file to format the resulting rendered files.
 
 ## 3. Figures
 :page_facing_up: `ms.qmd` will rely on figures generated and stored in the :open_file_folder: `output/figs/` folder. The final list of  figures are as follows:
