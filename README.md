@@ -71,9 +71,50 @@ The second data file used in the :page_facing_up: `ms.qmd` file is:
 
 This file is the processed data file which is then merged with the :page_facing_up: `20231003_EER_preprints_metadata.xlsx` data. The descriptions of the data columns are as follows:
 
-*
-*
-*
+* **assigned_to**: Name of author assigned to checking the data.
+* **nr**: Unique article number for each preprint/postprint.
+* **extractors_first_name**: First name of the author who extracted data.
+* **extractors_last_name**: Last name of the author who extracted data.
+* **preprint_id**: Unique preprint ID from EcoEvoRxiv. These are auto-assigned numbers by the Janeway system.
+* **preprint_doi**: Digital Object Identifier (DOI) for preprint.
+* **preprint_title**: Title of pre/postprint
+* **submitting_author**: Full name of submitted author.
+* **submitting_author_country**: Country of submitting author.
+* **submitting_author_first_publication_year**: Year of first publication for submitting author.
+* **taxa_being_studied**: Taxa being studied in the preprint. 
+* **data_link_preprint**: Link to associated data for the paper on *EcoEvoRxiv*.
+* **code_link_preprint**: Link to associated code for the paper on *EcoEvoRxiv*.
+* **number_of_citations_preprint**: Number of citations to the preprint taken from Google Scholar.
+* **pci_recommendation_preprint**: Whether or not the preprint was posted to Peer Community In (PCI).
+* **publication_doi**: DOI for the published article.
+* **publication_journal**: Research journal name that the article was ultimately published in.
+* **publication_date**: Date of publication for the published version of the article. Taken as the date the article first appeared online.
+* **publication_title_changed**: Whether or not the title of the published articles changed from the preprint.
+* **number_of_citations_article**: Number of citations to the published article. 
+* **current_version**: The current version of the article published on *EcoEvoRxiv*
+* **data_link_article**: Link to associated data for the published version of the paper. 
+* **code_link_article**: Link to associated code for the published version of the paper. 
+* **publisher_doi**: DOI for the published paper. 
+* **preprint_published_date**: Preprint/postprint publication date. The date when published on *EcoEvoRxiv*.
+* **total_authors**: Total number of authors on the preprint/postprint on *EcoEvoRxiv*.
+* **time_between_preprint_and_pub_days**: Days between posting the article on *EcoEvoRxiv* and the time the paper (if relevant) was published in a peer-reviewer research journal. 
+* **postprint**: Identifier as to whether the article posted on *EcoEvoRxiv* was likely a postprint or not.
+* **plants**: Identifier on whether the study contained plants as one of the main taxa studied or not.
+* **algi**: Identifier on whether the study contained algi as one of the main taxa studied or not.
+* **fungi**: Identifier on whether the study contained fungi as one of the main taxa studied or not.
+* **microorganisms**: Identifier on whether the study contained bacteria, or other microorganisms, as one of the main taxa studied or not.
+* **invertebrates**: Identifier on whether the study contained invertebrates as one of the main taxa studied or not.
+* **vertebrates**: Identifier on whether the study contained vertebrates as one of the main taxa studied or not.
+* **type_of_preprint**: The type of article on *EcoEvoRxiv*. These could be research article, opinion, review and meta-analysis, book or book chapters, report. Anything not in these categories were classified as 'other'.
+* **data_link_preprint_cleaned**: A cleaned up version of the data link for the article on *EcoEvoRxiv*.
+* **code_link_preprint_cleaned** A cleaned up version of the code link for the article on *EcoEvoRxiv*.
+* **data_link_article_cleaned**: A cleaned up version of the data link for the published article.
+* **code_link_article_cleaned** A cleaned up version of the code link for the published article.
+* **check_completed**: Indicator (yes/no) as to whether the paper check was complete.
+* **check_comment**: Comments about decisions made during checking.
+* **journal_name**: Name of research journal where the preprint/postprint was published. 
+* **is_oa**: Logical (true/false) indicating whether the paper was published in open access (true) or not (false).
+* **oa_status**: Open access status.
 
 ## 5. Reporting Issues or Asking Questions
 If anything is unclear or you require further detail please don't hesitate to lodge an [issue](https://github.com/daniel1noble/ecoevo_1000/issues). 
