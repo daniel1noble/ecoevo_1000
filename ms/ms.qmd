@@ -61,10 +61,10 @@ pacman::p_load(tidyverse, here, patchwork, readxl, MASS, googlesheets4, janitor,
             summarise(n = n()) %>% 
             filter(n > 1)
 
-# How many preprints?
+# How many submissions? (everything)
   pr <- length(unique(data$`Preprint ID`))
 
-# Dates preprints were published, range and graph
+# Dates submissions were published, range and graph (everything)
   dates <- range(data$`Published Date`)
 
 # Delegate details
@@ -138,7 +138,7 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv* to characterise pr
 
   dates_preprints <- range(preprints$preprint_published_date)
 ##---------------------##
-# Articles on EcoEvoRxiv over time
+# Submissions to  EcoEvoRxiv over time (everything)
 ##---------------------##
   angle = 45
   p1 <- ggplot(data2, aes(x = preprint_pub_date)) +
@@ -170,7 +170,7 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv* to characterise pr
   
   #Plot was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 1. - Zoe X
 ##---------------------##
-# Countries using EcoEvoRxiv
+# Submissions by Country to EcoEvoRxiv (everything)
 ##---------------------##
    # Create a global map with countried highlighted and shaded according to the frequency of preprints from that country
   # First, we need to get the country names and the number of preprints from each country
@@ -204,7 +204,7 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv* to characterise pr
   most_use <- countries[cumsum(countries$valid_percent) <= 0.90, ]
 
 ##---------------------##
-# Taxa
+# Taxa (everything)
 ##---------------------##
   cols <- c("plants", "algi", "fungi", "microorganisms", "invertebrates", "vertebrates")
 
@@ -225,7 +225,7 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv* to characterise pr
   
 
 ##---------------------##
-# Types of preprints
+# Types of preprints (preprints only)
 ##---------------------##
 # Summary of the data
   sum_types <- preprints  %>% tabyl(type_of_preprint)  %>% rename("type" = type_of_preprint, "n" = n)  %>% mutate(perc = n/sum(n)*100, labels = paste0(round(perc, 1), "%"))
@@ -252,7 +252,7 @@ type_taxa <- cowplot::plot_grid(taxa_fig,
 nt <- sum_types  %>% filter(type %in% c("book", "report", "book chapter", "other"))  %>% summarise(perc = sum(perc))
 
 ##-------------------##
-# Career Stage & Gender
+# Career Stage & Gender (preprints only, but all article types)
 ##-------------------##
 
 #compute academic age! (Zoe X)
@@ -369,14 +369,14 @@ Typical research articles are still the most common type of submission to *EcoEv
 
 A significant barrier to the communication of research findings is the fact that they are primarily communicated in English [@amano2016languages; @amano2013four; @amano2021ten]. Research communication through a single language has major consequences for the global distribution of knowledge, resulting in knowledge gaps across some of the most biodiverse and threatened regions in the world [@amano2023role; @zenni2023multi]. Such gaps also impact research syntheses and meta-analyses because they create a distorted picture of our knowledge base that can affect future research, policy development and decision-making [@hannah2024language; @zenni2023multi; @white2021geographical; @konno2020ignoring].  
 
-*EcoEvoRxiv* is the only preprint server to date that breaks down language barriers to scientific communication by accepting not only English, but also Spanish, Portuguese and French language articles. *EcoEvoRxiv* plans to expand to other languages as new non-English editors become available. Such initiatives are incredibly important if we are to begin filling global voids of scientific knowledge. However, multilingual initiatives have been slow to take off on *EcoEvoRxiv*, with only a few Spanish articles, and a single Portuguese article, posted since starting to accept non-English articles in 2023. Part of the challenge in getting authors to submit non-English articles is the lack of awareness of *EcoEvoRxiv* in non-English speaking countries, cultural differences in the perception of preprints, and a strong reliance on traditional publishing models that typically mandate publishing in English [@arenas2024academic].
+*EcoEvoRxiv* is the only preprint server to date that breaks down language barriers to scientific communication by accepting not only English, but also Spanish, Portuguese and French language articles. *EcoEvoRxiv* plans to expand to other languages as new non-English editors become available. Such initiatives are incredibly important if we are to begin filling global voids of scientific knowledge. However, multilingual initiatives have been slow to take off on *EcoEvoRxiv*, with only a few Spanish submissions, and a single Portuguese submitted, since starting in 2023. Part of the challenge in getting authors to submit in non-English languages is the lack of awareness of *EcoEvoRxiv* in non-English speaking countries, cultural differences in the perception of preprints, and a strong reliance on traditional publishing models that typically mandate publishing in English  [@arenas2024academic].
 
 ### (d) *Generational and gender-based gaps in preprinting practices* 
 
-Research papers can take a while to be published (see below). However, Early and Mid-Career Researchers (EMCRs) (~10 years post-PhD) are under pressure to publish rapidly to be competitive in job applications, promotions, and obtaining grants to progress their careers [@vale2015accelerating; @sarabipour2019value]. Preprints are one way EMCRs can achieve faster dissemination and greater visibility [@fu2019releasing]. As such, EMCRs may be expected to make use of preprints more than colleagues at later career stages. We collected data on the 'academic age' of submitting authors by looking at Google Scholar profiles of authors (when available) and recording their first year of publication in a peer-reviewed journal. While this is a rough estimate of career stage, there was evidence that the number of preprints posted decreases with later career stages (negative binomial glm: year slope = `r res[2, "Estimate"]`, SE: `r round(res[2, "Std. Error"], 2)`, *p* < 0.001, n = `r nrow(count_dat[complete.cases(count_dat),])` years). Most preprints were submitted by authors who published their first paper in the last ~10 years ([@fig-summary]E), with the median year since first publication being `r median(data2$submitting_author_first_publication_year, na.rm = TRUE)` (mean = `r mean(data2$submitting_author_first_publication_year, na.rm = TRUE)`; SD = `r sd(data2$submitting_author_first_publication_year, na.rm = TRUE)`, n = `r sum(complete.cases(data2$submitting_author_first_publication_year))`). These patterns support the expectation that EMCRs may use preprints to make their work more visible and disseminate their findings more quickly. However, we acknowledge that validating this conclusion does require more rigorous experimental approaches. 
+Research can take a while to be published (see below). However, Early and Mid-Career Researchers (EMCRs) (~10 years post-PhD) are under pressure to publish rapidly to be competitive in job applications, promotions, and obtaining grants to progress their careers [@vale2015accelerating; @sarabipour2019value]. Preprints are one way EMCRs can achieve faster dissemination and greater visibility [@fu2019releasing]. As such, EMCRs may be expected to make use of preprints more than colleagues at later career stages. We collected data on the 'academic age' of submitting authors by looking at Google Scholar profiles of authors (when available) and recording their first year of publication in a peer-reviewed journal. While this is a rough estimate of career stage, there was evidence that the number of preprints posted decreases with later career stages (negative binomial glm: year slope = `r res[2, "Estimate"]`, SE: `r round(res[2, "Std. Error"], 2)`, *p* < 0.001, n = `r nrow(count_dat[complete.cases(count_dat),])` years). Most preprints were submitted by authors who published their first paper in the last ~10 years ([@fig-summary]E), with the median year since first publication being `r median(data2$submitting_author_first_publication_year, na.rm = TRUE)` (mean = `r mean(data2$submitting_author_first_publication_year, na.rm = TRUE)`; SD = `r sd(data2$submitting_author_first_publication_year, na.rm = TRUE)`, n = `r sum(complete.cases(data2$submitting_author_first_publication_year))`). These patterns support the expectation that EMCRs may use preprints to make their work more visible and disseminate their findings more quickly. However, we acknowledge that validating this conclusion does require more rigorous experimental approaches. 
 
 
-Gender differences in preprint use and publication outcomes have also been observed in several research fields, including ecology and evolutionary biology [@fox2019gender; @wehner2020comparison]. Therefore, such discrepancies are expected to manifest in preprint use on *EcoEvoRxiv*, but it is unclear to what extent. Understanding gender publishing patterns is challenging with observational data such as ours because we cannot know the gender of authors for certain, but we can use a data-driven approach to ascertain the probability that a particular name is of a given gender (man or woman). To obtain a rough idea of an author's gender, we used the R package *gender* (v.`r utils::packageVersion("gender")`; @mullen2021predict) to predict the most likely gender of the submitting author of a preprint. We only used algorithm-assigned names where the gender was identified with 95% certainty. For the remaining names, we performed manual searches to determine gender based on the pronouns and photographs from professional and personal websites. We acknowledge that our approach does not capture self-assigned and non-binary genders. As such, our assumptions about an author's gender identity may be incorrect. Our data on gender had only two missing values--one where the first name of the submitting author was missing and the other one for a collective submission. As expected, we found that women were less likely to publish on *EcoEvoRxiv* compared to men (women: `r (table(data4$gender)[1] / sum(table(data4$gender))*100)`%), which may reflect the broader publishing disparities between male and female scientists [@fox2019gender]. 
+Gender differences in preprint use and publication outcomes have also been observed in several research fields, including ecology and evolutionary biology [@fox2019gender; @wehner2020comparison]. Therefore, such discrepancies are expected to manifest in preprint use on *EcoEvoRxiv*, but it is unclear to what extent. Understanding gender publishing patterns is challenging with observational data such as ours because we cannot know the gender of authors for certain, but we can use a data-driven approach to ascertain the probability that a particular name is of a given gender (man or woman). To obtain a rough idea of an author's gender, we used the R package *gender* (v.`r utils::packageVersion("gender")`; @mullen2021predict) to predict the most likely gender of the submitting author of a preprint. We only used algorithm-assigned names where the gender was identified with 95% certainty. For the remaining names, we performed manual searches to determine gender based on the pronouns and photographs from professional and personal websites. We acknowledge that our approach does not capture self-assigned and non-binary genders. As such, our assumptions about an author's gender identity may be incorrect. Our data on gender had only two missing values--one where the first name of the submitting author was missing and the other one for a collective submission. As expected, we found that women were less likely to submit to *EcoEvoRxiv* compared to men (women: `r (table(data4$gender)[1] / sum(table(data4$gender))*100)`%), which may reflect the broader publishing disparities between male and female scientists [@fox2019gender]. 
 
 # 3. Following the journey of a preprint on *EcoEvoRxiv*: from submission to publication
 ```{r, fig-pubsummary}
@@ -387,13 +387,13 @@ Gender differences in preprint use and publication outcomes have also been obser
 #| fig-cap: Summary of the publication status of articles on *EcoEvoRxiv*. A) Time between uploading an preprint to *EcoEvoRxiv* and its publication as a peer-reviewed journal article. Articles that were published within 2 months (60 days) of being submitted are considered postprints and are not included in this figure. B) Access status of articles linked to *EcoEvoRxiv* preprints classified as “Open Access” or “Not Open Access”. “Unknown” status is for articles not explicitly identified as being open access or not on the Unpaywall platform. C) Sub-types of open access status of articles linked to *EcoEvoRxiv* preprints. For full details on the meaning of each category see  https://support.unpaywall.org/support/solutions/articles/44001777288-what-do-the-types-of-oa-status-green-gold-hybrid-and-bronze-mean-. 
 
 ##---------------------##
-# Publication times
+# Publication times 
 ##---------------------##
 
-# How many remain unpublished?
-unpub <- data2  %>% filter(is.na(publication_doi))  %>% nrow()
+# How many preprints remain unpublished? (preprints only)
+unpub <- preprints  %>% filter(is.na(publication_doi))  %>% nrow()
 
-# Summary of the data
+# Summary of the data (preprints only)
 # what is the range
 sum_preprints <- preprints  %>% summarise(min = min(time_between_preprint_and_pub_days), max = max(time_between_preprint_and_pub_days), mean = mean(time_between_preprint_and_pub_days), median = median(time_between_preprint_and_pub_days), sd = sd(time_between_preprint_and_pub_days))
 
@@ -407,7 +407,7 @@ ggsave(here("output", "figs", "time_to_publication.svg"), p1_pub_zoe)
 #Plot was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 2. - Zoe X
 
 ##-------------------##
-# Open access
+# Open access (preprints only, but all article types)
 ##-------------------##
 
 # Summary of the data
@@ -427,7 +427,7 @@ ggsave(here("output", "figs", "Open_Access_type.svg"), p3_pub)
 #Plot was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 2. - Zoe X
 
 ##-------------------##
-# Data and Code Sharing
+# Data and Code Sharing (preprints only, but all article types)
 ##-------------------##
 
 # Summary of the data
@@ -460,12 +460,12 @@ fig2
 ### (a) *Science takes time, but publication could take longer*
 Increased competition in science has raised the bar with respect to the amount of data required for publication [@vale2015accelerating]. This requirement is a good outcome if it results in higher-impact research that better clarifies our understanding of the natural world, but it does come at a cost for the speed of research dissemination [@vale2015accelerating]. Preprints have been proposed as a way to disseminate research more quickly as it can take a long time before results are ultimately published [@bourne2017ten; @vale2015accelerating]. However, data on the time to publication is needed to quantify the real benefit of preprints in this context. 
 
-We estimated how long it takes to publish a research paper in ecology and evolution by recording the time between when an article was first posted on *EcoEvoRxiv*, and its final acceptance in a peer-reviewed journal. In total, `r unpub` papers remained unpublished (`r (unpub / nrow(data2))*100`%, n = `r nrow(data2)`) at the time when these data were collected. Not all of these papers, however, are anticipated to be published in a peer-reviewed journal (e.g., reports). Nonetheless, the median time to publication for preprints was `r sum_preprints$median` days (8 months) (mean = `r sum_preprints$mean`; SD = `r sum_preprints$sd` days) with the maximum time to publication being `r sum_preprints$max` days or `r sum_preprints$max/365` years ([@fig-pubsummary]A). Our results largely confirm the extended timeframes that most authors experience between writing their research papers and their publication.
+We estimated how long it takes to publish a research paper in ecology and evolution by recording the time between initial submission to *EcoEvoRxiv*, and its final acceptance in a peer-reviewed journal. In total, `r unpub` submissions remained unpublished (`r (unpub / nrow(data2))*100`%, n = `r nrow(data2)`) at the time when these data were collected. Not all of these submissions, however, are anticipated to be published in a peer-reviewed journal (e.g., reports). Nonetheless, the median time to publication for preprints was `r sum_preprints$median` days (8 months) (mean = `r sum_preprints$mean`; SD = `r sum_preprints$sd` days) with the maximum time to publication being `r sum_preprints$max` days or `r sum_preprints$max/365` years ([@fig-pubsummary]A). Our results largely confirm the extended timeframes that most authors experience between writing their research papers and their publication.
 
 ### (b) *Cautious 'open'-mindedness of research in preprints*
-In addition to speeding up dissemination, preprints and postprints can also be a useful way to ensure that research remains open and accessible to the research community irrespective of the accessibility of the final peer-reviewed paper [@bourne2017ten; @vale2015accelerating]. We evaluated whether articles hosted at *EcoEvoRxiv*, and that were also published in a journal, were published open access. The open access status of each published article was obtained using the R package *roadoi* (v.`r utils::packageVersion("roadoi")`) to connect to the Unpaywall platform [@jahn2024]. Most of the published articles were open access [`r sum_is_oa$valid_percent[2]*100`% (*n* = `r sum_is_oa$n[2]` out of `r sum(sum_is_oa$n[1:2])` where the status was known); [@fig-pubsummary]A]; however, `r sum_is_oa$valid_percent[1]*100`% (*n* = `r sum_is_oa$n[1]`) were published behind paywalls. For articles published in open access journals, the type of open access also varied widely (e.g., Gold, Hybrid, Green OA etc., [@fig-pubsummary]B). 
+In addition to speeding up dissemination, preprints and postprints can also be a useful way to ensure that research remains open and accessible to the research community irrespective of the accessibility of the final peer-reviewed paper [@bourne2017ten; @vale2015accelerating]. We evaluated whether preprints and postprints hosted at *EcoEvoRxiv*, and that were also published in a journal, were published open access. The open access status of each published article was obtained using the R package *roadoi* (v.`r utils::packageVersion("roadoi")`) to connect to the Unpaywall platform [@jahn2024]. Most of the published preprints and postprints were open access [`r sum_is_oa$valid_percent[2]*100`% (*n* = `r sum_is_oa$n[2]` out of `r sum(sum_is_oa$n[1:2])` where the status was known); [@fig-pubsummary]A]; however, `r sum_is_oa$valid_percent[1]*100`% (*n* = `r sum_is_oa$n[1]`) were published behind paywalls. For preprints and postprints published in open access journals, the type of open access also varied widely (e.g., Gold, Hybrid, Green OA etc., [@fig-pubsummary]B). 
 
-Data and code sharing are also key components of open science [@roche2015public]. In the spirit of 'openness', we expected data and code sharing among preprints to be greater than in many papers published in research journals [@roche2015public; @o2021preferred]. Despite this, we found that `r (preprint_data[1,"n"]/sum(preprint_data[c(1,3),"n"]))*100`%  (*n* = `r preprint_data[1,2]`) of articles relying on data on *EcoEvoRxiv* did not share data, and `r (preprint_code[1,"n"]/sum(preprint_code[c(1,3),"n"]))*100`% (*n* = `r preprint_code[1,2]`) did not share code (counting only data-based articles, i.e., excluding reviews, commentaries or theoretical works). 
+Data and code sharing are also key components of open science [@roche2015public]. In the spirit of 'openness', we expected data and code sharing among preprints and postprints to be greater than in many papers published in research journals [@roche2015public; @o2021preferred]. Despite this, we found that `r (preprint_data[1,"n"]/sum(preprint_data[c(1,3),"n"]))*100`%  (*n* = `r preprint_data[1,2]`) of articles relying on data on *EcoEvoRxiv* did not share data, and `r (preprint_code[1,"n"]/sum(preprint_code[c(1,3),"n"]))*100`% (*n* = `r preprint_code[1,2]`) did not share code (counting only data-based articles, i.e., excluding reviews, commentaries or theoretical works). 
 
 Authors may be reluctant to share data and code for preprints because of the perceived concern that others may acquire and use their data and code before publication in a journal. Authors of `r pre_article_data[3,"percent"]*100`% (*n* = `r pre_article_data[3,2]`) of articles that did not share data at the preprint stage did ultimately share data when the article was published; whereas authors of `r pre_article_data[2,"percent"]*100`% (*n* = `r pre_article_data[2,2]`) never shared data. However, `r pre_article_data[1,"percent"]*100`% (*n* = `r pre_article_data[1,2]`) shared data at both stages. The same was true for code. Overall, `r pre_article_code[3,"percent"]*100`% (*n* = `r pre_article_code[3,2]`) preprints had no open code at the preprint stage but did at the published article stage and authors of `r pre_article_code[2,"percent"]*100`% (*n* = `r pre_article_code[2,2]`) preprints did not share code at either stage. However, `r pre_article_code[1,"percent"]*100`% (*n* = `r pre_article_code[1,2]`) shared code at both stages. Relatively low code and data-sharing practices in our sample is consistent with analyses of sharing practices for published articles (e.g., [@o2021preferred]), even for journals with strict public data archiving policies [@roche2015public].
 
