@@ -121,6 +121,8 @@ If anything is unclear or you require further detail please don't hesitate to lo
 
 ## 6. Session Information
 
+For reproducibility purposes below is the configuration and versions of the software used to compile the manuscript.
+
 ```
 sessionInfo()
 R version 4.2.1 (2022-06-23)
