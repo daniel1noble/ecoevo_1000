@@ -17,11 +17,6 @@ format:
     fontsize: "12"
     max-width: "10"
     code-overflow: wrap
-  docx:
-    reference-doc: ../bib/template.docx
-  pdf:
-    include-in-header: 
-      text: '\usepackage{lineno}\linenumbers'
 editor_options: 
   chunk_output_type: console
 execute:
@@ -113,7 +108,7 @@ We preregistered the study on the Open Science Framework (OSF) (https://osf.io/d
 ## Data collection
 We downloaded metadata on all preprints lodged on *EcoEvoRxiv* between `r gsub("UTC", "", dates[1])` and `r gsub("UTC", "", dates[2])`. This information included data on preprint submission and acceptance dates, date when the preprint was last updated, the reuse license, preprint ID and Digitial Object Identifier (DOI), preprint title, submitting author and co-authors, the number of versions submitted by authors and, if available, a DOI for the published version of the preprint. 
 
-As part of the Society for Open, Reliable and Transparent Ecology and Evolutionary Biology's (SORTEE - https://www.sortee.org) conference, we ran a workshop (i.e., Hackathon) where we invited interested SORTEE members and conference registrants to participate in the data collection process. We provided a detailed data collection protocol to all delegates prior to the workshop ([vers. 1.0 - release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0)). We used the workshop to train participants on how to collect data from *EcoEvoRxiv* preprints. This involved a demonstration of a single preprint followed by data collection by all attendees on the same preprint. Any confusion or questions were addressed by the workshop facilitators and the study data collection instructions and study plan were updated accordingly ([vers.1.1 - release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/V1.1)). 
+As part of the Society for Open, Reliable and Transparent Ecology and Evolutionary Biology's (SORTEE - https://www.sortee.org) conference, we ran a workshop (i.e., Hackathon - entitled "The first 1000 *EcoEvoRxiv* preprints: did they get published and where?") where we invited interested SORTEE members and conference registrants to participate in the data collection process. We provided a detailed data collection protocol to all delegates prior to the workshop ([vers. 1.0 - release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0)). We used the workshop to train participants on how to collect data from *EcoEvoRxiv* preprints. This involved a demonstration of a single preprint followed by data collection by all attendees on the same preprint. Any confusion or questions were addressed by the workshop facilitators and the study data collection instructions and study plan were updated accordingly ([vers.1.1 - release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/V1.1)). 
 
 We had a total of `r del_details[2,2]` participants in the workshop, and an additional `r del_details[1,2]` that could not attend but were interested in contributing. Participants assigned themselves to collect data from between `r range(contr_extract$n)[1]` to `r range(contr_extract$n)[2]` preprints (mean = `r mean(contr_extract$n)`, standard deviation = `r sd(contr_extract$n)`). Data collection was achieved using a Google Form to standardize data input. Participants collected the following information for each of their assigned preprints: 
 
@@ -139,8 +134,14 @@ We had a total of `r del_details[2,2]` participants in the workshop, and an addi
 
 Additional variables of interest (i.e., journal impact factor, preprint and review policy, gender of submitting author) could be determined outside of this data collection period.
 
-## Data Checking and Validation
-Data from each preprint was cross checked by two authors to ensure accuracy and consistency of the data collected. Any discrepancies were either discussed or fixed prior to analysis. 
+## Data Checking, Merging and Validation
+The initial dataset collected by participants from the Hackathon was cleaned, merged (with master meta-data file provided by the California Digital Library) and reorganised (see `1_data_processing.R` and `2_data_cleaning.R` in the `R/` folder of the main GitHub repository). This new dataset was again placed in a Google Sheet and co-authors were randomly allocated a number of pre-prints for cross-checking. The number of preprints allocated reflected contributions of authors during earlier data collection stages. Co-authors who did less work during initial data collection stages were given more papers to cross-check to ensure equitable contributions to the paper. This meant that the number of papers given to an author to cross-check ranged from ~10-50 papers.  
+
+Data from each preprint was cross checked by one additional author to ensure accuracy and consistency of the data collected. Any discrepancies were either discussed or fixed prior to analysis. Most data that was corrected included data such as missed DOI's for published preprints, missing or incorrect citation counts to preprints and published articles, and missing or incorrect publication dates. It became evident that missing citation counts to preprints were largely the result of preprints and published articles not being correctly merged in Google Scholar. As such, checking citations to preprints involved looking carefully at all papers on the submitting author's Google Scholar profile and cross checking titles. Often it was clear redundant articles existed that were not merged. We then checked that the unmerged preprint and the published article were in fact the same study before updating preprint and publication citation counts. We also made note when any titles changed from preprint to publication. At times, preprints had been merged with published versions of the same study. To cross-check citation count to the preprint itself, we looked at the version history of the publication. If we found a clear preprint version, we took the citation count from that version. If it was not provided we assumed no data existed on citation counts for the preprint and it was assigned 'NA'.
+
+As indicated in the main manuscript. We collected data on the ‘academic age’ of submitting authors by looking at Google Scholar profiles of authors (when available) and recording their first year of publication in a peer-reviewed journal. If no google Scholar profile for the submitting author was availabel we attempted to acquire the information from other online research profiles (e.g., ResearchGate, ORCID, etc.). If no information was available we entered '0' as the first year of publication.
+
+One of us, ML, acquired the submitting authors gender using the R package gender [v.0.6.0; @mullen2021predict] to predict the most likely gender of the submitting author of a preprint. We used an algorithm to assign gender based on the submitting author’s name. We only used the algorithm-assigned gender when the gender of a given name was identified with 95% certainty. For the remaining names, ML performed manual searches to determine gender based on the pronouns and photographs from professional and personal websites. 
 
 ## Data Analysis
 
