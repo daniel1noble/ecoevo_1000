@@ -100,7 +100,7 @@ options(scipen = 1, digits = 2)
 ```
 
 
-# Materials and Methods
+# Supplemental Materials and Methods
 
 ## Pre-registration, Data and Code Availability
 We preregistered the study on the Open Science Framework (OSF) (https://osf.io/d7zws) as an open-ended registration. We also created relevant updated study plan releases on our GitHub repository to capture key changes to the project as it developed (https://github.com/daniel1noble/ecoevo_1000). All data and code for reproducing the analyses and conclusions within our paper can be found on GitHub (https://github.com/daniel1noble/ecoevo_1000).
@@ -143,7 +143,7 @@ Data from each preprint was cross checked by one additional author to ensure acc
 
 One of us, ML, acquired the submitting authors gender using the R package gender [v.0.6.0; @mullen2021predict] to predict the most likely gender of the submitting author of a preprint. We used an algorithm to assign gender based on the submitting author’s name. We only used the algorithm-assigned gender when the gender of a given name was identified with 95% certainty. For the remaining names, ML performed manual searches to determine gender based on the pronouns and photographs from professional and personal websites. 
 
-The open access status of each published article was obtained using the R package *roadoi* (v.`r utils::packageVersion("roadoi")`) to connect to the Unpaywall platform [@jahn2024]. This R package provided data on whether the published article was open access or not (i.e., whether the article was behind a paywall or not), and categorized the open access status of teh article (Sub-type meanings included: ‘Green’, articles published in ‘toll-access journals but achieved in an open access repository; ‘Bronze’, articles are free to read on publishers website without a license but grants no other rights and can be delayed free-to-read; ‘Hybrid’, articles are free to read upon publication with an open access license; ‘Gold’, articles published in fully open access journals. For full details on the meaning of each category see  https://support.unpaywall.org/support/solutions/articles/44001777288-what-do-the-types-of-oa-status-green-gold-hybrid-and-bronze-mean- ).
+The open access status of each published article was obtained using the R package *roadoi* (v.`r utils::packageVersion("roadoi")`) to connect to the Unpaywall platform [@jahn2024]. This R package provided data on whether the published article was open access or not (i.e., whether the article was behind a paywall or not), and categorized the open access status of the article (Sub-type meanings included: ‘Green’, articles published in ‘toll-access journals but achieved in an open access repository; ‘Bronze’, articles are free to read on publishers website without a license but grants no other rights and can be delayed free-to-read; ‘Hybrid’, articles are free to read upon publication with an open access license; ‘Gold’, articles published in fully open access journals. For full details on the meaning of each category see  https://support.unpaywall.org/support/solutions/articles/44001777288-what-do-the-types-of-oa-status-green-gold-hybrid-and-bronze-mean- ).
 
 ## Data Analysis
 
