@@ -134,12 +134,13 @@ Here, we explore the first preprints uploaded to *EcoEvoRxiv* to characterise pr
 #| message: false
 
 # Dataframes
-            submissions <- data2          # Cntains all submissions, preprints, postprints and all article types
               preprints <- data2  %>% filter(time_between_preprint_and_pub_days >= 60) # Contains only preprints and not postprints
-preprints_research_only <- data2  %>% filter(time_between_preprint_and_pub_days >= 60 & type_of_preprint == "research article") # Limits preprints to research only articles
+     preprints_pub_only <- data2  %>% filter(time_between_preprint_and_pub_days >= 60 & !is.na(preprint_published_date)) 
 
-  # Subset the preprints
+# Some descriptions
+
   dates_preprints <- range(preprints$preprint_published_date)
+
 ##---------------------##
 # Submissions to  EcoEvoRxiv over time (everything)
 ##---------------------##
@@ -396,6 +397,16 @@ Gender differences in preprint use and publication outcomes have also been obser
 # How many preprints remain unpublished? (preprints only)
 unpub <- preprints  %>% filter(is.na(publication_doi))  %>% nrow()
 
+# Publication time by article type
+  preprints_pub_only_stats <- preprints_pub_only                                                                    %>% 
+                              group_by(type_of_preprint)                                                            %>% 
+                              summarise(mean_time = mean(time_between_preprint_and_pub_days, na.rm = TRUE), 
+                                          sd_time = sd(time_between_preprint_and_pub_days, na.rm = TRUE), 
+                                                n = n())                                                             %>% 
+                              filter(!type_of_preprint == "report")                                                   %>% 
+                              mutate(mean_time = round(mean_time, 2), sd_time = round(sd_time, 2))
+  write.csv(preprints_pub_only_stats, here("output", "tables", "preprints_pub_only_stats.csv"))
+
 # Summary of the data (preprints only)
 # what is the range
 sum_preprints <- preprints  %>% summarise(min = min(time_between_preprint_and_pub_days), max = max(time_between_preprint_and_pub_days), mean = mean(time_between_preprint_and_pub_days), median = median(time_between_preprint_and_pub_days), sd = sd(time_between_preprint_and_pub_days))
@@ -463,7 +474,7 @@ fig2
 ### (a) *Science takes time, but publication could take longer*
 Increased competition in science has raised the bar with respect to the amount of data required for publication [@vale2015accelerating]. This requirement is a good outcome if it results in higher-impact research that better clarifies our understanding of the natural world, but it does come at a cost for the speed of research dissemination [@vale2015accelerating]. Preprints have been proposed as a way to disseminate research more quickly as it can take a long time before results are ultimately published after formal peer review [@bourne2017ten; @vale2015accelerating]. However, data on the time to publication is needed to quantify the real benefit of preprints in this context. 
 
-We estimated how long it takes to publish a preprint in ecology and evolution by recording the time between when a preprint was first posted on *EcoEvoRxiv*, and its final acceptance in a peer-reviewed journal. In total, `r unpub` submissions remained unpublished (`r (unpub / nrow(data2))*100`%, n = `r nrow(data2)`) at the time when these data were collected. Not all of these preprints, however, are anticipated to be published in a peer-reviewed journal (e.g., reports). Nonetheless, the median time to publication for preprints was `r sum_preprints$median` days (8 months) (mean = `r sum_preprints$mean`; SD = `r sum_preprints$sd` days) with the maximum time to publication being `r sum_preprints$max` days or `r sum_preprints$max/365` years ([@fig-pubsummary]A). Our results largely confirm the extended timeframes that most authors experience between writing their research papers and their publication.
+We estimated how long it takes to publish a preprint in ecology and evolution by recording the time between when a preprint was first posted on *EcoEvoRxiv*, and its final acceptance in a peer-reviewed journal. In total, `r unpub` submissions remained unpublished (`r (unpub / nrow(data2))*100`%, n = `r nrow(data2)`) at the time when these data were collected. Not all of these preprints, however, are anticipated to be published in a peer-reviewed journal (e.g., reports). Nonetheless, the median time to publication for preprints was `r sum_preprints$median` days (8 months) for all preprints that ended up being published (mean = `r sum_preprints$mean`; SD = `r sum_preprints$sd` days) with the maximum time to publication being `r sum_preprints$max` days or `r sum_preprints$max/365` years ([@fig-pubsummary]A). For a full breakdown on the time to publication based on article type see Supplement (Table S1). Our results largely confirm the extended timeframes that most authors experience between writing their research papers and their publication.
 
 ### (b) *Cautious 'open'-mindedness of research in preprints*
 In addition to speeding up dissemination, preprints and postprints can also be a useful way to ensure that research remains open and accessible to the research community irrespective of the accessibility of the final peer-reviewed paper [@bourne2017ten; @vale2015accelerating]. We evaluated whether preprints and postprints hosted at *EcoEvoRxiv*, and that were also published in a journal, were published open access. The open access status of each published article was obtained using the R package *roadoi* (v.`r utils::packageVersion("roadoi")`) to connect to the Unpaywall platform [@jahn2024]. Most of the published preprints and postprints were open access [`r sum_is_oa$valid_percent[2]*100`% (*n* = `r sum_is_oa$n[2]` out of `r sum(sum_is_oa$n[1:2])` where the status was known); [@fig-pubsummary]A]; however, `r sum_is_oa$valid_percent[1]*100`% (*n* = `r sum_is_oa$n[1]`) were published behind paywalls. Published articles behind paywalls would otherwise remain inaccessible if it were not for *EcoEvoRxiv*. For preprints and postprints published in open access journals, the type of open access also varied widely (e.g., Gold, Hybrid, Green OA etc., [@fig-pubsummary]B). Such a result may not be too surprising given that authors using preprint servers are probably already ‘pro-open access’; particularly given that *EcoEvoRxiv* is run by Society for Open, Reliable, and Transparent Ecology and Evolutionary Biology (SORTEE).
