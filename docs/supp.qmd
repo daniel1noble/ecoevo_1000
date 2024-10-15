@@ -27,11 +27,12 @@ execute:
   error: false
   include: true
 crossref:
-  fig-title: 'FigureS'
+  fig-title: 'Figure S'
+  tbl-title: 'Table S'
   fig-labels: arabic
   title-delim: "-"
-  fig-prefix: "FigureS"
-  tbl-prefix: "TableS"
+  fig-prefix: "Figure S"
+  tbl-prefix: "Table S"
 ---
 
 ```{r, setup}
@@ -151,6 +152,23 @@ The open access status of each published article was obtained using the R packag
 To test whether a greater number of preprints were submitted by authors of earlier 'academic age', as quantified by the submitting authors first year of publication, we used a generalized linear model (GLM) with a negative binomial error distribution. We included the number of preprints submitted in a given year as the response variable and the first year of publication as the predictor variable. A negative, and significant, slope coefficient indicates support for researchers of earlier career stages submitting more preprints. 
 
 # Supplementary Results
+
+## Publication time by article type 
+@tbl-time provides a breakdown of publication time by article type. 
+
+```{r}
+#| label: tbl-time
+#| tbl-cap: Time between preprint submission and publication for different article types.
+
+# Load in the table(
+  tbl_time <- read.csv(here("output", "tables", "preprints_pub_only_stats.csv"))[,-1]
+
+# Flx
+  tbl <- flextable::flextable(tbl_time)  %>% 
+    flextable::set_table_properties(width = .5)  %>% 
+    flextable::set_header_labels("type_of_preprint" = "Article Type", "mean_time" = "Mean (days)", "sd_time" = "SD (days)", "n" = "N") %>% flextable::align(align = "center") 
+    tbl
+```
 
 ## Preprint citations versus published article citations
 
