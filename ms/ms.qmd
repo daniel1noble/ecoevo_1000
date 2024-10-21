@@ -273,7 +273,9 @@ academic_age <- ggplot(age, aes(x = academic_age)) +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+# Whats the median/mean academic age?
   #mean(age$academic_age, na.rm = TRUE)
+  median(age$academic_age, na.rm = TRUE) #8
 
  #Plot was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 1. - Zoe X
   ggsave(here("output", "figs", "academic_age.svg"), academic_age, width = 7.5, height = 2)
