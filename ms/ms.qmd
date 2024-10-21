@@ -134,12 +134,14 @@ Here, we explore the first preprints (*n* = 1216) uploaded to *EcoEvoRxiv* to ch
 #| message: false
 
 # Dataframes
-              preprints <- data2  %>% filter(time_between_preprint_and_pub_days >= 60) # Contains only preprints and not postprints
-     preprints_pub_only <- data2  %>% filter(time_between_preprint_and_pub_days >= 60 & !is.na(preprint_published_date)) 
+    # Contains only preprints and not postprints, but contains published AND unpublished preprints
+      preprints <- data2  %>% filter(time_between_preprint_and_pub_days >= 60 | is.na(time_between_preprint_and_pub_days)) 
+
+    # Contains only preprints that have been published ONLY
+      preprints_pub_only <- data2  %>% filter(time_between_preprint_and_pub_days >= 60 & !is.na(preprint_published_date)) 
 
 # Some descriptions
-
-  dates_preprints <- range(preprints$preprint_published_date)
+      dates_preprints <- range(preprints_pub_only$preprint_published_date)
 
 ##---------------------##
 # Submissions to  EcoEvoRxiv over time (everything)
@@ -173,6 +175,7 @@ Here, we explore the first preprints (*n* = 1216) uploaded to *EcoEvoRxiv* to ch
   ggsave(here("output", "figs", "published_date.svg"), p1, width = 7.5, height = 2)
   
   #Plot was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 1. - Zoe X
+
 ##---------------------##
 # Submissions by Country to EcoEvoRxiv (everything)
 ##---------------------##
@@ -227,20 +230,19 @@ Here, we explore the first preprints (*n* = 1216) uploaded to *EcoEvoRxiv* to ch
     theme(plot.tag = element_text(size = 16, face = "bold")) + coord_flip() +
     scale_fill_colorhex_d(palette = 1042984, discrete = TRUE)
   
-
 ##---------------------##
-# Types of preprints (preprints only)
+# Types of articles (everything)
 ##---------------------##
 # Summary of the data
-  sum_types <- preprints  %>% tabyl(type_of_preprint)  %>% rename("type" = type_of_preprint, "n" = n)  %>% mutate(perc = n/sum(n)*100, labels = paste0(round(perc, 1), "%"))
-  #sum(sum_types$n) #620
+  sum_types <- data2  %>% tabyl(type_of_preprint)  %>% rename("type" = type_of_preprint, "n" = n)  %>% mutate(perc = n/sum(n)*100, labels = paste0(round(perc, 1), "%"))
+  #sum(sum_types$n) #1135
   
   type_fig <- ggplot(sum_types, aes(x = fct_reorder(type, perc), y = perc)) +
     geom_col(color = "black", fill = "white") +
     scale_y_continuous(expand = c(0, 0)) +
     #scale_fill_viridis_d() +
     #coord_polar(theta = "y") + 
-    theme_classic() + labs(y = "Percentage (%) of preprints", x = "Article type") + 
+    theme_classic() + labs(y = "Percentage (%) of Articles", x = "Article type") + 
     theme(plot.tag = element_text(size = 16, face = "bold")) + coord_flip() +
     scale_fill_colorhex_d(palette = 1042984, discrete = TRUE) + theme(legend.position = "none")
 
@@ -256,16 +258,14 @@ type_taxa <- cowplot::plot_grid(taxa_fig,
 nt <- sum_types  %>% filter(type %in% c("book", "report", "book chapter", "other"))  %>% summarise(perc = sum(perc))
 
 ##-------------------##
-# Career Stage & Gender (preprints only, but all article types)
+# Career Stage (everything)
 ##-------------------##
-
 #compute academic age! (Zoe X)
-preprints <- preprints %>% 
+ age <- data2 %>% 
   mutate(preprint_published_year_z = year(preprint_published_date)) %>% 
   mutate(academic_age = (preprint_published_year_z-submitting_author_first_publication_year))
 
-
-academic_age <- ggplot(preprints, aes(x = academic_age)) +
+academic_age <- ggplot(age, aes(x = academic_age)) +
   geom_histogram(binwidth = 1, fill = "white", color = "black") +
   scale_y_continuous(expand = c(0, 0)) +
   labs(x = "Years since submitting author's first publication (academic age)", y = "Number of preprints") +
@@ -273,88 +273,91 @@ academic_age <- ggplot(preprints, aes(x = academic_age)) +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-#mean(age$academic_age)
+  #mean(age$academic_age, na.rm = TRUE)
 
-ggsave(here("output", "figs", "academic_age.svg"), academic_age, width = 7.5, height = 2)
+ #Plot was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 1. - Zoe X
+  ggsave(here("output", "figs", "academic_age.svg"), academic_age, width = 7.5, height = 2)
   
-  #Plot was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 1. - Zoe X
+# Model number of articles as a function of academic age
+  count_dat  <- age  %>% 
+                distinct(submitting_author, academic_age) %>% 
+                group_by(academic_age) %>% 
+                summarise(n = n())
 
-count_dat  <- preprints  %>% 
-              distinct(submitting_author, academic_age) %>% 
-              group_by(academic_age) %>% 
-              summarise(n = n())
+  model <- glm.nb(n ~ academic_age, data = count_dat)
+  res <- summary(model)$coefficients
 
-model <- glm.nb(n ~ academic_age, data = count_dat)
-res <- summary(model)$coefficients
+##-------------------##
+# Gender (everythig)
+##-------------------##
 
-# First need to get the authors first name
-  data2 <- data2 %>% mutate(submitting_author_firstname = str_split(submitting_author, " ") %>% map_chr(1))
+  # First need to get the authors first name
+    data2 <- data2 %>% mutate(submitting_author_firstname = str_split(submitting_author, " ") %>% map_chr(1))
 
-# In order to localise by country we need to get the country code
-  data2 <- data2 %>% mutate(submitting_author_country_code = countrycode(data2$submitting_author_country, origin = "country.name", destination = "iso2c"))
+  # In order to localise by country we need to get the country code
+    data2 <- data2 %>% mutate(submitting_author_country_code = countrycode(data2$submitting_author_country, origin = "country.name", destination = "iso2c"))
 
-# Lets have a quick look at whether these are 'correct'
-  #data2 %>% dplyr::select(submitting_author_country_code, submitting_author_country)  %>% distinct()
+  # Lets have a quick look at whether these are 'correct'
+    #data2 %>% dplyr::select(submitting_author_country_code, submitting_author_country)  %>% distinct()
 
-# This looks good, but lets see which two are NA. These are in fact NA, even though they shouldn't really be as affliations are not listed on preprint. Even the published paper isn't clear. 
-  #data2 %>% filter(is.na(submitting_author_country_code))  %>% data.frame()
+  # This looks good, but lets see which two are NA. These are in fact NA, even though they shouldn't really be as affliations are not listed on preprint. Even the published paper isn't clear. 
+    #data2 %>% filter(is.na(submitting_author_country_code))  %>% data.frame()
 
-# Get gender using all unique first names from the data set
-data_genders <- data.frame(gender(unique(data2$submitting_author_firstname)))
-#dim(data_genders) #514 assigned
-#names(data_genders)
-colnames(data_genders)[1]  <- c("submitting_author_firstname")
+  # Get gender using all unique first names from the data set
+    data_genders <- data.frame(gender(unique(data2$submitting_author_firstname)))
+  #dim(data_genders) #514 assigned
+  #names(data_genders)
+    colnames(data_genders)[1]  <- c("submitting_author_firstname")
 
-# Merge with main data frame
-data3 <- left_join(data2, data_genders, by = c("submitting_author_firstname"))
-#names(data3)
-#table(is.na(data3$proportion_male)) #157 missing
+  # Merge with main data frame
+    data3 <- left_join(data2, data_genders, by = c("submitting_author_firstname"))
+  #names(data3)
+  #table(is.na(data3$proportion_male)) #157 missing
 
-# Pull out records missing names
-#data3[is.na(data3$proportion_male), c("submitting_author", "submitting_author_country") ] #157 missing
-#data3[is.na(data3$proportion_male) == FALSE & data3$proportion_male > 0.05 & data3$proportion_male < 0.95, c("submitting_author", "submitting_author_country") ] # 84 missing a bit unsure
+  # Pull out records missing names
+  #data3[is.na(data3$proportion_male), c("submitting_author", "submitting_author_country") ] #157 missing
+  #data3[is.na(data3$proportion_male) == FALSE & data3$proportion_male > 0.05 & data3$proportion_male < 0.95, c("submitting_author", "submitting_author_country") ] # 84 missing a bit unsure
 
-#transliterate the non-ASCII characters using stringi package, e.g.: #stri_trans_general("Zażółć gęślą jaźń", "Latin-ASCII")
-data3$submitting_author_ASCII <- stringi::stri_trans_general(data3$submitting_author, "Latin-ASCII")
+  #transliterate the non-ASCII characters using stringi package, e.g.: #stri_trans_general("Zażółć gęślą jaźń", "Latin-ASCII")
+    data3$submitting_author_ASCII <- stringi::stri_trans_general(data3$submitting_author, "Latin-ASCII")
 
-#data3 %>% 
-  #filter(is.na(data3$proportion_male) == TRUE | (proportion_male > 0.05 & proportion_male < 0.95)) %>% dplyr::select(submitting_author_ASCII, submitting_author, submitting_author_country, preprint_title, gender) %>% 
- # write.csv(file = here("data", "final_data3_fillin.csv")) #used to manually check and fill in gender data - then saved as final_data3_fillin_ML.csv
+  #data3 %>% 
+    #filter(is.na(data3$proportion_male) == TRUE | (proportion_male > 0.05 & proportion_male < 0.95)) %>% dplyr::select(submitting_author_ASCII, submitting_author, submitting_author_country, preprint_title, gender) %>% 
+  # write.csv(file = here("data", "final_data3_fillin.csv")) #used to manually check and fill in gender data - then saved as final_data3_fillin_ML.csv
 
-# Load updated data	subset
-data3_update <- read_csv(here("data", "final_data3_fillin_ML.csv"))
-#dim(data3_update)
-#names(data3_update)
+  # Load updated data	subset
+    data3_update <- read_csv(here("data", "final_data3_fillin_ML.csv"))
+    #dim(data3_update)
+    #names(data3_update)
 
-data4 <- left_join(data3, data3_update, by = c("submitting_author_ASCII", "submitting_author", "submitting_author_country", "preprint_title"))
-#table(data4$gender.x, useNA = "always")
-#table(data4$gender.y, useNA = "always")
-data4$gender.x[is.na(data4$gender.x)] <- data4$gender.y[is.na(data4$gender.x)] #replace with correct values
-data4 <- rename(data4, gender = gender.x)
-#table(data4$gender, useNA = "always") #more males than females, two NA ue to missing first name / collective authorship
+  data4 <- left_join(data3, data3_update, by = c("submitting_author_ASCII", "submitting_author", "submitting_author_country", "preprint_title"))
+  #table(data4$gender.x, useNA = "always")
+  #table(data4$gender.y, useNA = "always")
+  data4$gender.x[is.na(data4$gender.x)] <- data4$gender.y[is.na(data4$gender.x)] #replace with correct values
+  data4 <- rename(data4, gender = gender.x)
+  #table(data4$gender, useNA = "always") #more males than females, two NA ue to missing first name / collective authorship
 
-# Plot the data
-###Zoe's gender pie###
-#female - 37.8, male - 62.2
+  # Plot the data
+  ###Zoe's gender pie###
+  #female - 37.8, male - 62.2
 
-gender <- c("female", "male")
-percentage <- c(37.8, 62.2)
-sex_ratio<- data.frame(gender, percentage)
+  gender <- c("female", "male")
+  percentage <- c(37.8, 62.2)
+  sex_ratio<- data.frame(gender, percentage)
 
-sex_ratio <- sex_ratio %>% ggplot(aes(x = "", y = percentage, fill = gender)) +
-    geom_col(color = "black")+
-  scale_fill_manual(values = c("white", "black")) +
-    coord_polar(theta = "y") + 
-    theme_void()
+  sex_ratio <- sex_ratio %>% ggplot(aes(x = "", y = percentage, fill = gender)) +
+      geom_col(color = "black")+
+    scale_fill_manual(values = c("white", "black")) +
+      coord_polar(theta = "y") + 
+      theme_void()
 
+  ggsave(here("output", "figs", "sex_ratio.svg"), sex_ratio)
 
-ggsave(here("output", "figs", "sex_ratio.svg"), sex_ratio)
+  ##Pie was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 1. - Zoe X
 
-##Pie was then imported to illustrator for aesthetic touches and to combine with other plots in Figure 1. - Zoe X
-
-# Load in and plot the final figure
-  fig <- image_read(here("output", "figs", "Figure 1_FINAL.png")) 
-  fig
+  # Load in and plot the final figure
+    fig <- image_read(here("output", "figs", "Figure 1_FINAL.png")) 
+    fig
 
 ```
 
