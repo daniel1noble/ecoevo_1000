@@ -114,6 +114,9 @@ Here, we explore the first preprints (*n* = 1216) uploaded to *EcoEvoRxiv* to ch
 ```{r, fig-summary}
 #| label: fig-summary
 #| fig-cap: "Summary of articles posted to *EcoEvoRxiv*. A) Number of articles (preprints and postprints) published on *EcoEvoRxiv* between 2018 and 2023. *EcoEvoRxiv* was established in June 2018 before the launch in November 2018. Notable milestones include *EcoEvoRxiv* transitioning to the California Digital Library (CDL), the acceptance of preprints and postprints in Spanish and Portuguese, and the acceptance of the first IUCN Red List Ecosystem report; B) Geographic origin of articles uploaded to *EcoEvoRxiv*, inferred from the country of affiliation of the submitting author; C) Taxa covered in the articles posted to *EcoEvoRxiv* (*n* = 1080 articles covering relevant taxa); D) Types of articles accepted on *EcoEvoRxiv* (*n* = 1216 articles). E) Academic age of authors posting preprints to *EcoEvoRxiv* (*n* = 1135 published and unpublished preprints) along with the gender of the submitting author. Values lower than zero are indicative of authors who uploaded preprints before their first scientific publication in a journal. Map base source: R Package maps v.3.4.2. Shapefile: Natural Earth https://www.naturalearthdata.com/about/terms-of-use/."
+#| echo: false
+#| warning: false
+#| message: false
 
 # Dataframes
     # Contains only preprints and not postprints, but contains published AND unpublished preprints
@@ -381,8 +384,8 @@ Gender differences in preprint use and publication outcomes have also been obser
 ##---------------------##
 
 # How many preprints remain unpublished? (preprints only)
-unpub <- nrow(preprints) - nrow(preprints_pub_only)
-per_unpublished <- nrow(preprints_pub_only)/ nrow(preprints)
+          unpub <- nrow(preprints) - nrow(preprints_pub_only)
+per_unpublished <- unpub / nrow(preprints)
 
 # Publication time by article type
   preprints_pub_only_stats <- preprints_pub_only                                                                    %>% 
