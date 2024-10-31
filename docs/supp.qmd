@@ -103,6 +103,8 @@ options(scipen = 1, digits = 2)
 
 # Supplemental Materials and Methods
 
+Supplementary Materials and Methods for: Noble et al. 2024. "The promise of community-driven preprints in ecology and evolution". *EcoEvoRxiv*. [https://doi.org/10.32942/X2SS46](https://doi.org/10.32942/X2SS46)
+
 ## Pre-registration, Data and Code Availability
 We preregistered the study on the Open Science Framework (OSF) (https://osf.io/d7zws) as an open-ended registration. We also created relevant updated study plan releases on our GitHub repository to capture key changes to the project as it developed (https://github.com/daniel1noble/ecoevo_1000). All data and code for reproducing the analyses and conclusions within our paper can be found on GitHub (https://github.com/daniel1noble/ecoevo_1000).
 
