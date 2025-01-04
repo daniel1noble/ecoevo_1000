@@ -4,7 +4,7 @@
 ## Research Paper
 This repository contains the final code, data and figures used in the following manuscript:
 
-Noble et al. (2025) The promise of community-driven preprints in ecology and evolution. Proceedings of the Royal Society B: Biological Sciences. 291: 20241487. (https://doi.org/10.1098/rspb.2024.1487)[https://doi.org/10.1098/rspb.2024.1487]
+Noble et al. (2025) The promise of community-driven preprints in ecology and evolution. Proceedings of the Royal Society B: Biological Sciences. 291: 20241487. [https://doi.org/10.1098/rspb.2024.1487](https://doi.org/10.1098/rspb.2024.1487)
 
 **Pre-registration**: This paper emerged from a SORTEE hackathon. Our initial study plan was pre-registered on [OSF](https://doi.org/10.17605/OSF.IO/D7ZWS). We have also captured our pre-study research plan as a [release](https://github.com/daniel1noble/ecoevo_1000/releases/tag/v1.0) to ensure content is all contained within this repository.
 
